@@ -6,7 +6,10 @@ function MainLayout({children}) {
     return (
         <div>
             <Nav />
+            <div className='my-10'>
             {children}
+            </div>
+            
             <Footer />
         </div>
     );

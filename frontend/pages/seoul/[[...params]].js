@@ -15,7 +15,7 @@ function Map() {
       <Head>
         <title>Vegan Pleasure | 맛있는 채식 한끼</title>
       </Head>
-      <MainLayout>
+      <div>
         <div className="text-center my-10">
           {/* 서울시 자치구 선택 지도 */}
           <Title />
@@ -23,7 +23,7 @@ function Map() {
         </div>
         {/* 지역구명 */}
         <District params={params} />
-      </MainLayout>
+      </div>
     </div>
   );
 }

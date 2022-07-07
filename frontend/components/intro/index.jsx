@@ -7,7 +7,7 @@ import Menu from './Menu';
 import Title from './Title';
 function Intro(props) {
     return (
-        <div className='py-10'>
+        <div className=''>
             {/* 사이트설명 */}
             <Title />
             {/* 검색창 */}
