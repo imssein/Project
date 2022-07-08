@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useSWR from "swr";
 import Link from "next/link";
 import DistrictTitle from "../common/DistrictTitle";

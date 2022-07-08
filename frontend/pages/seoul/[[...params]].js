@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import MainLayout from "../../components/common/MainLayout";
 import District from "../../components/seoulMap/District";
 import SeoulMap from "../../components/seoulMap/SeoulMap";
 import Title from "../../components/intro/Title";
