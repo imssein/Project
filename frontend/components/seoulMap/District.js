@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useSWR from "swr";
 import Link from "next/link";
 import DistrictTitle from "../common/DistrictTitle";
-import FilterLogo from "../common/FilterLogo";
+import FilterLogo from "../searchfilter/FilterLogo";
 import Image from "next/image";
 import {
   AiOutlineEdit,
@@ -27,7 +27,7 @@ function District({ params }) {
         <DistrictTitle district={item[0].district} />
         <FilterLogo />
       </div>
-      <div className="mt-5 ml-5 text-sm">검색된 식당 {item.length}개</div>
+      <div className="mt-5 text-sm">검색된 식당 {item.length}개</div>
 
       {/* 식당리스트 */}
       <div className="my-4">

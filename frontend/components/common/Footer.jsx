@@ -29,7 +29,7 @@ function Footer(props) {
           <p className="text-xs text-center pt-2">식단기록</p>
         </div>
       </Link>
-      <Link href="/search">
+      <Link href="/nearbySearch">
         <div>
           <AiOutlineSearch size="20" />
           <p className="text-xs text-center pt-2">검색</p>

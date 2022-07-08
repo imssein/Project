@@ -2,7 +2,7 @@ import React from "react";
 
 function Title(props) {
   return (
-    <div>
+    <div className="pb-6">
       <div className="font-extrabold text-2xl text-lime-700 pb-4">
         맛있는 채식 한끼
       </div>

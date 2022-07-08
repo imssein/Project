@@ -18,7 +18,7 @@ function SearchForm(props) {
     }
   };
   return (
-    <div className="py-6">
+    <div className="text-center pb-6">
       <form onSubmit={(e) => onSearch(e)}>
         <input
           className="w-72 h-12 border border-slate-900 rounded-lg px-3"
