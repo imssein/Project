@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import RestaurantDetail from "../../components/restaurants/RestaurantDetail";
+import RestaurantPositionMap from "../../components/restaurants/RestaurantPositionMap";
 
 function Restaurants() {
   const router = useRouter();
@@ -18,7 +19,7 @@ function Restaurants() {
         <RestaurantDetail params={params} />
         
         {/* 지도 */}
-        {/* <RestaurantPositionMap params={params} /> */}
+        <RestaurantPositionMap params={params} />
     
     </div>
   );
