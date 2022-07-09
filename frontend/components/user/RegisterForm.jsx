@@ -1,24 +1,57 @@
 import Link from 'next/link';
 import React from 'react';
+import {useRouter} from 'next/router';
+import useInput from '../../hooks/useInput';
+import AuthService from '../../services/auth.service';
 import { AiFillCaretRight } from "react-icons/ai";
 
 function RegisterForm(props) {
+  const router = useRouter();
+
+  const [email, onChangeEmail] = useInput("");
+  const [password, onChangePassword] = useInput("");
+  const [name, onChangeName] = useInput("");
+  const [nickname, onChangeNickname] = useInput("");
+  const [vegetarianTypes, onChangeVegetarianTypes] = useInput("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      await AuthService.register(email, name, nickname, password, vegetarianTypes).then(
+        () => {
+          router.replace('/');
+          //window.location.reload("/");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
+
     return (
-        <form>
+        <form onSubmit={handleRegister}>
           <div className="border-b-2 pl-2 ">
             <p className="text-sm text-slate-600 mb-4">이메일</p>
-            <input type="text" placeholder="아이디로 사용할 이메일" />
+            <input type="text" value={email} onChange={onChangeEmail} placeholder="아이디로 사용할 이메일" required/>
           </div>
     
           <div className="border-b-2 pl-2 my-10 ">
             <p className="text-sm text-slate-600 mb-4">비밀번호</p>
-            <input type="password" placeholder="6자 - 20자의 비밀번호" />
+            <input type="password" value={password} onChange={onChangePassword} placeholder="6자 - 20자의 비밀번호" required/>
+          </div>
+          <div className="border-b-2 pl-2 my-10 ">
+            <p className="text-sm text-slate-600 mb-4">이름</p>
+            <input type="text" value={name} onChange={onChangeName} placeholder="2자 이상의 이름" required/>
           </div>
           <div className="border-b-2 pl-2 my-10 ">
             <p className="text-sm text-slate-600 mb-4">닉네임</p>
-            <input type="password" placeholder="2자 이상의 닉네임" />
+            <input type="text" value={nickname} onChange={onChangeNickname} placeholder="2자 이상의 닉네임" required/>
           </div>
-          <div className="pl-2 my-10 ">
+          <div className="border-b-2 pl-2 my-10 ">
             <div className='flex justify-between'>
                 <p className="text-sm text-slate-600 mb-4">지향하는 채식 타입 선택</p>
                 <Link href="/information ">
@@ -26,7 +59,7 @@ function RegisterForm(props) {
                 </Link>
             </div>
             <div>
-                비건 락토 오보 락토오보 페스코 지향없음
+              <input type="text" value={vegetarianTypes} onChange={onChangeVegetarianTypes} placeholder="" required/>
             </div>
           </div>
           <div className="">
