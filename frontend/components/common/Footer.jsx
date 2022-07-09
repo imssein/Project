@@ -10,7 +10,7 @@ import {
 
 function Footer(props) {
   return (
-    <footer className="flex justify-between bg-white px-4 py-4 border-t-2 ">
+    <footer className="flex justify-between px-4 py-3 border-t-2 fixed bottom-0 bg-slate-100 max-w-2xl w-full">
       <Link href="/">
         <div>
           <AiOutlineHome size="20" />
