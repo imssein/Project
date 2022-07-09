@@ -7,7 +7,7 @@ import Menu from './Menu';
 import Title from './Title';
 function Intro(props) {
     return (
-        <div className=''>
+        <div className='px-4'>
             {/* 사이트설명 */}
             <Title />
             {/* 검색창 */}

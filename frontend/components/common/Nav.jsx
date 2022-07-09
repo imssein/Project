@@ -5,15 +5,15 @@ import Link from "next/link";
 
 function Nav(props) {
   return (
-    <nav className="border-b-1 flex justify-between border-b-2">
+    <nav className="py-2 border-b-1 flex justify-center border-b-2 fixed top-0 bg-slate-100 max-w-2xl w-full" >
       <div>
         <Link href="/">
         <Image src="/images/logo.png" width="200" height="30" />
         </Link>
       </div>
-      <div className="">
+      {/* <div className="">
         <FaAlignJustify size="20" />
-      </div>
+      </div> */}
     </nav>
   );
 }
