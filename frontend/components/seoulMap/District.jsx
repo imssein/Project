@@ -21,7 +21,7 @@ function District({ params }) {
   if (!item) return "로딩중..";
 
   return (
-    <div>
+    <div className="px-4">
       {/* 자치구명 | 필터 로고*/}
       <div className="flex">
         <DistrictTitle district={item[0].district} />

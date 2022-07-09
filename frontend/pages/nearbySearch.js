@@ -7,7 +7,7 @@ import Geolocation from "../components/nearbySearch/Geolocation";
 
 function nearbySearch(props) {
     return (
-        <div className=''> 
+        <div className='px-4'> 
             <SearchForm />
             <div className='flex justify-center'>
                 <DistrictLogo />
