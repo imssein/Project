@@ -4,7 +4,7 @@ import LoginForm from "../components/user/LoginForm";
 
 function login(props) {
   return (
-    <div className="">
+    <div className="py-6 px-6">
       <LoginForm />
     </div>
   );

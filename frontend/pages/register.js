@@ -3,7 +3,7 @@ import RegisterForm from '../components/user/RegisterForm';
 
 function register(props) {
     return (
-        <div>
+        <div className='py-6 px-6'>
             <RegisterForm />
         </div>
     );
