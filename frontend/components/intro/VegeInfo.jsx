@@ -8,7 +8,7 @@ function VegeInfo(props) {
     <div className="pb-10 pt-5 flex justify-center">
       
         <div className="mr-4 my-auto">
-          <Image src="/images/leaf.png" width={32} height={32} />
+          <Image src="/images/leaf.png" width={32} height={32} alt="노트"/>
         </div>
         <div>
           <p className="text-sm text-gray-600">채식 종류와 지향성 정리</p>
