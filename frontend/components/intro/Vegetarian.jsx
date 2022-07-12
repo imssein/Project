@@ -42,7 +42,7 @@ function Vegetarian(props) {
           key={type.id}
           className="rounded-lg bg-gray-100 inline-block py-3 justify-center"
         >
-          <Image src={`/images/${type.file}`} width={30} height={30} />
+          <Image src={`/images/${type.file}`} width={30} height={30} alt="채식타입그림"/>
           <p className="text-xs">{type.title}</p>
         </div>
       ))}
