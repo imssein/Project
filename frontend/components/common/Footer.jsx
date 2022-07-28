@@ -6,6 +6,7 @@ import {
   AiOutlinePlusCircle,
   AiOutlineSearch,
   AiOutlineUser,
+  AiOutlineMessage,
 } from "react-icons/ai";
 
 function Footer(props) {
@@ -17,10 +18,10 @@ function Footer(props) {
           <p className="text-xs text-center pt-2">홈</p>
         </div>
       </Link>
-      <Link href="/calender">
+      <Link href="/community">
         <div>
-          <AiOutlineCalendar className="mx-auto" size="20" />
-          <p className="text-xs text-center pt-2">캘린더</p>
+          <AiOutlineMessage className="mx-auto" size="20" />
+          <p className="text-xs text-center pt-2">피드</p>
         </div>
       </Link>
       <Link href="/postRecord">
