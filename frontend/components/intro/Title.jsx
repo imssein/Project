@@ -1,13 +1,13 @@
 import React from "react";
 
-function Title(props) {
+function Title({title, description}) {
   return (
     <div className="py-6">
       <div className="font-extrabold text-2xl text-lime-700 pb-4">
-        맛있는 채식 한끼
+        {title}
       </div>
       <div className="text-gray-800 mb-4">
-        지역을 클릭하면 해당 구의 채식 식당을 확인 할 수 있습니다.
+        {description}
       </div>
     </div>
   );
