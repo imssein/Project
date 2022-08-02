@@ -1,5 +1,5 @@
 import axios from 'axios';
-import authHeader from './auth-header copy';
+import authHeader from './auth-header';
 const API_URL = "http://localhost:9090/v1/api/members/";
 
 // 회원 상세 정보 조회
