@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/vegan_pleasure
+    username: vegan
+    password: vegan
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        # show_sql: true
+        format_sql: true
+    #    OSIV ??
+    open-in-view: false
+
+logging.level:
+  org.hibernate.SQL: debug
+#  org.hibernate.type: trace
+
+server:
+  port: 9090
+
+JWT:
+  SECRET:
+    KEY: N1ppRTdJUzQ3SjI0N0tleDdKMjA2NHVrZmlFPQ==
+
+  ACCESS:
+    TOKEN:
+      VALIDITY: 6000000 # 100?
+
+file:
+  dir: C:\Users\Yanglet\vegan_pleasure_images\
