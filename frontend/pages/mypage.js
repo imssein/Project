@@ -3,7 +3,7 @@ import UserProfile from '../components/user/UserProfile';
 
 function mypage(props) {
     return (
-        <div>
+        <div className=''>
             <UserProfile />
         </div>
     );
