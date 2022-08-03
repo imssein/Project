@@ -10,7 +10,7 @@ function Restaurants() {
   console.log(params);
 
   return (
-    <div>
+    <div className="py-5 px-5">
       <Head>
         <title>Vegan Pleasure | 맛있는 채식 한끼</title>
       </Head>
