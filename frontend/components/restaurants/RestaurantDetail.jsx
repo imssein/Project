@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaRegEdit, FaRegHeart, FaPen, FaHeart } from "react-icons/fa";
 // import Review from "./Review";
@@ -32,8 +33,11 @@ function RestaurantDetail({ params }) {
           <div className="flex">
             {/* 리뷰 */}
             <div className="px-6">
+              <Link href={`/review/${params}`}>
               <FaRegEdit className="mb-2 ml-3" size="30" />
+              </Link>
               <p className="text-sm">리뷰 쓰기</p>
+              
             </div>
             {/* 찜 */}
             <div className="pr-6">
