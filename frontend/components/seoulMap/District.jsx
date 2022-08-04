@@ -35,7 +35,7 @@ function District({ params }) {
           <Link href={`/restaurants/${item.id}`} key={item.id}>
             <div className="flex mb-7">
               <div className="border my-auto">
-                <Image src="/images/foodex.jpeg" width={180} height={150} />
+                <Image src="/images/foodex.jpeg" width={180} height={150} alt="식당 사진" />
               </div>
               <div className="pt-2 pb-5 ml-5 sm:ml-10">
                 <p className="text-lime-700 font-bold mb-2">
