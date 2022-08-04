@@ -24,7 +24,7 @@ function District({ params }) {
     <div className="px-4">
       {/* 자치구명 | 필터 로고*/}
       <div className="flex">
-        {/* <DistrictTitle district={item[0].district} /> */}
+        <DistrictTitle district={item[0].district} />
         <FilterLogo />
       </div>
       <div className="mt-5 text-sm">검색된 식당 {item.length}개</div>
