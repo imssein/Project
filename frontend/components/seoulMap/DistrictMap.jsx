@@ -59,7 +59,6 @@ function DistrictMap({ params }) {
   return (
     <div>
       <div id="map" className="w-full h-80 mb-16"></div>
-      <District params={params} />
     </div>
   );
 }
