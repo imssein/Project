@@ -63,6 +63,7 @@ function NearbyRestaurant({ params, longitude, latitude }) {
           levle: 5,
         };
         var map = new kakao.maps.Map(container, locPosition);
+
       }
     });
   });

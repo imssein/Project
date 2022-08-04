@@ -8,7 +8,7 @@ function PostFormLogo(props) {
       <div className="text-xl font-semibold border-slate-400 border-2 self-center px-12 py-4 rounded-lg mr-3">
         <Link href="/mypage">내피드</Link>
       </div>
-      <Link href="/feed">
+      <Link href="/writePost">
         <div className="text-xl font-semibold border-slate-400 border-2 self-center  flex px-8 py-4 border-l-2 rounded-lg">
           <HiOutlinePencilAlt className="mx-auto" size="25" />
           <p className="ml-2">글쓰기</p>
