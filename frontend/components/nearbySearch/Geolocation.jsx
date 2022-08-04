@@ -17,7 +17,7 @@ function Geolocation() {
   }, [latitude, longitude]);
   return (
     <div className="">
-    <GeolocationPrint latitude={latitude} longitude={longitude} />
+      <GeolocationPrint latitude={latitude} longitude={longitude} />
       <GeolocationDistrict latitude={latitude} longitude={longitude} />
     </div>
   );
