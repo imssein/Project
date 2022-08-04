@@ -1,10 +1,11 @@
 import React, { useCallback, useState, useRef } from "react";
-import VegitarianTypes from "../common/VegitarianTypes";
+import VegitarianTypes from "../common/VegetarianTypes";
 import { useDispatch, useSelector } from "react-redux";
 import {BsPlusSquare} from 'react-icons/bs';
 import Image from "next/image";
 import {addPost} from "../../reducers/post";
 import Router from "next/router";
+
 function FeedForm(props) {
   const { imagePaths } = useSelector((state) => state.post);
   const dispatch = useDispatch();
