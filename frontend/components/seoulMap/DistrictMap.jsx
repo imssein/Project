@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import useSWR from "swr";
 import District from "../seoulMap/District";
+import Ex from "./Ex";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -49,8 +50,48 @@ function DistrictMap({ params }) {
                 // 지도 중심 이동
                 map.panTo(coords);
                 marker.setMap(map);
-              }
+             
+            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성
+            var iwContent = 
+            `
+            <a href="http://localhost:3000/restaurants/${data.id}">
+            <div style="height: 130px; width:300px; padding:15px; overflow: scroll;">
+              <div style="display:flex; ">
+              <div style="font-size:20px; overflow: hidden; white-space : nowrap; text-overflow : ellipsis;" >${data.name}</div>
+              <div style="font-size:20px; margin-left:10px; color:orange; ">${data.starRating}</div>
+              </div>
+              <div style="text-align:left; color:green;">${data.vegetarianTypes}</div>
+              <div style="text-align:left; display: flex; font-size:13px; color:gray;">
+              <div>${data.district}-${data.category}</div>
+              </div>
+              <div style="text-align:left; display:flex;">
+              <div style="font-size:13px; margin-right:5px;">✎</div>
+              <div style="font-size:13px; color:gray; margin-right:7px;">${data.reviewCount}</div>
+              <div style="font-size:13px; margin-right:5px; ">☆</div>
+              <div style="font-size:13px; color:gray;">${data.starRating}</div>
+
+
+              </div>
+            </div>
+            </a>`
+             ,
+            
+              iwRemoveable = true;
+            // 인포윈도우를 생성
+            var infowindow = new kakao.maps.InfoWindow({
+              content: iwContent,
+              removable: iwRemoveable,
             });
+
+            kakao.maps.event.addListener(marker, "click", function () {
+              
+              infowindow.open(map, marker);
+              // infowindow.close();
+              
+            });
+        }
+    });
+
           });
       }
     });
