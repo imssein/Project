@@ -50,10 +50,9 @@ function DistrictMap({ params }) {
                 // 지도 중심 이동
                 map.panTo(coords);
                 marker.setMap(map);
-             
-            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성
-            var iwContent = 
-            `
+
+                // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성
+                var iwContent = `
             <a href="http://localhost:3000/restaurants/${data.id}">
             <div style="height: 130px; width:300px; padding:15px; overflow: scroll;">
               <div style="display:flex; ">
@@ -73,33 +72,29 @@ function DistrictMap({ params }) {
 
               </div>
             </div>
-            </a>`
-             ,
-            
-              iwRemoveable = true;
-            // 인포윈도우를 생성
-            var infowindow = new kakao.maps.InfoWindow({
-              content: iwContent,
-              removable: iwRemoveable,
-            });
+            </a>`,
+                  iwRemoveable = true;
+                // 인포윈도우를 생성
+                var infowindow = new kakao.maps.InfoWindow({
+                  content: iwContent,
+                  removable: iwRemoveable,
+                });
 
-            kakao.maps.event.addListener(marker, "click", function () {
-              
-              infowindow.open(map, marker);
-              // infowindow.close();
-              
+                kakao.maps.event.addListener(marker, "click", function () {
+                  infowindow.open(map, marker);
+                  // infowindow.close();
+                });
+              }
             });
-        }
-    });
-
           });
       }
     });
-  });
+  }, [params, data]);
 
   return (
     <div>
       <div id="map" className="w-full h-80 mb-16"></div>
+      <District params={params} />
     </div>
   );
 }
