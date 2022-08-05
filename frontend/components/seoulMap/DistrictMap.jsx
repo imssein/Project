@@ -57,7 +57,7 @@ function DistrictMap({ params }) {
             <a href="http://localhost:3000/restaurants/${data.id}">
             <div style="height: 130px; width:300px; padding:15px; overflow: scroll;">
               <div style="display:flex; ">
-              <div style="font-size:20px; overflow:hidden;" >${data.name}</div>
+              <div style="font-size:20px; overflow: hidden; white-space : nowrap; text-overflow : ellipsis;" >${data.name}</div>
               <div style="font-size:20px; margin-left:10px; color:orange; ">${data.starRating}</div>
               </div>
               <div style="text-align:left; color:green;">${data.vegetarianTypes}</div>
@@ -86,6 +86,8 @@ function DistrictMap({ params }) {
             kakao.maps.event.addListener(marker, "click", function () {
               
               infowindow.open(map, marker);
+              // infowindow.close();
+              
             });
         }
     });
