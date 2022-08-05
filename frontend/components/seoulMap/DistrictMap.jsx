@@ -55,10 +55,10 @@ function DistrictMap({ params }) {
             var iwContent = 
             `
             <a href="http://localhost:3000/restaurants/${data.id}">
-            <div style="height: 130px; width:300px; padding:15px;">
+            <div style="height: 130px; width:300px; padding:15px; overflow: scroll;">
               <div style="display:flex; ">
-              <div style="font-size:20px">${data.name}</div>
-              <div style="font-size:20px; margin-left:10px; color:orange;">${data.starRating}</div>
+              <div style="font-size:20px" overflow:hidden;; >${data.name}</div>
+              <div style="font-size:20px; margin-left:10px; color:orange; ">${data.starRating}</div>
               </div>
               <div style="text-align:left; color:green;">${data.vegetarianTypes}</div>
               <div style="text-align:left; display: flex; font-size:13px; color:gray;">
@@ -84,6 +84,7 @@ function DistrictMap({ params }) {
             });
 
             kakao.maps.event.addListener(marker, "click", function () {
+              
               infowindow.open(map, marker);
             });
         }
