@@ -19,16 +19,16 @@ public class Member extends BaseEntity {
     private String email;
     private String password;
     private String name;
-    private String nickName;
+    private String nickname;
     private String role;
     private String vegetarianType; // 한개
 
     @Builder
-    public Member(String email, String password, String name, String nickName, String role, String vegetarianType) {
+    public Member(String email, String password, String name, String nickname, String role, String vegetarianType) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.role = role;
         this.vegetarianType = vegetarianType;
     }
