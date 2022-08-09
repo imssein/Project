@@ -4,7 +4,7 @@ import FeedForm from "../components/post/FeedForm";
 
 import { useSelector } from "react-redux";
 
-function writePost(props) {
+function WritePost(props) {
   const { isLoggedIn } = useSelector((state) => state.user);
 
   return (
@@ -17,4 +17,4 @@ function writePost(props) {
   );
 }
 
-export default writePost;
+export default WritePost;
