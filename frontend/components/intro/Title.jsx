@@ -6,7 +6,7 @@ function Title({title, description}) {
       <div className="font-extrabold text-2xl text-lime-700 pb-4">
         {title}
       </div>
-      <div className="text-gray-800 mb-4">
+      <div className="text-gray-800 mb-4 whitespace-pre">
         {description}
       </div>
     </div>
