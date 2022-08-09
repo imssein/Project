@@ -5,7 +5,7 @@ import PostCard from "../components/post/PostCard";
 import FeedForm from "../components/post/FeedForm";
 import PostFormLogo from "../components/post/PostFormLogo";
 
-function community(props) {
+function Community(props) {
   const { isLoggedIn } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
@@ -21,4 +21,4 @@ function community(props) {
   );
 }
 
-export default community;
+export default Community;
