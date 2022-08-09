@@ -20,7 +20,7 @@ const datas = [
 
 function Menu(props) {
   return (
-    <div className="py-10">
+    <div className="py-10 my-4">
       {datas.map((data) => (
         <Link href={`/${data.href}`} key={data.id}>
           <div className={data.color}>
