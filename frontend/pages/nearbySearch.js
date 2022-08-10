@@ -3,8 +3,9 @@ import FilterLogo from "../components/searchfilter/FilterLogo";
 import SearchForm from "../components/intro/SearchForm";
 import DistrictLogo from "../components/searchfilter/DistrictLogo";
 import DistanceLogo from "../components/searchfilter/DistanceLogo";
-import Geolocation from "../components/nearbySearch/Geolocation";
 import Head from "next/head";
+import GeolocationPrint from "../components/nearbySearch/GeolocationPrint";
+import StoreList from "../components/nearbySearch/RestaurantsList";
 function nearbySearch(props) {
   return (
     <div className="px-4">
@@ -17,8 +18,8 @@ function nearbySearch(props) {
         <DistanceLogo />
       </div>
       {/* 내위치 */}
-      <Geolocation />
-      {/* 식당 출력 */}
+      <GeolocationPrint />
+     
     </div>
   );
 }

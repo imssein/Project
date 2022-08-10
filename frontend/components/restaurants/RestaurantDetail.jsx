@@ -1,8 +1,7 @@
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { FaRegEdit, FaRegHeart, FaPen, FaHeart } from "react-icons/fa";
-// import Review from "./Review";
-// import RestaurantPositionMap from "./RestaurantPositionMap";
+
 import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -13,8 +12,6 @@ function RestaurantDetail({ params }) {
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
-
-  // console.log(data)
 
   for (var key in data) {
     console.log(data[key]);
@@ -34,10 +31,9 @@ function RestaurantDetail({ params }) {
             {/* 리뷰 */}
             <div className="px-6">
               <Link href={`/review/${params}`}>
-              <FaRegEdit className="mb-2 ml-3" size="30" />
+                <FaRegEdit className="mb-2 ml-3" size="30" />
               </Link>
               <p className="text-sm">리뷰 쓰기</p>
-              
             </div>
             {/* 찜 */}
             <div className="pr-6">

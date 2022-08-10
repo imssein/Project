@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
-import RestaurantsList from "../nearbySearch/RestaurantsList";
+import RestaurantsList from "./RestaurantsList";
 
 function DistrictMap({ content }) {
   const geolocation = useGeolocation();
@@ -25,7 +25,7 @@ function DistrictMap({ content }) {
           geolocation.latitude,
           geolocation.longitude
         ),
-        level: 7,
+        level: 5,
       };
       // 지도 생성
       var map = new kakao.maps.Map(container, locPosition);
@@ -44,8 +44,6 @@ function DistrictMap({ content }) {
                   map: map,
                   position: coords,
                 });
-
-                map.panTo(coords);
                 marker.setMap(map);
 
                 // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우 생성

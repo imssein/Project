@@ -3,9 +3,9 @@ import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-function RestaurantPositionMap({ params }) {
+function RestaurantMap({ params }) {
   const url = `http://localhost:9090/v1/api/stores/detail/${params}`;
-//   console.log(`${params}`)
+ 
   const { data, error } = useSWR(url, fetcher);
 
   const [mapLoaded, setMapLoaded] = useState(false);
@@ -49,25 +49,11 @@ function RestaurantPositionMap({ params }) {
 
               map.setCenter(coords);
             }
-            //마커에 마우스오버 이벤트를 등록 
-        //   kakao.maps.event.addListener(marker, 'mouseover', () => {
-        //     // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-        //   infowindow.open(map, marker);
-        // })
-        // kakao.maps.event.addListener(marker, 'mouseout', () => {
-        //   // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-        //  infowindow.close();
-        // })
-
-        // kakao.maps.event.addListener(marker, 'click', () => {
-        //   console.log(`${data.id}`); 
-          
-        //  })
           });
         });
       }
     });
-  }, [mapLoaded]);
+  }, [data, mapLoaded]);
 
   return (
     <div>
@@ -76,4 +62,4 @@ function RestaurantPositionMap({ params }) {
   );
 }
 
-export default RestaurantPositionMap;
+export default RestaurantMap;
