@@ -6,6 +6,9 @@ import DistanceLogo from "../components/searchfilter/DistanceLogo";
 import Head from "next/head";
 import GeolocationPrint from "../components/nearbySearch/GeolocationPrint";
 import StoreList from "../components/nearbySearch/RestaurantsList";
+import LatLng2Wtm from "../components/searchfilter/LatLng2Wtm";
+import DistanceCalculator from "../components/searchfilter/DistanceCalculator";
+import Address2Wtm from "../components/distance/Address2Wtm";
 function nearbySearch(props) {
   return (
     <div className="px-4">
@@ -13,13 +16,11 @@ function nearbySearch(props) {
         <title>VeganPleasure | 내주변</title>
       </Head>
       <SearchForm />
-      <div className="flex justify-center">
-        <DistrictLogo />
-        <DistanceLogo />
+      <div>
+           <LatLng2Wtm />
       </div>
       {/* 내위치 */}
       <GeolocationPrint />
-     
     </div>
   );
 }
