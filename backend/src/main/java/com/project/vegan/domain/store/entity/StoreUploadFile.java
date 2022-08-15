@@ -1,5 +1,6 @@
 package com.project.vegan.domain.store.entity;
 
+import com.project.vegan.domain.common.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "store_uploadfile")
-public class StoreUploadFile {
+public class StoreUploadFile extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "store_uploadfile_id")
     private Long id;
