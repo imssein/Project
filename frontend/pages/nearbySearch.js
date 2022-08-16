@@ -9,13 +9,15 @@ import StoreList from "../components/nearbySearch/RestaurantsList";
 import LatLng2Wtm from "../components/searchfilter/LatLng2Wtm";
 import DistanceCalculator from "../components/searchfilter/DistanceCalculator";
 import Address2Wtm from "../components/distance/Address2Wtm";
+import Search from "../components/search";
 function nearbySearch(props) {
   return (
     <div className="px-4">
       <Head>
         <title>VeganPleasure | 내주변</title>
       </Head>
-      <SearchForm />
+      <Search />
+      {/* <SearchForm /> */}
       <div>
            <LatLng2Wtm />
       </div>

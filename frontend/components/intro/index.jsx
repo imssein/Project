@@ -6,11 +6,14 @@ import Menu from "./Menu";
 import Title from "./Title";
 import VegeInfoBtn from "./VeganGuide";
 import Information from "../information";
+import Search from "../search";
+
 function Intro(props) {
   return (
     <div className="px-4 py-8">
       {/* 검색창 */}
-      <SearchForm />
+      {/* <SearchForm /> */}
+      <Search />
       {/* 사이트설명 */}
 
       <Title
