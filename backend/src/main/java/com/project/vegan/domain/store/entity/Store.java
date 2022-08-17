@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,11 +36,16 @@ public class Store extends BaseEntity {
             joinColumns = @JoinColumn(name = "store_id")
     )
     private List<String> menus = new ArrayList<>();
+    /**
+     * @BatchSize 어노테이션으로
+     * N + 1 문제 어느정도 해결
+     */
     @ElementCollection
     @CollectionTable(
             name = "vegetariantype",
             joinColumns = @JoinColumn(name = "store_id")
     )
+    @BatchSize(size = 1000)
     private List<String> vegetarianTypes = new ArrayList<>();
     private Double x;
     private Double y;

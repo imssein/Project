@@ -6,8 +6,10 @@ import com.project.vegan.domain.store.entity.Store;
 import java.util.List;
 
 public interface StoreRepositoryCustom {
+    List<Store> findAllFetch();
     List<Store> findAllFetchByConds(String categories,
                                     String vegetarianTypes,
-                                    District district,
-                                    String sortedBy);
+                                    String district,
+                                    String sortedBy,
+                                    String query);
 }

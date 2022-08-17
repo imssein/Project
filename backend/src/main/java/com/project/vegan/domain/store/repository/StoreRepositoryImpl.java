@@ -23,16 +23,28 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Store> findAllFetchByConds(String categories,
-                                           String vegetarianTypes,
-                                           District district,
-                                           String sortedBy) {
+    public List<Store> findAllFetch() {
         return queryFactory.selectFrom(store)
                 .leftJoin(store.reviews, review).fetchJoin()
-                .where( allOrCond(getCategoryList(categories),
-                        getVegetarianTypeList(vegetarianTypes)) )
-                .orderBy( sortCond(sortedBy) )
+                .orderBy(store.id.asc())
                 .fetch();
+    }
+
+    @Override
+    public List<Store> findAllFetchByConds(String categories,
+                                           String vegetarianTypes,
+                                           String district,
+                                           String sortedBy,
+                                           String query) {
+        return null;
+    }
+
+    private BooleanExpression districtEq(String district){
+        if(district == null){
+            return null;
+        }else{
+            return store.district.eq(District.valueOf(district));
+        }
     }
 
     private BooleanExpression allOrCond(List<Category> categories, List<String> vegetarianTypes){
