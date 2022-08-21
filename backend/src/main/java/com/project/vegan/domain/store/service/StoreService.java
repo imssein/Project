@@ -24,6 +24,7 @@ public class StoreService {
 
     public List<StoreDto> getStores(){
         List<VegetarianType> vegetarianTypes = vegetarianTypeRepository.findAllFetch();
+
         return storeRepository.findAllFetch()
                 .stream()
                 .map(s -> new StoreDto(s, vegetarianTypes
