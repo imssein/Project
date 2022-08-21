@@ -35,4 +35,21 @@ public enum District {
     District(String districtValue) {
         this.districtValue = districtValue;
     }
+
+    // 변환가능한지 체크하는 함수
+    public static boolean check(String str){
+        if( str == null ){
+            return false;
+        }else if( str.isBlank() ){
+            return false;
+        }
+
+        for(District district : District.values()){
+            if( district.districtValue.equals(str) ){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

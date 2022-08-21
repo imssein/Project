@@ -29,21 +29,11 @@ public class Store extends BaseEntity {
     private Integer likesNum;
     @OneToMany(mappedBy = "store")
     private List<Review> reviews = new ArrayList<>();
-    @ElementCollection
-    @CollectionTable(
-            name = "menu",
-            joinColumns = @JoinColumn(name = "store_id")
-    )
-    private List<String> menus = new ArrayList<>();
-    @ElementCollection
-    @CollectionTable(
-            name = "vegetariantype",
-            joinColumns = @JoinColumn(name = "store_id")
-    )
-    private List<String> vegetarianTypes;
+    private Double x;
+    private Double y;
 
     @Builder
-    public Store(String name, Category category, String address, District district, String phoneNumber, Double starRating, Integer likesNum, List<Review> reviews, List<String> menus, List<String> vegetarianTypes) {
+    public Store(String name, Category category, String address, District district, String phoneNumber, Double starRating, Integer likesNum, List<Review> reviews, List<Menu> menus, List<VegetarianType> vegetarianTypes, Double x, Double y) {
         this.name = name;
         this.category = category;
         this.address = address;
@@ -52,7 +42,14 @@ public class Store extends BaseEntity {
         this.starRating = starRating;
         this.likesNum = likesNum;
         this.reviews = reviews;
-        this.menus = menus;
-        this.vegetarianTypes = vegetarianTypes;
+        this.x = x;
+        this.y = y;
+    }
+
+    public void initStore(Double x, Double y){
+        this.starRating = 0.0;
+        this.likesNum = 0;
+        this.x = x;
+        this.y = y;
     }
 }

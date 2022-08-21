@@ -3,5 +3,5 @@ package com.project.vegan.domain.review.repository;
 import com.project.vegan.domain.review.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewRepositoryCustom {
 }

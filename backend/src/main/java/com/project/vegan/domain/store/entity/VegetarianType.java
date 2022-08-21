@@ -11,21 +11,18 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "store_uploadfile")
-public class StoreUploadFile extends BaseEntity {
+public class VegetarianType extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_uploadfile_id")
+    @Column(name = "vegetariantype_id")
     private Long id;
-    private String originalFileName;
-    private String savedFileName;
+    private String vegetarianType;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
     @Builder
-    public StoreUploadFile(String originalFileName, String savedFileName, Store store) {
-        this.originalFileName = originalFileName;
-        this.savedFileName = savedFileName;
+    public VegetarianType(String vegetarianType, Store store) {
+        this.vegetarianType = vegetarianType;
         this.store = store;
     }
 }
