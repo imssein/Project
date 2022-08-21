@@ -1,6 +1,11 @@
 package com.project.vegan.domain.store.service;
 
+import com.project.vegan.domain.store.entity.Store;
+import com.project.vegan.domain.store.entity.VegetarianType;
+import com.project.vegan.domain.store.repository.MenuRepository;
 import com.project.vegan.domain.store.repository.StoreRepository;
+import com.project.vegan.domain.store.repository.VegetarianTypeRepository;
+import com.project.vegan.domain.store.response.StoreDetailDto;
 import com.project.vegan.domain.store.response.StoreDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,11 +19,18 @@ import java.util.stream.Collectors;
 @Transactional
 public class StoreService {
     private final StoreRepository storeRepository;
+    private final VegetarianTypeRepository vegetarianTypeRepository;
+    private final MenuRepository menuRepository;
 
     public List<StoreDto> getStores(){
+        List<VegetarianType> vegetarianTypes = vegetarianTypeRepository.findAllFetch();
         return storeRepository.findAllFetch()
                 .stream()
-                .map(StoreDto::new)
+                .map(s -> new StoreDto(s, vegetarianTypes
+                        .stream()
+                        .filter(v -> v.getStore().getId() == s.getId())
+                        .distinct()
+                        .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
 
@@ -27,9 +39,23 @@ public class StoreService {
                                            String district,
                                            String sorted,
                                            String query){
-        return storeRepository.findAllFetchByConds(categories, vegetarianTypes, district, sorted, query)
+        List<VegetarianType> vegetarianTypeList = vegetarianTypeRepository.findAllFetch();
+
+        return storeRepository.findAllFetchByParams(categories, vegetarianTypes, district, sorted, query)
                 .stream()
-                .map(StoreDto::new)
+                .map(s -> new StoreDto(s, vegetarianTypeList
+                        .stream()
+                        .filter(v -> v.getStore().getId() == s.getId())
+                        .distinct()
+                        .collect(Collectors.toList())))
                 .collect(Collectors.toList());
+    }
+
+    public StoreDetailDto getStore(Long id){
+        Store store = storeRepository.findByIdFetch(id);
+
+        return new StoreDetailDto(store,
+                vegetarianTypeRepository.findByStore(store),
+                menuRepository.findByStore(store));
     }
 }

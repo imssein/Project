@@ -1,5 +1,6 @@
 package com.project.vegan.domain.store.controller;
 
+import com.project.vegan.domain.store.response.StoreDetailDto;
 import com.project.vegan.domain.store.response.StoreDto;
 import com.project.vegan.domain.store.service.StoreService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -35,7 +36,7 @@ public class StoreController {
             @ApiImplicitParam(name = "vegetarianTypes",
                     value = "채식타입"
             ),
-            @ApiImplicitParam(name = "district",
+            @ApiImplicitParam(name = "districts",
                     value = "자치구(지역)"
             ),
             @ApiImplicitParam(name = "sorted",
@@ -45,11 +46,25 @@ public class StoreController {
                     value = "검색어"
             )
     })
-    public List<StoreDto> getStoresByConds(@RequestParam(value = "categories", required = false) String categories,
+    public List<StoreDto> getStoresByParams(@RequestParam(value = "categories", required = false) String categories,
                                     @RequestParam(value = "vegetarianTypes", required = false) String vegetarianTypes,
-                                    @RequestParam(value = "district", required = false) String district,
+                                    @RequestParam(value = "districts", required = false) String districts,
                                     @RequestParam(value = "sorted", required = false) String sorted,
                                     @RequestParam(value = "query", required = false) String query){
-        return storeService.getStoresByConds(categories, vegetarianTypes, district, sorted, query);
+        return storeService.getStoresByConds(categories, vegetarianTypes, districts, sorted, query);
     }
+
+    @ApiOperation("맛집 상세 조회")
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",
+                    value = "식별값",
+                    paramType = "path",
+                    required = true)
+    })
+    public StoreDetailDto getStore(@PathVariable("id") Long id){
+        return storeService.getStore(id);
+    }
+
 }

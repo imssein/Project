@@ -1,10 +1,6 @@
 package com.project.vegan.domain.store.repository;
 
-import com.project.vegan.domain.review.entity.QReview;
-import com.project.vegan.domain.store.entity.Category;
-import com.project.vegan.domain.store.entity.District;
-import com.project.vegan.domain.store.entity.QStore;
-import com.project.vegan.domain.store.entity.Store;
+import com.project.vegan.domain.store.entity.*;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -15,12 +11,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.project.vegan.domain.review.entity.QReview.*;
-import static com.project.vegan.domain.store.entity.QStore.*;
+import static com.project.vegan.domain.review.entity.QReview.review;
+import static com.project.vegan.domain.store.entity.QStore.store;
 
 @RequiredArgsConstructor
-public class StoreRepositoryImpl implements StoreRepositoryCustom{
+public class StoreRepositoryImpl implements StoreRepositoryCustom {
     private final JPAQueryFactory queryFactory;
+    private final VegetarianTypeRepository vegetarianTypeRepository;
+    private final MenuRepository menuRepository;
 
     @Override
     public List<Store> findAllFetch() {
@@ -31,68 +29,91 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom{
     }
 
     @Override
-    public List<Store> findAllFetchByConds(String categories,
-                                           String vegetarianTypes,
-                                           String district,
-                                           String sortedBy,
-                                           String query) {
+    public List<Store> findAllFetchByParams(String categories,
+                                            String vegetarianTypes,
+                                            String districts,
+                                            String sortedBy,
+                                            String query) {
+        List<Category> categoryList = getCategoryList(categories);
+        List<District> districtList = getDistrictList(districts);
+        List<VegetarianType> vegetarianTypeList = vegetarianTypeRepository.findByVegetarianTypesFetch(vegetarianTypes);
+
+        return queryFactory.selectFrom(store)
+                .leftJoin(store.reviews, review).fetchJoin()
+                .where(
+                        categoriesIn(categoryList),
+                        districtsIn(districtList),
+                        searchExp(query),
+                        vegetarianTypesIn(vegetarianTypeList)
+                )
+                .orderBy(sortCond(sortedBy))
+                .fetch();
+    }
+
+    @Override
+    public Store findByIdFetch(Long id) {
+        return queryFactory.selectFrom(store)
+                .leftJoin(store.reviews, review)
+                .where(store.id.eq(id))
+                .fetchOne();
+    }
+
+    @Override
+    public List<Store> findStoreIdsByVegetarianTypes(String vegetarianTypes) {
+        List<String> vegetarianTypeList = getVegetarianTypeList(vegetarianTypes);
         return null;
     }
 
-    private BooleanExpression districtEq(String district){
-        if(district == null){
+    private BooleanExpression vegetarianTypesIn(List<VegetarianType> vegetarianTypes) {
+        List<Long> storeIds = vegetarianTypes
+                .stream()
+                .map(v -> v.getStore().getId())
+                .distinct()
+                .collect(Collectors.toList());
+
+        return storeIds.size() > 0 ? store.id.in(storeIds) : null;
+    }
+
+    private BooleanExpression menusIn(List<Menu> menus) {
+        List<Long> storeIds = menus
+                .stream()
+                .map(v -> v.getStore().getId())
+                .distinct()
+                .collect(Collectors.toList());
+
+        return storeIds.size() > 0 ? store.id.in(storeIds) : null;
+    }
+
+    private BooleanExpression searchExp(String query) {
+        if (query == null) {
             return null;
-        }else{
-            return store.district.eq(District.valueOf(district));
+        } else if (query.isBlank()) {
+            return null;
         }
+
+        List<VegetarianType> vegetarianTypeList = vegetarianTypeRepository.findByVegetarianTypeFetch(query);
+        List<Menu> menuList = menuRepository.findByMenuFetch(query);
+
+        return store.address.contains(query)
+                .or(store.name.contains(query))
+                .or(vegetarianTypesIn(vegetarianTypeList))
+                .or(menusIn(menuList))
+                .or(District.check(query) ? store.district.eq(District.valueOf(query)) : null)
+                .or(Category.check(query) ? store.category.eq(Category.valueOf(query)) : null);
     }
 
-    private BooleanExpression allOrCond(List<Category> categories, List<String> vegetarianTypes){
-        if(categoriesIn(categories) == null){
-            return vegetarianTypesContains(vegetarianTypes);
-        }else{
-            return categoriesIn(categories).or(vegetarianTypesContains(vegetarianTypes));
-        }
+    private BooleanExpression districtsIn(List<District> districts) {
+        return districts.size() > 0 ? store.district.in(districts) : null;
     }
 
-    private BooleanExpression categoriesIn(List<Category> categories){
+    private BooleanExpression categoriesIn(List<Category> categories) {
         return categories.size() > 0 ? store.category.in(categories) : null;
     }
 
-    private BooleanExpression vegetarianTypesContains(List<String> vegetarianTypes){
-        switch (vegetarianTypes.size()){
-            case 1:
-                return store.vegetarianTypes.contains(vegetarianTypes.get(0));
-            case 2:
-                return store.vegetarianTypes.contains(vegetarianTypes.get(0))
-                        .or( store.vegetarianTypes.contains(vegetarianTypes.get(1)) );
-            case 3:
-                return store.vegetarianTypes.contains(vegetarianTypes.get(0))
-                        .or( store.vegetarianTypes.contains(vegetarianTypes.get(1) )
-                                .or( store.vegetarianTypes.contains(vegetarianTypes.get(2)) )
-                        );
-            case 4:
-                return store.vegetarianTypes.contains(vegetarianTypes.get(0))
-                        .or( store.vegetarianTypes.contains(vegetarianTypes.get(1) )
-                                .or( store.vegetarianTypes.contains(vegetarianTypes.get(2)) )
-                                .or( store.vegetarianTypes.contains(vegetarianTypes.get(3)) )
-                        );
-            case 5:
-                return store.vegetarianTypes.contains(vegetarianTypes.get(0))
-                        .or( store.vegetarianTypes.contains(vegetarianTypes.get(1) )
-                                .or( store.vegetarianTypes.contains(vegetarianTypes.get(2)) )
-                                .or( store.vegetarianTypes.contains(vegetarianTypes.get(3)) )
-                                .or( store.vegetarianTypes.contains(vegetarianTypes.get(4)) )
-                        );
-            default:
-                return null;
-        }
-    }
-
-    private OrderSpecifier<?> sortCond(String cond){
-        if("starRating".equals(cond)){
+    private OrderSpecifier<?> sortCond(String cond) {
+        if ("starRating".equals(cond)) {
             return store.starRating.desc().nullsLast();
-        }else if("likes".equals(cond)){
+        } else if ("likes".equals(cond)) {
             return store.likesNum.desc().nullsLast();
         }
 
@@ -100,7 +121,7 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom{
     }
 
     private List<String> getVegetarianTypeList(String vegetarianTypes) {
-        if(vegetarianTypes == null){
+        if (vegetarianTypes == null) {
             return new ArrayList<>();
         }
 
@@ -110,13 +131,38 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom{
     }
 
     private List<Category> getCategoryList(String categories) {
-        if(categories == null){
+        if (categories == null) {
+            return new ArrayList<>();
+        } else if (categories.isBlank()) {
             return new ArrayList<>();
         }
 
         return Arrays.stream(categories.split(","))
                 .map(c -> Category.valueOf(c.trim()))
                 .collect(Collectors.toList());
+    }
+
+    private List<District> getDistrictList(String districts) {
+        if (districts == null) {
+            return new ArrayList<>();
+        } else if (districts.isBlank()) {
+            return new ArrayList<>();
+        }
+
+        return Arrays.stream(districts.split(","))
+                .map(d -> findDistrict(d))
+                .collect(Collectors.toList());
+    }
+
+    private District findDistrict(String district) {
+        District dist = null;
+        for(District d : District.values()){
+            if(d.getDistrictValue().equals(district)){
+                dist = d;
+                break;
+            }
+        }
+        return dist;
     }
 
 }

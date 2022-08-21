@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,28 +29,11 @@ public class Store extends BaseEntity {
     private Integer likesNum;
     @OneToMany(mappedBy = "store")
     private List<Review> reviews = new ArrayList<>();
-    @ElementCollection
-    @CollectionTable(
-            name = "menu",
-            joinColumns = @JoinColumn(name = "store_id")
-    )
-    private List<String> menus = new ArrayList<>();
-    /**
-     * @BatchSize 어노테이션으로
-     * N + 1 문제 어느정도 해결
-     */
-    @ElementCollection
-    @CollectionTable(
-            name = "vegetariantype",
-            joinColumns = @JoinColumn(name = "store_id")
-    )
-    @BatchSize(size = 1000)
-    private List<String> vegetarianTypes = new ArrayList<>();
     private Double x;
     private Double y;
 
     @Builder
-    public Store(String name, Category category, String address, District district, String phoneNumber, Double starRating, Integer likesNum, List<Review> reviews, List<String> menus, List<String> vegetarianTypes, Double x, Double y) {
+    public Store(String name, Category category, String address, District district, String phoneNumber, Double starRating, Integer likesNum, List<Review> reviews, List<Menu> menus, List<VegetarianType> vegetarianTypes, Double x, Double y) {
         this.name = name;
         this.category = category;
         this.address = address;
@@ -60,15 +42,11 @@ public class Store extends BaseEntity {
         this.starRating = starRating;
         this.likesNum = likesNum;
         this.reviews = reviews;
-        this.menus = menus;
-        this.vegetarianTypes = vegetarianTypes;
         this.x = x;
         this.y = y;
     }
 
-    public void initStore(List<String> vegetarianTypes, List<String> menus, Double x, Double y){
-        this.vegetarianTypes = vegetarianTypes;
-        this.menus = menus;
+    public void initStore(Double x, Double y){
         this.starRating = 0.0;
         this.likesNum = 0;
         this.x = x;

@@ -2,8 +2,12 @@ package com.project.vegan.global.config;
 
 import com.google.gson.Gson;
 import com.project.vegan.domain.member.repository.MemberRepository;
+import com.project.vegan.domain.store.entity.Menu;
 import com.project.vegan.domain.store.entity.Store;
+import com.project.vegan.domain.store.entity.VegetarianType;
+import com.project.vegan.domain.store.repository.MenuRepository;
 import com.project.vegan.domain.store.repository.StoreRepository;
+import com.project.vegan.domain.store.repository.VegetarianTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -30,7 +35,7 @@ public class InitDb {
 
     @PostConstruct
     public void init() throws IOException, ParseException {
-        initService.dbInit();
+//        initService.dbInit();
     }
 
     @Component
@@ -40,6 +45,8 @@ public class InitDb {
         private final StoreRepository storeRepository;
         private final MemberRepository memberRepository;
         private final BCryptPasswordEncoder bCryptPasswordEncoder;
+        private final VegetarianTypeRepository vegetarianTypeRepository;
+        private final MenuRepository menuRepository;
 
         public void dbInit() throws IOException, ParseException {
             ClassPathResource r1 = new ClassPathResource("data/data.json");
@@ -76,9 +83,15 @@ public class InitDb {
                 String vegetarianType = jsonObject.get("vegetarianType").toString();
                 String menu = jsonObject.get("menu").toString();
 
-                store.initStore(getListFromString(vegetarianType), getListFromString(menu), Double.valueOf(split0[1]), Double.valueOf(split1[1].substring(0, split1[1].length() - 2)));
+                List<VegetarianType> vegetarianTypes = getListFromString(vegetarianType).stream().map(v -> new VegetarianType(v, store)).collect(Collectors.toList());
+                List<Menu> menus = getListFromString(menu).stream().map(m -> new Menu(m, store)).collect(Collectors.toList());
 
-                storeRepository.save(store);
+                store.initStore(Double.valueOf(split0[1]), Double.valueOf(split1[1].substring(0, split1[1].length() - 2)));
+
+                Store save = storeRepository.save(store);
+
+                vegetarianTypes.forEach(v -> vegetarianTypeRepository.save(new VegetarianType(v.getVegetarianType(), save)));
+                menus.forEach(m -> menuRepository.save(new Menu(m.getMenu(), save)));
             }
         }
 
