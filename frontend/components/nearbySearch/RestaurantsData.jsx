@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import StoreService from '../../services/store.service';
 import DistrictMap from './DistrictMap';
 import RestaurantsList from './RestaurantsList';
+import axios from 'axios';
+const API_URL = "http://localhost:9090/v1/api/stores";
 
 function RestaurantsData({params}) {
     const [content, setContent] = useState([]);
@@ -9,18 +11,20 @@ function RestaurantsData({params}) {
 
    useEffect(() => {
     if(params){
-    StoreService.getStoreDistrict({params}).then(
-        (response) => {
-            setContent(response.data)
-        }, 
-        (error) => {
-            console.log(error);
-        }
-    );
+        axios.get(API_URL + "/conditions?districts=" + `${params}`).then(
+            (response) => {
+                setContent(response.data)
+            }, 
+            (error) => {
+                console.log(error);
+            }
+        )
     }
     else { console.log("대기")}
    }, [params, setContent]);
+
     console.log({content})
+   
     return (
         <div>
             <DistrictMap content={content} />

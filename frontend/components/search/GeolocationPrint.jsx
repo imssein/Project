@@ -53,7 +53,6 @@ function GeolocationPrint({query}) {
         <SearchData item={query} />
       </div>
     )
-
   }
 
 }

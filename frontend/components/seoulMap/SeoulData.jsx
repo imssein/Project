@@ -21,6 +21,7 @@ function SeoulData({params}) {
     else { console.log("대기")}
    }, [params, setContent]);
     console.log({content})
+   
     return (
         <div>
             <DistrictMap content={content} />

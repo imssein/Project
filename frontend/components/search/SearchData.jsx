@@ -3,27 +3,26 @@ import React, {useEffect, useState} from 'react';
 import KakaoMap from './KakaoMap';
 
 function SearchData({item}) {
-    console.log(item)
+    console.log("item:", item)
     const query = encodeURIComponent(item)
-    const url = `http://localhost:9090/v1/api/stores?categories=${query}`;
-    const [content, setContent] = useState([]);
-
-    console.log(url)
+    const [content, setContent] = useState({});
 
     useEffect(() => {
-        const fetchData = async () => {
-            try{
-                const res = await axios.get(url);
-                console.log(res.data);
-                setContent(res.data)
-            } catch (e){
-                console.log(e);
-            }
-        }
-        if(url) fetchData();
-    }, [url]);
+        if(query) {
+            axios.get(`http://localhost:9090/v1/api/stores/conditions?query=${item}`)
+                .then(
+                    (response) => {
+                        setContent(response.data)
+                    }, 
+                    (error) => {
+                        console.log(error);
+                    }
+                )
+        }  else { console.log("대기")}  
+    }, [item, query, setContent]);
     
-    console.log(content)
+    console.log({content})
+    
     return (
         <div>
             <KakaoMap content={content} />
