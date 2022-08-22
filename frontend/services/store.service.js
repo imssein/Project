@@ -6,10 +6,9 @@ const getAllStore = () => {
     return axios.get(API_URL);
 }
 
-
 //지역에 따른 맛집 조회
 const getStoreDistrict = ({params}) => {
-    return axios.get(API_URL + "/" + `${params}`);
+    return axios.get(API_URL + "/conditions?districts=" + `${params}`);
 }
 
 //맛집 상세 조회 

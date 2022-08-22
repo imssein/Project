@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
-import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
-function RestaurantMap({ params }) {
-  const url = `http://localhost:9090/v1/api/stores/detail/${params}`;
- 
-  const { data, error } = useSWR(url, fetcher);
-
+function RestaurantMap({ data }) {
   const [mapLoaded, setMapLoaded] = useState(false);
-
   const key = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
 
   useEffect(() => {
@@ -33,7 +25,6 @@ function RestaurantMap({ params }) {
 
       // 주소-좌표 변환 객체를 생성한다.
       var geocoder = new kakao.maps.services.Geocoder();
-      {data && data.map((data) => {
           geocoder.addressSearch(`${data.address}`, (result, status) => {
             // 정상적으로 검색이 완료됐으면
             if (status === kakao.maps.services.Status.OK) {
@@ -51,9 +42,7 @@ function RestaurantMap({ params }) {
             }
           });
         });
-      }
-    });
-  }, [data, mapLoaded]);
+      }, [data, mapLoaded]);
 
   return (
     <div>
