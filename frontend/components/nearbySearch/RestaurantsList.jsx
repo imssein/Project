@@ -10,6 +10,7 @@ import {
   import FilterLogo from "../searchfilter/FilterLogo";
 
 function RestaurantsList({content}) {
+  console.log({content})
    
     return (
       <div className="px-4 mb-36">
@@ -21,37 +22,37 @@ function RestaurantsList({content}) {
 
       {/* 식당리스트 */}
       <div className="my-4">
-        {content && content.map((item) => (
-          <Link href={`/restaurants/${item.id}`} key={item.id}>
-            <div className="flex mb-7">
-              <div className="border my-auto">
-                <Image src="/images/foodex.jpeg" width={180} height={150} alt="식당 사진" />
+      {Object.keys(content).map((key) => (
+        <Link href={`/restaurants/${content[key].id}`} key={content[key].id}>
+        <div className="flex mb-7">
+          <div className="border my-auto">
+            <Image src="/images/foodex.jpeg" width={180} height={150} alt="식당 사진" />
+          </div>
+          <div className="pt-2 pb-5 ml-5 sm:ml-10">
+            <p className="text-lime-700 font-bold mb-2">
+              {content[key].vegetarianTypes}
+            </p>
+            <p className="text-lg mb-1">{content[key].name}</p>
+            <p className="text-xs text-gray-600 mb-1">{content[key].district}</p>
+            <p className="mb-2">{content[key].category}</p>
+            <div className="flex">
+              <div className="flex mr-2">
+                <AiFillStar size="20" color="orange" />
+                <p className="pl-1 text-sm">{content[key].starRating}</p>
               </div>
-              <div className="pt-2 pb-5 ml-5 sm:ml-10">
-                <p className="text-lime-700 font-bold mb-2">
-                  {item.vegetarianTypes}
-                </p>
-                <p className="text-lg mb-1">{item.name}</p>
-                <p className="text-xs text-gray-600 mb-1">{item.district}</p>
-                <p className="mb-2">{item.category}</p>
-                <div className="flex">
-                  <div className="flex mr-2">
-                    <AiFillStar size="20" color="orange" />
-                    <p className="pl-1 text-sm">{item.starRating}</p>
-                  </div>
-                  <div className="flex mr-2">
-                    <AiOutlineEdit size="20" />
-                    <p className="pl-1 text-sm">{item.reviewCount}</p>
-                  </div>
-                  <div className="flex mr-2">
-                    <AiFillHeart size="20" color="pink" />
-                    <p className="pl-1 text-sm">{item.reviewCount}</p>
-                  </div>
-                </div>
+              <div className="flex mr-2">
+                <AiOutlineEdit size="20" />
+                <p className="pl-1 text-sm">{content[key].reviewCount}</p>
+              </div>
+              <div className="flex mr-2">
+                <AiFillHeart size="20" color="pink" />
+                <p className="pl-1 text-sm">{content[key].reviewCount}</p>
               </div>
             </div>
-          </Link>
-        ))}
+          </div>
+        </div>
+      </Link>
+      ))}
       </div>
     </div>
     );

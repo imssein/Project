@@ -5,8 +5,8 @@ import SearchMain from "../components/search/SearchMain";
 import GeolocationPrint from "../components/search/GeolocationPrint";
 
 function Search({router: { query } }) {
-  const categories = (query.categories);
-  console.log(categories);
+  const item = (query.query);
+  console.log("검색한것:", item);
 
   return (
     <div className="px-4">
@@ -14,7 +14,7 @@ function Search({router: { query } }) {
         <title>VeganPleasure | 내주변</title>
       </Head>
       <SearchMain  />
-      <GeolocationPrint query={categories} />
+      <GeolocationPrint query={item} />
     </div>
   );
 }

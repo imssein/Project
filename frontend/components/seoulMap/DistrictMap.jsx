@@ -3,6 +3,7 @@ import useGeolocation from "react-hook-geolocation";
 import RestaurantsList from "../nearbySearch/RestaurantsList";
 
 function DistrictMap({ content }) {
+  console.log(typeof(content))
   const geolocation = useGeolocation();
   const [mapLoaded, setMapLoaded] = useState(false);
   const key = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;

@@ -14,8 +14,8 @@ function SearchMain() {
   return (
     <div className="py-9">
       <Link
-        href={{ pathname: "/search", query: { categories: item } }}
-        as={`/search?categories=${item}`}
+        href={{ pathname: "/search", query: { query } }}
+        as={`/search?query=${item}`}
       >
         <SearchForm onChange={searchItem} />
       </Link>
