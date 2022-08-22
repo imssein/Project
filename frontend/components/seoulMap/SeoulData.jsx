@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import StoreService from '../../services/store.service';
 import DistrictMap from './DistrictMap';
-import RestaurantsList from '../nearbySearch/RestaurantsList';
+import axios from 'axios';
+const API_URL = "http://localhost:9090/v1/api/stores";
 
 function SeoulData({params}) {
     const [content, setContent] = useState([]);
-    console.log(params);
+    console.log(API_URL + "/conditions?districts="+`${params}`);
 
    useEffect(() => {
-    if(params){
-    StoreService.getStoreDistrict({params}).then(
-        (response) => {
-            setContent(response.data)
-        }, 
-        (error) => {
-            console.log(error);
-        }
-    );
+    if(params){ 
+        axios.get(API_URL + "/conditions?districts=" + `${params}`).then(
+            (response) => {
+                setContent(response.data)
+            }, 
+            (error) => {
+                console.log(error);
+            }
+        )
     }
     else { console.log("대기")}
    }, [params, setContent]);

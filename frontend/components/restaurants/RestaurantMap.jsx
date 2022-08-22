@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
 
-function RestaurantMap({ params }) {
+function RestaurantMap({ data }) {
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [content, setContent] = useState({});
   const key = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
 
   useEffect(() => {
@@ -13,22 +11,6 @@ function RestaurantMap({ params }) {
     $script.addEventListener("load", () => setMapLoaded(true));
     document.head.appendChild($script);
   });
-
-  useEffect(() => {
-    if(params) {
-      axios.get(`http://localhost:9090/v1/api/stores/${params}`).then(
-        (response) => {
-          setContent(response.data)
-        }, 
-        (error) => {
-          console.log(error);
-        }
-      )
-    }
-    else { console.log("대기") }
-  }, [params, setContent]);
-  
-  console.log({content})
 
   useEffect(() => {
     if (!mapLoaded) return;
@@ -43,7 +25,7 @@ function RestaurantMap({ params }) {
 
       // 주소-좌표 변환 객체를 생성한다.
       var geocoder = new kakao.maps.services.Geocoder();
-          geocoder.addressSearch(`${content.address}`, (result, status) => {
+          geocoder.addressSearch(`${data.address}`, (result, status) => {
             // 정상적으로 검색이 완료됐으면
             if (status === kakao.maps.services.Status.OK) {
               var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -60,8 +42,7 @@ function RestaurantMap({ params }) {
             }
           });
         });
-      }, [content, mapLoaded]);
-
+      }, [data, mapLoaded]);
 
   return (
     <div>

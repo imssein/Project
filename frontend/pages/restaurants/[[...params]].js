@@ -17,10 +17,6 @@ function Restaurants() {
       
         {/* 이미지 */}
         <RestaurantDetail params={params} />
-        
-        {/* 지도 */}
-        <RestaurantMap params={params} />
-    
     </div>
   );
 }
