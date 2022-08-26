@@ -33,4 +33,31 @@ public class Review extends BaseEntity {
         this.store = store;
         this.member = member;
     }
+
+    public static Review of(Integer starRating, String content, Store store, Member member){
+        Review review = Review.builder()
+                .starRating(starRating)
+                .content(content)
+                .store(store)
+                .member(member)
+                .build();
+
+        review.getStore().getReviews().add(review);
+
+        Double result = calStarRating(starRating, review);
+
+        review.getStore().changeStarRating(result);
+
+        return review;
+    }
+
+    private static Double calStarRating(Integer starRating, Review review) {
+        Double result = Double.valueOf(starRating);
+
+        for(Review r : review.getStore().getReviews()){
+            result += Double.valueOf(r.getStarRating());
+        }
+
+        return result / review.getStore().getReviews().size();
+    }
 }

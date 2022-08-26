@@ -46,6 +46,10 @@ public class Store extends BaseEntity {
         this.y = y;
     }
 
+    public void changeStarRating(Double starRating){
+        this.starRating = starRating;
+    }
+
     public void initStore(Double x, Double y){
         this.starRating = 0.0;
         this.likesNum = 0;
