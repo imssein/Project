@@ -11,12 +11,14 @@ import com.project.vegan.domain.store.repository.StoreRepository;
 import com.project.vegan.global.exception.ForbiddenException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
@@ -27,6 +29,11 @@ public class ReviewService {
         }
 
         Store store = storeRepository.findByIdFetch(storeId);
+
+        // 사용자는 한 식당에 한개의 리뷰만 남길 수 있음
+        if( reviewRepository.findByStore(store).stream().anyMatch(r -> r.getMember().getId() == member.getId()) ){
+            throw new ForbiddenException();
+        }
 
         Review review = Review.of(reviewSaveRequest.getStarRating(), reviewSaveRequest.getContent(), store, member);
 

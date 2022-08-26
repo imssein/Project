@@ -1,5 +1,6 @@
 package com.project.vegan.domain.review.repository;
 
+import com.project.vegan.domain.member.entity.Member;
 import com.project.vegan.domain.review.entity.Review;
 import com.project.vegan.domain.store.entity.Store;
 
