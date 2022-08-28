@@ -42,6 +42,22 @@ public class ReviewService {
         return new ReviewSaveResponse(save.getId());
     }
 
+    public ReviewDto update(ReviewSaveRequest reviewSaveRequest, Member member, Long storeId, Long reviewId){
+        if(member == null){
+            throw new ForbiddenException();
+        }
+
+        Review review = reviewRepository.findByIdFetch(reviewId);
+
+        if(member.getId() != review.getMember().getId()){
+            throw new ForbiddenException();
+        }
+
+        review.change(reviewSaveRequest.getStarRating(), reviewSaveRequest.getContent());
+
+        return new ReviewDto(review);
+    }
+
     public List<ReviewDto> getReviews(){
         return reviewRepository.findAllFetch()
                 .stream()
@@ -58,7 +74,7 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
-    public void delete(Long reviewId, Long storeId, Member member){
+    public void delete(Long storeId, Long reviewId, Member member){
         Review review = reviewRepository.findByIdFetch(reviewId);
 
         if(member == null){

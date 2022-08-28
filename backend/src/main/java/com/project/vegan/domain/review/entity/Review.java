@@ -34,6 +34,11 @@ public class Review extends BaseEntity {
         this.member = member;
     }
 
+    public void change(Integer starRating, String content){
+        this.starRating = starRating;
+        this.content = content;
+    }
+
     public static Review of(Integer starRating, String content, Store store, Member member){
         Review review = Review.builder()
                 .starRating(starRating)
