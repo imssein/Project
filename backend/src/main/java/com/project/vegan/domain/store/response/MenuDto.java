@@ -16,6 +16,6 @@ public class MenuDto {
     @Builder
     public MenuDto(Menu menu) {
         this.id = menu.getId();
-        this.menu = menu.getMenu();
+        this.menu = menu.getValue();
     }
 }

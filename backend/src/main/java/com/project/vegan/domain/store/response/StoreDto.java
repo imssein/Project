@@ -51,7 +51,7 @@ public class StoreDto {
         String result = "";
 
         for(VegetarianType vegetarianType : vegetarianTypes){
-            result += vegetarianType.getVegetarianType() + ",";
+            result += vegetarianType.getValue() + ",";
         }
 
         return result.substring(0, result.length() - 1);

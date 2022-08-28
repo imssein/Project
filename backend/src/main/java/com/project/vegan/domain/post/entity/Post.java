@@ -22,18 +22,16 @@ public class Post extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-    @ElementCollection
-    @CollectionTable(
-            name = "hashtag",
-            joinColumns = @JoinColumn(name = "post_id")
-    )
-    private List<String> hashTag;
 
     @Builder
-    public Post(String title, String content, Member member, List<String> hashTag) {
+    public Post(String title, String content, Member member) {
         this.title = title;
         this.content = content;
         this.member = member;
-        this.hashTag = hashTag;
+    }
+
+    public void change(String title, String content){
+        this.title = title;
+        this.content = content;
     }
 }

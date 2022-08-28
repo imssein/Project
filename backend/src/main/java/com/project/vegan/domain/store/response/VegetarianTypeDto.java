@@ -16,6 +16,6 @@ public class VegetarianTypeDto {
     @Builder
     public VegetarianTypeDto(VegetarianType vegetarianType) {
         this.id = vegetarianType.getId();
-        this.vegetarianType = vegetarianType.getVegetarianType();
+        this.vegetarianType = vegetarianType.getValue();
     }
 }

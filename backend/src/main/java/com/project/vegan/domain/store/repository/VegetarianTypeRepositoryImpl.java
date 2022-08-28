@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.project.vegan.domain.store.entity.QStore.*;
-import static com.project.vegan.domain.store.entity.QVegetarianType.*;
+import static com.project.vegan.domain.store.entity.QVegetarianType.vegetarianType;
 
 @RequiredArgsConstructor
 public class VegetarianTypeRepositoryImpl implements VegetarianTypeRepositoryCustom{
@@ -21,8 +21,8 @@ public class VegetarianTypeRepositoryImpl implements VegetarianTypeRepositoryCus
 
     @Override
     public List<VegetarianType> findAllFetch() {
-        return queryFactory.selectFrom(vegetarianType1)
-                .leftJoin(vegetarianType1.store, store).fetchJoin()
+        return queryFactory.selectFrom(vegetarianType)
+                .leftJoin(vegetarianType.store, store).fetchJoin()
                 .fetch();
     }
 
@@ -30,25 +30,25 @@ public class VegetarianTypeRepositoryImpl implements VegetarianTypeRepositoryCus
     public List<VegetarianType> findByVegetarianTypesFetch(String vegetarianTypes) {
         List<String> vegetarianTypeList = getVegetarianTypeList(vegetarianTypes);
 
-        return queryFactory.selectFrom(vegetarianType1)
-                .leftJoin(vegetarianType1.store, store).fetchJoin()
-                .where(vegetarianType1.vegetarianType.in(vegetarianTypeList))
+        return queryFactory.selectFrom(vegetarianType)
+                .leftJoin(vegetarianType.store, store).fetchJoin()
+                .where(vegetarianType.value.in(vegetarianTypeList))
                 .fetch();
     }
 
     @Override
     public List<VegetarianType> findByVegetarianTypeFetch(String vegetarianType) {
-        return queryFactory.selectFrom(vegetarianType1)
-                .leftJoin(vegetarianType1.store, store).fetchJoin()
-                .where( vegetarianType1.vegetarianType.eq(vegetarianType) )
+        return queryFactory.selectFrom(QVegetarianType.vegetarianType)
+                .leftJoin(QVegetarianType.vegetarianType.store, store).fetchJoin()
+                .where( QVegetarianType.vegetarianType.value.eq(vegetarianType) )
                 .fetch();
     }
 
     @Override
     public List<VegetarianType> findByStore(Store store) {
-        return queryFactory.selectFrom(vegetarianType1)
-                .leftJoin(vegetarianType1.store, QStore.store).fetchJoin()
-                .where( vegetarianType1.store.eq(store) )
+        return queryFactory.selectFrom(vegetarianType)
+                .leftJoin(vegetarianType.store, QStore.store).fetchJoin()
+                .where( vegetarianType.store.eq(store) )
                 .fetch();
     }
 

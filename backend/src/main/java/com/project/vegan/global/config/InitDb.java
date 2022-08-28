@@ -90,8 +90,8 @@ public class InitDb {
 
                 Store save = storeRepository.save(store);
 
-                vegetarianTypes.forEach(v -> vegetarianTypeRepository.save(new VegetarianType(v.getVegetarianType(), save)));
-                menus.forEach(m -> menuRepository.save(new Menu(m.getMenu(), save)));
+                vegetarianTypes.forEach(v -> vegetarianTypeRepository.save(new VegetarianType(v.getValue(), save)));
+                menus.forEach(m -> menuRepository.save(new Menu(m.getValue(), save)));
             }
         }
 

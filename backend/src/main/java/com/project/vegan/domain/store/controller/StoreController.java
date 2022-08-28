@@ -55,7 +55,7 @@ public class StoreController {
     }
 
     @ApiOperation("맛집 상세 조회")
-    @GetMapping("/{id}")
+    @GetMapping("/{storeId}")
     @ResponseStatus(HttpStatus.OK)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",
@@ -63,8 +63,8 @@ public class StoreController {
                     paramType = "path",
                     required = true)
     })
-    public StoreDetailDto getStore(@PathVariable("id") Long id){
-        return storeService.getStore(id);
+    public StoreDetailDto getStore(@PathVariable("storeId") Long storeId){
+        return storeService.getStore(storeId);
     }
 
 }
