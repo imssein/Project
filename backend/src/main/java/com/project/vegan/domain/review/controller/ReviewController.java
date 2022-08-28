@@ -8,6 +8,7 @@ import com.project.vegan.domain.review.service.ReviewService;
 import com.project.vegan.global.security.annotation.LoginMember;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,15 +29,8 @@ public class ReviewController {
         return reviewService.getReviews();
     }
 
-    @ApiOperation("식당에 따른 리뷰 조회")
-    @GetMapping("/{storeId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ReviewDto> getReviewsByStore(@PathVariable("storeId") Long storeId){
-        return reviewService.getReviewsByStore(storeId);
-    }
-
     @ApiOperation("리뷰 작성")
-    @PostMapping("/{storeId}")
+    @PostMapping("/{storeId}/review")
     @ResponseStatus(HttpStatus.CREATED)
     public ReviewSaveResponse review(@PathVariable("storeId") Long storeId,
                                      @RequestBody @Validated ReviewSaveRequest reviewSaveRequest,
@@ -44,13 +38,30 @@ public class ReviewController {
         return reviewService.save(reviewSaveRequest, member, storeId);
     }
 
+    @ApiOperation("식당에 따른 리뷰 조회")
+    @GetMapping("/{storeId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ReviewDto> getReviewsByStore(@PathVariable("storeId") Long storeId){
+        return reviewService.getReviewsByStore(storeId);
+    }
+
+    @ApiOperation("리뷰 수정")
+    @PostMapping("/{storeId}/{reviewId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ReviewDto updateReview(@PathVariable("storeId") Long storeId,
+                                  @PathVariable("reviewId") Long reviewId,
+                                  @RequestBody @Validated ReviewSaveRequest reviewSaveRequest,
+                                  @LoginMember Member member){
+        return reviewService.update(reviewSaveRequest, member, storeId, reviewId);
+    }
+
     @ApiOperation("리뷰 삭제")
     @DeleteMapping("/{storeId}/{reviewId}")
     @ResponseStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
-    public void delete(@PathVariable("reviewId") Long reviewId,
-                       @PathVariable("storeId") Long storeId,
-                       @LoginMember Member member){
-        reviewService.delete(reviewId, storeId, member);
+    public void delete(@PathVariable("storeId") Long storeId,
+                       @PathVariable("reviewId") Long reviewId,
+                       @LoginMember Member member) {
+        reviewService.delete(storeId, reviewId, member);
     }
 
 }
