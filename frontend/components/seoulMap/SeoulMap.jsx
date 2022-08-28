@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const mapLists =  [
     { alt : "강서구", title : "강서구", coords : "62,142,51,153,56,159,32,187,25,202,48,216,65,219,79,224,86,214,97,237,121,234,124,213,138,213", url: "/seoul/gangseo"},
@@ -32,7 +33,7 @@ const mapLists =  [
 function SeoulMap() {
     return (
         <div className='flex justify-center py-6'>
-            <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/seoul_map.gif" useMap="#image-map"/>
+            <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/seoul_map.gif"  useMap="#image-map" alt="서울시 지도" />
             <map name="image-map">
             {mapLists.map((item, index) => (
                 <Link key={index} href={item.url}>

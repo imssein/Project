@@ -20,7 +20,7 @@ function RegisterForm(props) {
       await AuthService.register(email, name, nickname, password, vegetarianTypes).then(
         () => {
           router.replace('/');
-          //window.location.reload("/");
+          window.location.reload("/");
         },
         (error) => {
           console.log(error);

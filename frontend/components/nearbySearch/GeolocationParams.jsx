@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import NearbyRestaurant from "./NearbyRestaurant";
+import StoreData from "./RestaurantsData";
 
 const datas = [
   {
@@ -129,9 +129,8 @@ const datas = [
   },
 ];
 
-function GeolocationParams({ district, longitude, latitude }) {
+function GeolocationParams({ district }) {
   const [params, setParams] = useState("");
-
   useEffect(() => {
     {
       datas.map((data) => {
@@ -141,13 +140,10 @@ function GeolocationParams({ district, longitude, latitude }) {
       });
     }
   }, [district]);
+  
   return (
-    <div>
-      <NearbyRestaurant
-        params={params}
-        latitude={latitude}
-        longitude={longitude}
-      />
+    <div> 
+      <StoreData params={params} />
     </div>
   );
 }

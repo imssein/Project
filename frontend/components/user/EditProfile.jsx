@@ -1,6 +1,6 @@
 import React from 'react';
 
-function index(props) {
+function EditProfile(props) {
     return (
         <div>
             
@@ -8,4 +8,4 @@ function index(props) {
     );
 }
 
-export default index;
+export default EditProfile;

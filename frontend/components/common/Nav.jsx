@@ -6,7 +6,7 @@ import Link from "next/link";
 function Nav(props) {
   return (
     <nav className="py-2 border-b-1 flex justify-center border-b-2 fixed top-0 bg-slate-100 max-w-2xl w-full" >
-      <div>
+      <div className="pt-2">
         <Link href="/">
         <Image src="/images/logo.png" width="200" height="30" alt="로고" />
         </Link>

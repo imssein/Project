@@ -8,8 +8,10 @@ import {
   AiOutlineUser,
   AiOutlineMessage,
 } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 function Footer(props) {
+  const { isLoggedIn } = useSelector((state) => state.user);
   return (
     <footer className="flex justify-between px-4 py-3 fixed bottom-0 bg-slate-100 max-w-2xl w-full">
       <Link href="/">
@@ -36,12 +38,21 @@ function Footer(props) {
           <p className="text-xs text-center pt-2">검색</p>
         </div>
       </Link>
-      <Link href="/mypage">
-        <div>
-          <AiOutlineUser className="mx-auto" size="20" />
-          <p className="text-xs text-center pt-2">마이페이지</p>
-        </div>
-      </Link>
+      {isLoggedIn ? (
+        <Link href="/mypage">
+          <div>
+            <AiOutlineUser className="mx-auto" size="20" />
+            <p className="text-xs text-center pt-2">마이페이지</p>
+          </div>
+        </Link>
+      ) : (
+        <Link href="/login">
+          <div>
+            <AiOutlineUser className="mx-auto" size="20" />
+            <p className="text-xs text-center pt-2">로그인</p>
+          </div>
+        </Link>
+      )}
     </footer>
   );
 }
