@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 @RequestMapping("/v1/api/posts")
 public class PostController {
     private final PostService postService;
@@ -43,7 +44,7 @@ public class PostController {
     }
 
     @ApiOperation("게시글 수정")
-    @PutMapping("/{postId}")
+    @PostMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
     public DetailPostDto updatePost(@PathVariable("postId") Long postId,
                                     @Validated @RequestBody PostSaveRequest postSaveRequest,
