@@ -1,4 +1,4 @@
-package com.project.vegan.domain.store.entity;
+package com.project.vegan.domain.post.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,18 +10,18 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Menu {
+public class HashTag {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "menu_id")
+    @Column(name = "hashtag_id")
     private Long id;
     private String value;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @Builder
-    public Menu(String menu, Store store) {
-        this.value = menu;
-        this.store = store;
+    public HashTag(String value, Post post) {
+        this.value = value;
+        this.post = post;
     }
 }

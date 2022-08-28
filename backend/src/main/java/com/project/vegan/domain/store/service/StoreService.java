@@ -25,6 +25,11 @@ public class StoreService {
     public List<StoreDto> getStores(){
         List<VegetarianType> vegetarianTypes = vegetarianTypeRepository.findAllFetch();
 
+        /**
+         * 쿼리가 계속 나가지 않도록
+         * vegetarianTypeRepository.findByStore 을 쓰지않고
+         * stream 으로 처리에서 넣어줌
+         */
         return storeRepository.findAllFetch()
                 .stream()
                 .map(s -> new StoreDto(s, vegetarianTypes
@@ -42,6 +47,11 @@ public class StoreService {
                                            String query){
         List<VegetarianType> vegetarianTypeList = vegetarianTypeRepository.findAllFetch();
 
+        /**
+         * 쿼리가 계속 나가지 않도록
+         * vegetarianTypeRepository.findByStore 을 쓰지않고
+         * stream 으로 처리에서 넣어줌
+         */
         return storeRepository.findAllFetchByParams(categories, vegetarianTypes, district, sorted, query)
                 .stream()
                 .map(s -> new StoreDto(s, vegetarianTypeList

@@ -58,7 +58,7 @@ public class StoreDetailDto {
         String result = "";
 
         for(VegetarianType vegetarianType : vegetarianTypes){
-            result += vegetarianType.getVegetarianType() + ",";
+            result += vegetarianType.getValue() + ",";
         }
 
         return result.substring(0, result.length() - 1);
@@ -68,7 +68,7 @@ public class StoreDetailDto {
         String result = "";
 
         for(Menu menu : menus){
-            result += menu.getMenu() + ",";
+            result += menu.getValue() + ",";
         }
 
         return result.substring(0, result.length() - 1);

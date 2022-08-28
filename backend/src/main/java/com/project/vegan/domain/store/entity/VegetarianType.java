@@ -15,14 +15,14 @@ public class VegetarianType extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vegetariantype_id")
     private Long id;
-    private String vegetarianType;
+    private String value;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
     @Builder
     public VegetarianType(String vegetarianType, Store store) {
-        this.vegetarianType = vegetarianType;
+        this.value = vegetarianType;
         this.store = store;
     }
 }

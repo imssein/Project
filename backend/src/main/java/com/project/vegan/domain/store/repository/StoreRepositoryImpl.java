@@ -51,10 +51,10 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom {
     }
 
     @Override
-    public Store findByIdFetch(Long id) {
+    public Store findByIdFetch(Long storeId) {
         return queryFactory.selectFrom(store)
                 .leftJoin(store.reviews, review)
-                .where(store.id.eq(id))
+                .where(store.id.eq(storeId))
                 .fetchOne();
     }
 
