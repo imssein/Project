@@ -30,4 +30,10 @@ public class Diet extends BaseEntity {
         this.amount = amount;
         this.memo = memo;
     }
+
+    public void change(String type, String amount, String memo){
+        this.type = type;
+        this.amount = amount;
+        this.memo = memo;
+    }
 }
