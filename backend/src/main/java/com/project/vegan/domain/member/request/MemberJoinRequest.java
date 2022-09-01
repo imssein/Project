@@ -21,7 +21,5 @@ public class MemberJoinRequest {
     @NotEmpty
     private String nickname;
     @NotEmpty
-    private String role;
-    @NotEmpty
     private String vegetarianType;
 }
