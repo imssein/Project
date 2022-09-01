@@ -41,7 +41,7 @@ public class MemberService {
                 .password(encodePw)
                 .name(memberJoinRequest.getName())
                 .nickname(memberJoinRequest.getNickname())
-                .role(memberJoinRequest.getRole())
+                .role("ROLE_USER")
                 .vegetarianType(memberJoinRequest.getVegetarianType())
                 .build();
 
