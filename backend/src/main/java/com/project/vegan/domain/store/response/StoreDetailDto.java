@@ -1,5 +1,6 @@
 package com.project.vegan.domain.store.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.vegan.domain.review.response.ReviewDto;
 import com.project.vegan.domain.store.entity.*;
 import lombok.Builder;
@@ -28,7 +29,9 @@ public class StoreDetailDto {
     private String menus;
     private List<ReviewDto> reviews;
     private List<Double> coords;
+    @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime createdTime;
+    @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime modifiedTime;
 
     @Builder

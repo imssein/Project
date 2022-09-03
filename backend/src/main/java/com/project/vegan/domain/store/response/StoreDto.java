@@ -1,5 +1,6 @@
 package com.project.vegan.domain.store.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.vegan.domain.store.entity.Category;
 import com.project.vegan.domain.store.entity.District;
 import com.project.vegan.domain.store.entity.Store;
@@ -27,7 +28,9 @@ public class StoreDto {
     private Integer reviewCount;
     private String vegetarianTypes;
     private List<Double> coords;
+    @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime createdTime;
+    @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime modifiedTime;
 
     @Builder

@@ -1,12 +1,12 @@
 package com.project.vegan.domain.post.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.vegan.domain.member.response.MemberDto;
 import com.project.vegan.domain.post.entity.HashTag;
 import com.project.vegan.domain.post.entity.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.internal.util.privilegedactions.LoadClass;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +21,9 @@ public class DetailPostDto {
     private String content;
     private MemberDto member;
     private List<HashTagDto> hashTags;
+    @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime createdTime;
+    @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime modifiedTime;
 
     public DetailPostDto(Post post, List<HashTag> hashTags) {
