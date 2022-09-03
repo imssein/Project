@@ -31,7 +31,7 @@ public class DietController {
     @PostMapping("/diet")
     @ResponseStatus(HttpStatus.CREATED)
     public DietDto save(@Validated @RequestBody DietSaveRequest dietSaveRequest,
-                              @LoginMember Member member){
+                        @LoginMember Member member){
         return dietService.save(dietSaveRequest, member);
     }
 
@@ -46,8 +46,8 @@ public class DietController {
     @PostMapping("/{dietId}")
     @ResponseStatus(HttpStatus.OK)
     public DietDto updateDiet(@PathVariable("dietId") Long dietId,
-                                    @Validated @RequestBody DietSaveRequest dietSaveRequest,
-                                    @LoginMember Member member){
+                              @Validated @RequestBody DietSaveRequest dietSaveRequest,
+                              @LoginMember Member member){
         return dietService.update(dietSaveRequest, member, dietId);
     }
 

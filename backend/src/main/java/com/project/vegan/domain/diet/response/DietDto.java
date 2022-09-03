@@ -1,15 +1,13 @@
 package com.project.vegan.domain.diet.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.vegan.domain.diet.entity.Diet;
 import com.project.vegan.domain.member.response.MemberDto;
-import com.project.vegan.domain.post.response.HashTagDto;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -20,7 +18,9 @@ public class DietDto {
     private String type;
     private String amount;
     private String memo;
+    @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime createdTime;
+    @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime modifiedTime;
 
     public DietDto(Diet diet) {
