@@ -58,12 +58,6 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom {
                 .fetchOne();
     }
 
-    @Override
-    public List<Store> findStoreIdsByVegetarianTypes(String vegetarianTypes) {
-        List<String> vegetarianTypeList = getVegetarianTypeList(vegetarianTypes);
-        return null;
-    }
-
     private BooleanExpression vegetarianTypesIn(List<VegetarianType> vegetarianTypes) {
         List<Long> storeIds = vegetarianTypes
                 .stream()

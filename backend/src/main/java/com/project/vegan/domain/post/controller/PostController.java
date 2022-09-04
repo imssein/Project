@@ -25,7 +25,7 @@ public class PostController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<SimplePostDto> getPosts(@RequestParam(name = "hashTag", required = false) String hashTag){
-        return postService.getPosts();
+        return postService.getPosts(hashTag);
     }
 
     @ApiOperation("게시글 저장")

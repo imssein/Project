@@ -12,5 +12,4 @@ public interface StoreRepositoryCustom {
                                      String sortedBy,
                                      String query);
     Store findByIdFetch(Long storeId);
-    List<Store> findStoreIdsByVegetarianTypes(String vegetarianTypes);
 }
