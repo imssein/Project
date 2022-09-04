@@ -1,13 +1,13 @@
 import axios from "axios";
 const API_URL = "http://localhost:9090/v1/api/members/";
 
-const register = (email, name, nickname, password, vegetarianTypes) => {
+const register = (email, name, nickname, password, vegetarianType) => {
   return axios.post(API_URL + "join" , {
     email,
     name,
     nickname,
     password,
-    vegetarianTypes,
+    vegetarianType,
   })
 } 
 
@@ -24,7 +24,7 @@ const login = async (email, password) => {
 
 const logOut = () => {
   localStorage.removeItem("user");
-  window.location.replace('/');
+  window.location.replace('/'); 
   console.log("로그아웃")
 };
 
