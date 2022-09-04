@@ -39,6 +39,7 @@ public class DietService {
 
         Diet diet = Diet.builder()
                 .member(member)
+                .vegetarianType(dietSaveRequest.getVegetarianType())
                 .type(dietSaveRequest.getType())
                 .amount(dietSaveRequest.getAmount())
                 .memo(dietSaveRequest.getMemo())
@@ -60,7 +61,7 @@ public class DietService {
             throw new ForbiddenException();
         }
 
-        diet.change(dietSaveRequest.getType(), dietSaveRequest.getAmount(), dietSaveRequest.getMemo());
+        diet.change(dietSaveRequest.getVegetarianType(), dietSaveRequest.getType(), dietSaveRequest.getAmount(), dietSaveRequest.getMemo());
 
         return new DietDto(diet);
     }

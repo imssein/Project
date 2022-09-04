@@ -19,19 +19,22 @@ public class Diet extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+    private String vegetarianType;
     private String type;
     private String amount;
     private String memo;
 
     @Builder
-    public Diet(Member member, String type, String amount, String memo) {
+    public Diet(Member member, String vegetarianType, String type, String amount, String memo) {
         this.member = member;
+        this.vegetarianType = vegetarianType;
         this.type = type;
         this.amount = amount;
         this.memo = memo;
     }
 
-    public void change(String type, String amount, String memo){
+    public void change(String vegetarianType, String type, String amount, String memo){
+        this.vegetarianType = vegetarianType;
         this.type = type;
         this.amount = amount;
         this.memo = memo;

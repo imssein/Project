@@ -12,6 +12,8 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class DietSaveRequest {
     @NotEmpty
+    private String vegetarianType;
+    @NotEmpty
     private String type;
     @NotEmpty
     private String amount;
@@ -19,7 +21,8 @@ public class DietSaveRequest {
     private String memo;
 
     @Builder
-    public DietSaveRequest(String type, String amount, String memo) {
+    public DietSaveRequest(String vegetarianType, String type, String amount, String memo) {
+        this.vegetarianType = vegetarianType;
         this.type = type;
         this.amount = amount;
         this.memo = memo;

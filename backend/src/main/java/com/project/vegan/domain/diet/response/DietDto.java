@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class DietDto {
     private Long id;
     private MemberDto member;
+    private String vegetarianType;
     private String type;
     private String amount;
     private String memo;
@@ -26,6 +27,7 @@ public class DietDto {
     public DietDto(Diet diet) {
         this.id = diet.getId();
         this.member = new MemberDto(diet.getMember());
+        this.vegetarianType = diet.getVegetarianType();
         this.type = diet.getType();
         this.amount = diet.getAmount();
         this.memo = diet.getMemo();
