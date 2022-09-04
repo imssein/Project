@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   AiOutlineHome,
   AiOutlineCalendar,
@@ -8,10 +8,19 @@ import {
   AiOutlineUser,
   AiOutlineMessage,
 } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import AuthService from "../../services/auth.service";
 
 function Footer(props) {
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const [ isLoggedIn, setIsLoggedIn] = useState(undefined);
+
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+
+    if(user){
+      setIsLoggedIn(user);
+    }
+  }, []);
+
   return (
     <footer className="flex justify-between px-4 py-3 fixed bottom-0 bg-slate-100 max-w-2xl w-full">
       <Link href="/">
@@ -20,13 +29,13 @@ function Footer(props) {
           <p className="text-xs text-center pt-2">홈</p>
         </div>
       </Link>
-      <Link href="/community">
+      <Link href="/feedPage">
         <div>
           <AiOutlineMessage className="mx-auto" size="20" />
           <p className="text-xs text-center pt-2">피드</p>
         </div>
       </Link>
-      <Link href="/postRecord">
+      <Link href="/foodRecord">
         <div>
           <AiOutlinePlusCircle className="mx-auto" size="20" />
           <p className="text-xs text-center pt-2">식단기록</p>

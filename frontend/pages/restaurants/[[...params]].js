@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import RestaurantDetail from "../../components/restaurants/RestaurantDetail";
 import RestaurantMap from "../../components/restaurants/RestaurantMap";
+import RestaurantContainers from "../../components/restaurant/containers/RestaurantContainers";
 
 function Restaurants() {
   const router = useRouter();
@@ -16,7 +17,8 @@ function Restaurants() {
       </Head>
       
         {/* 이미지 */}
-        <RestaurantDetail params={params} />
+        <RestaurantContainers params={params} />
+        {/* <RestaurantDetail params={params} /> */}
     </div>
   );
 }
