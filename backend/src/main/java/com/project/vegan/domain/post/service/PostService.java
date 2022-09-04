@@ -24,15 +24,26 @@ public class PostService {
     private final PostRepository postRepository;
     private final HashTagRepository hashTagRepository;
 
-    public List<SimplePostDto> getPosts(){
+    public List<SimplePostDto> getPosts(String hashTag){
         List<HashTag> hashTags = hashTagRepository.findAllFetch();
 
-        /**
-         * 쿼리가 계속 나가지 않도록
-         * hashTagRepository.findByPost 을 쓰지않고
-         * stream 으로 처리에서 넣어줌
-         */
-        return postRepository.findAllFetch()
+        if(hashTag == null || hashTag.isBlank()){
+            /**
+             * 쿼리가 계속 나가지 않도록
+             * hashTagRepository.findByPost 을 쓰지않고
+             * stream 으로 처리에서 넣어줌
+             */
+            return postRepository.findAllFetch()
+                    .stream()
+                    .map(p -> new SimplePostDto(p, hashTags
+                            .stream()
+                            .filter(h -> h.getPost().getId() == p.getId())
+                            .distinct()
+                            .collect(Collectors.toList())))
+                    .collect(Collectors.toList());
+        }
+
+        return postRepository.findByHashTag(hashTag)
                 .stream()
                 .map(p -> new SimplePostDto(p, hashTags
                         .stream()

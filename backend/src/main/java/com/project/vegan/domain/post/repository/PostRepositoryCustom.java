@@ -7,4 +7,5 @@ import java.util.List;
 public interface PostRepositoryCustom {
     List<Post> findAllFetch();
     Post findByIdFetch(Long postId);
+    List<Post> findByHashTag(String hashTag);
 }
