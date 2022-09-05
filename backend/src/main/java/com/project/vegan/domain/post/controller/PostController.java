@@ -6,9 +6,12 @@ import com.project.vegan.domain.post.response.DetailPostDto;
 import com.project.vegan.domain.post.response.SimplePostDto;
 import com.project.vegan.domain.post.service.PostService;
 import com.project.vegan.global.security.annotation.LoginMember;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,14 +31,19 @@ public class PostController {
         return postService.getPosts(hashTag);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("게시글 저장")
     @PostMapping("/post")
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
+    })
     public DetailPostDto post(@Validated @RequestBody PostSaveRequest postSaveRequest,
                               @LoginMember Member member){
         return postService.post(postSaveRequest, member);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("게시글 상세 조회")
     @GetMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
@@ -43,18 +51,26 @@ public class PostController {
         return postService.getPost(postId);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("게시글 수정")
     @PostMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
+    })
     public DetailPostDto updatePost(@PathVariable("postId") Long postId,
                                     @Validated @RequestBody PostSaveRequest postSaveRequest,
                                     @LoginMember Member member){
         return postService.update(postSaveRequest, member, postId);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("게시글 삭제")
     @DeleteMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
+    })
     public void deletePost(@PathVariable("postId") Long postId,
                            @LoginMember Member member){
         postService.delete(postId, member);
