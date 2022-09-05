@@ -1,17 +1,18 @@
 import React from 'react';
-import MainMenu from './MainMenu';
 import Nav from './Nav';
+import SubMenu from './SubMenu';
 
-function MainLayout({children}) {
+function SubLayout({children}) {
     return (
         <div>
             <Nav />
             <div className='my-10'>
             {children}
             </div>
-            <MainMenu />
+            
+            <SubMenu />
         </div>
     );
 }
 
-export default MainLayout;
+export default SubLayout;

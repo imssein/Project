@@ -10,7 +10,7 @@ import {
 } from "react-icons/ai";
 import AuthService from "../../services/auth.service";
 
-function Footer(props) {
+function MainMenu(props) {
   const [ isLoggedIn, setIsLoggedIn] = useState(undefined);
 
   useEffect(() => {
@@ -35,16 +35,16 @@ function Footer(props) {
           <p className="text-xs text-center pt-2">피드</p>
         </div>
       </Link>
-      <Link href="/foodRecord">
+      <Link href="/writeDiet">
         <div>
           <AiOutlinePlusCircle className="mx-auto" size="20" />
           <p className="text-xs text-center pt-2">식단기록</p>
         </div>
       </Link>
-      <Link href="/nearbySearch">
+      <Link href="/dietPage">
         <div>
-          <AiOutlineSearch size="20" />
-          <p className="text-xs text-center pt-2">검색</p>
+          <AiOutlineCalendar size="20" />
+          <p className="text-xs text-center pt-2">식단</p>
         </div>
       </Link>
       {isLoggedIn ? (
@@ -66,4 +66,4 @@ function Footer(props) {
   );
 }
 
-export default Footer;
+export default MainMenu;

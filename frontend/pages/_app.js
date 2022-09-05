@@ -1,15 +1,14 @@
 import MainLayout from "../components/common/MainLayout";
 import "../styles/globals.css";
-import wrapper from '../store/configureStore';
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div className="pt-4 md: max-w-2xl md:mx-auto">
-      <MainLayout>
+    <Provider store={store}>
         <Component {...pageProps} />
-      </MainLayout>
-    </div>
+    </Provider>
   );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;
