@@ -1,5 +1,6 @@
 package com.project.vegan.domain.review.entity;
 
+import com.project.vegan.domain.common.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "review_uploadfile")
-public class ReviewUploadFile {
+public class ReviewUploadFile extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_uploadfile_id")
     private Long id;

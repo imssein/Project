@@ -1,5 +1,6 @@
 package com.project.vegan.domain.post.entity;
 
+import com.project.vegan.domain.common.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "post_uploadfile")
-public class PostUploadFile {
+public class PostUploadFile extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_uploadfile_id")

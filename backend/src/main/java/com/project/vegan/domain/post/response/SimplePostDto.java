@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class SimplePostDto {
     private String title;
     private String content;
     private MemberDto member;
-    private List<HashTagDto> hashTags;
+    private List<HashTagDto> hashTags = new ArrayList<>();
     @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime createdTime;
     @JsonFormat(pattern = "yyyy년 MM월 dd일")

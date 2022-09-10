@@ -1,17 +1,17 @@
 package com.project.vegan.domain.store.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.project.vegan.domain.store.entity.Category;
-import com.project.vegan.domain.store.entity.District;
-import com.project.vegan.domain.store.entity.Store;
-import com.project.vegan.domain.store.entity.VegetarianType;
+import com.project.vegan.domain.common.dto.UploadFileDto;
+import com.project.vegan.domain.store.entity.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
@@ -27,14 +27,15 @@ public class StoreDto {
     private Integer likesNum;
     private Integer reviewCount;
     private String vegetarianTypes;
-    private List<Double> coords;
+    private List<UploadFileDto> uploadFiles = new ArrayList<>();
+    private List<Double> coords = new ArrayList<>();
     @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime createdTime;
     @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime modifiedTime;
 
     @Builder
-    public StoreDto(Store store, List<VegetarianType> vegetarianTypes) {
+    public StoreDto(Store store, List<VegetarianType> vegetarianTypes, List<StoreUploadFile> uploadFiles) {
         this.id = store.getId();
         this.name = store.getName();
         this.category = store.getCategory();
@@ -45,6 +46,7 @@ public class StoreDto {
         this.likesNum = store.getLikesNum();
         this.reviewCount = store.getReviews().size();
         this.vegetarianTypes = getStringFromVegetarianTypes(vegetarianTypes);
+        this.uploadFiles = uploadFiles.stream().map(UploadFileDto::new).collect(Collectors.toList());
         this.coords = List.of(store.getX(), store.getY());
         this.createdTime = store.getCreatedTime();
         this.modifiedTime = store.getModifiedTime();
