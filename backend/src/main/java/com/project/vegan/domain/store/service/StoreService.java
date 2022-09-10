@@ -1,9 +1,11 @@
 package com.project.vegan.domain.store.service;
 
 import com.project.vegan.domain.store.entity.Store;
+import com.project.vegan.domain.store.entity.StoreUploadFile;
 import com.project.vegan.domain.store.entity.VegetarianType;
 import com.project.vegan.domain.store.repository.MenuRepository;
 import com.project.vegan.domain.store.repository.StoreRepository;
+import com.project.vegan.domain.store.repository.StoreUploadFileRepository;
 import com.project.vegan.domain.store.repository.VegetarianTypeRepository;
 import com.project.vegan.domain.store.response.StoreDetailDto;
 import com.project.vegan.domain.store.response.StoreDto;
@@ -21,10 +23,11 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final VegetarianTypeRepository vegetarianTypeRepository;
     private final MenuRepository menuRepository;
+    private final StoreUploadFileRepository storeUploadFileRepository;
 
-    public List<StoreDto> getStores(){
+    public List<StoreDto> getStores() {
         List<VegetarianType> vegetarianTypes = vegetarianTypeRepository.findAllFetch();
-
+        List<StoreUploadFile> uploadFiles = storeUploadFileRepository.findAllFetch();
         /**
          * 쿼리가 계속 나가지 않도록
          * vegetarianTypeRepository.findByStore 을 쓰지않고
@@ -32,11 +35,17 @@ public class StoreService {
          */
         return storeRepository.findAllFetch()
                 .stream()
-                .map(s -> new StoreDto(s, vegetarianTypes
-                        .stream()
-                        .filter(v -> v.getStore().getId() == s.getId())
-                        .distinct()
-                        .collect(Collectors.toList())))
+                .map(s -> new StoreDto(s,
+                        vegetarianTypes
+                                .stream()
+                                .filter(v -> v.getStore().getId() == s.getId())
+                                .distinct()
+                                .collect(Collectors.toList()),
+                        uploadFiles
+                                .stream()
+                                .filter(u -> u.getStore().getId() == s.getId())
+                                .distinct()
+                                .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
 
@@ -46,6 +55,7 @@ public class StoreService {
                                            String sorted,
                                            String query){
         List<VegetarianType> vegetarianTypeList = vegetarianTypeRepository.findAllFetch();
+        List<StoreUploadFile> uploadFiles = storeUploadFileRepository.findAllFetch();
 
         /**
          * 쿼리가 계속 나가지 않도록
@@ -54,11 +64,17 @@ public class StoreService {
          */
         return storeRepository.findAllFetchByParams(categories, vegetarianTypes, district, sorted, query)
                 .stream()
-                .map(s -> new StoreDto(s, vegetarianTypeList
-                        .stream()
-                        .filter(v -> v.getStore().getId() == s.getId())
-                        .distinct()
-                        .collect(Collectors.toList())))
+                .map(s -> new StoreDto(s,
+                        vegetarianTypeList
+                                .stream()
+                                .filter(v -> v.getStore().getId() == s.getId())
+                                .distinct()
+                                .collect(Collectors.toList()),
+                        uploadFiles
+                                .stream()
+                                .filter(u -> u.getStore().getId() == s.getId())
+                                .distinct()
+                                .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
 
@@ -67,6 +83,7 @@ public class StoreService {
 
         return new StoreDetailDto(store,
                 vegetarianTypeRepository.findByStore(store),
-                menuRepository.findByStore(store));
+                menuRepository.findByStore(store),
+                storeUploadFileRepository.findByStore(store));
     }
 }

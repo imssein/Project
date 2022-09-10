@@ -1,5 +1,6 @@
 package com.project.vegan.global.error;
 
+import com.project.vegan.domain.common.exception.FileUploadException;
 import com.project.vegan.domain.member.exception.MemberDuplicateException;
 import com.project.vegan.domain.member.exception.PasswordMismatchException;
 import com.project.vegan.global.error.dto.ErrorResult;
@@ -75,5 +76,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     protected ErrorResult handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
         return new ErrorResult("405", "HttpMethod Error!");
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler
+    protected ErrorResult handleFileUploadException(FileUploadException e){
+        return new ErrorResult("500", "FileUpload Error!");
     }
 }

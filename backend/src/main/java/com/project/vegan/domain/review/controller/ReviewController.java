@@ -3,14 +3,12 @@ package com.project.vegan.domain.review.controller;
 import com.project.vegan.domain.member.entity.Member;
 import com.project.vegan.domain.review.request.ReviewSaveRequest;
 import com.project.vegan.domain.review.response.ReviewDto;
-import com.project.vegan.domain.review.response.ReviewSaveResponse;
 import com.project.vegan.domain.review.service.ReviewService;
 import com.project.vegan.global.security.annotation.LoginMember;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
@@ -40,7 +38,7 @@ public class ReviewController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
     })
-    public ReviewSaveResponse review(@PathVariable("storeId") Long storeId,
+    public ReviewDto review(@PathVariable("storeId") Long storeId,
                                      @RequestBody @Validated ReviewSaveRequest reviewSaveRequest,
                                      @LoginMember Member member) {
         return reviewService.save(reviewSaveRequest, member, storeId);

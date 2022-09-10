@@ -1,10 +1,12 @@
 package com.project.vegan.domain.post.service;
 
+import com.project.vegan.domain.common.service.UploadFileService;
 import com.project.vegan.domain.member.entity.Member;
 import com.project.vegan.domain.post.entity.HashTag;
 import com.project.vegan.domain.post.entity.Post;
 import com.project.vegan.domain.post.repository.HashTagRepository;
 import com.project.vegan.domain.post.repository.PostRepository;
+import com.project.vegan.domain.post.repository.PostUploadFileRepository;
 import com.project.vegan.domain.post.request.PostSaveRequest;
 import com.project.vegan.domain.post.response.DetailPostDto;
 import com.project.vegan.domain.post.response.SimplePostDto;
@@ -17,12 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.project.vegan.domain.common.service.UploadFileTypeConstants.DIET_TYPE;
+import static com.project.vegan.domain.common.service.UploadFileTypeConstants.POST_TYPE;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class PostService {
     private final PostRepository postRepository;
     private final HashTagRepository hashTagRepository;
+    private final PostUploadFileRepository postUploadFileRepository;
+    private final UploadFileService uploadFileService;
 
     public List<SimplePostDto> getPosts(String hashTag){
         List<HashTag> hashTags = hashTagRepository.findAllFetch();
@@ -56,7 +63,7 @@ public class PostService {
     public DetailPostDto getPost(Long postId){
         Post post = postRepository.findByIdFetch(postId);
 
-        return new DetailPostDto(post, hashTagRepository.findByPost(post));
+        return new DetailPostDto(post, hashTagRepository.findByPost(post), postUploadFileRepository.findByPost(post));
     }
 
     public DetailPostDto post(PostSaveRequest postSaveRequest, Member member){
@@ -75,7 +82,11 @@ public class PostService {
         List<HashTag> hashTags = getHashTagList(postSaveRequest.getHashTags(), post);
         hashTagRepository.saveAll(hashTags);
 
-        return new DetailPostDto(save, hashTags);
+        postSaveRequest.getMultipartFiles()
+                .stream()
+                .forEach(f -> uploadFileService.saveFile(f, POST_TYPE, save.getId()));
+
+        return new DetailPostDto(save, hashTags, postUploadFileRepository.findByPost(save));
     }
 
     public DetailPostDto update(PostSaveRequest postSaveRequest, Member member, Long postId){
@@ -96,7 +107,13 @@ public class PostService {
         List<HashTag> hashTags = getHashTagList(postSaveRequest.getHashTags(), post);
         hashTagRepository.saveAll(hashTags);
 
-        return new DetailPostDto(post, hashTags);
+        postUploadFileRepository.deleteAll(postUploadFileRepository.findByPost(post));
+
+        postSaveRequest.getMultipartFiles()
+                .stream()
+                .forEach(f -> uploadFileService.saveFile(f, POST_TYPE, post.getId()));
+
+        return new DetailPostDto(post, hashTags, postUploadFileRepository.findByPost(post));
     }
 
     public void delete(Long postId, Member member){
@@ -111,6 +128,7 @@ public class PostService {
         }
 
         hashTagRepository.deleteAll(hashTagRepository.findByPost(post));
+        postUploadFileRepository.deleteAll(postUploadFileRepository.findByPost(post));
 
         postRepository.delete(post);
     }

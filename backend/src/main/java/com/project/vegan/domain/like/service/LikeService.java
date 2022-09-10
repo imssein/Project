@@ -8,9 +8,11 @@ import com.project.vegan.domain.member.entity.Member;
 import com.project.vegan.domain.post.entity.Post;
 import com.project.vegan.domain.post.repository.HashTagRepository;
 import com.project.vegan.domain.post.repository.PostRepository;
+import com.project.vegan.domain.post.repository.PostUploadFileRepository;
 import com.project.vegan.domain.store.entity.Store;
 import com.project.vegan.domain.store.repository.MenuRepository;
 import com.project.vegan.domain.store.repository.StoreRepository;
+import com.project.vegan.domain.store.repository.StoreUploadFileRepository;
 import com.project.vegan.domain.store.repository.VegetarianTypeRepository;
 import com.project.vegan.global.exception.ForbiddenException;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,8 @@ public class LikeService {
     private final MenuRepository menuRepository;
     private final PostRepository postRepository;
     private final HashTagRepository hashTagRepository;
+    private final PostUploadFileRepository postUploadFileRepository;
+    private final StoreUploadFileRepository storeUploadFileRepository;
 
     public List<?> getLikes(String type, Member member){
         return likeRepository.findByMemberFetch(member)
@@ -55,9 +59,14 @@ public class LikeService {
     private Function<Like, Object> getLikeObjectFunction(String type) {
         return l -> {
             if (type.equals("post")) {
-                return new LikePostDto(l, hashTagRepository.findByPost(l.getPost()));
+                return new LikePostDto(l,
+                        hashTagRepository.findByPost(l.getPost()),
+                        postUploadFileRepository.findByPost(l.getPost()));
             } else if (type.equals("store")) {
-                return new LikeStoreDto(l, vegetarianTypeRepository.findByStore(l.getStore()), menuRepository.findByStore(l.getStore()));
+                return new LikeStoreDto(l,
+                        vegetarianTypeRepository.findByStore(l.getStore()),
+                        menuRepository.findByStore(l.getStore()),
+                        storeUploadFileRepository.findByStore(l.getStore()));
             }
             throw new IllegalArgumentException();
         };
@@ -96,7 +105,9 @@ public class LikeService {
 
             Like save = likeRepository.save(like);
 
-            return new LikePostDto(save, hashTagRepository.findByPost(post));
+            return new LikePostDto(save,
+                    hashTagRepository.findByPost(post),
+                    postUploadFileRepository.findByPost(post));
         }else if(type.equals("store")){
             Store store = storeRepository.findByIdFetch(id);
 
@@ -113,7 +124,8 @@ public class LikeService {
 
             return new LikeStoreDto(save,
                     vegetarianTypeRepository.findByStore(store),
-                    menuRepository.findByStore(store));
+                    menuRepository.findByStore(store),
+                    storeUploadFileRepository.findByStore(store));
         }
 
         throw new IllegalArgumentException();

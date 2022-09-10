@@ -1,6 +1,7 @@
 package com.project.vegan.domain.store.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.vegan.domain.common.dto.UploadFileDto;
 import com.project.vegan.domain.review.response.ReviewDto;
 import com.project.vegan.domain.store.entity.*;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,15 +29,15 @@ public class StoreDetailDto {
     private Integer reviewCount;
     private String vegetarianTypes;
     private String menus;
-    private List<ReviewDto> reviews;
-    private List<Double> coords;
+    private List<UploadFileDto> uploadFiles = new ArrayList<>();
+    private List<Double> coords = new ArrayList<>();
     @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime createdTime;
     @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime modifiedTime;
 
     @Builder
-    public StoreDetailDto(Store store, List<VegetarianType> vegetarianTypes, List<Menu> menus) {
+    public StoreDetailDto(Store store, List<VegetarianType> vegetarianTypes, List<Menu> menus, List<StoreUploadFile> uploadFiles) {
         this.id = store.getId();
         this.name = store.getName();
         this.category = store.getCategory();
@@ -47,11 +49,7 @@ public class StoreDetailDto {
         this.reviewCount = store.getReviews().size();
         this.vegetarianTypes = getStringFromVegetarianTypes(vegetarianTypes);
         this.menus = getStringFromMenus(menus);
-        // 지연로딩예외 조심하자
-        this.reviews = store.getReviews()
-                .stream()
-                .map(ReviewDto::new)
-                .collect(Collectors.toList());
+        this.uploadFiles = uploadFiles.stream().map(UploadFileDto::new).collect(Collectors.toList());
         this.coords = List.of(store.getX(), store.getY());
         this.createdTime = store.getCreatedTime();
         this.modifiedTime = store.getModifiedTime();

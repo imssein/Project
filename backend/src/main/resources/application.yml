@@ -36,4 +36,4 @@ JWT:
       VALIDITY: 6000000 # 100?
 
 file:
-  dir: C:\Users\Yanglet\vegan_pleasure_images\
+  dir: /Users/sein/Documents/veganimg/
