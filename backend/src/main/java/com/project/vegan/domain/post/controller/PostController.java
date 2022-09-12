@@ -1,6 +1,7 @@
 package com.project.vegan.domain.post.controller;
 
 import com.project.vegan.domain.member.entity.Member;
+import com.project.vegan.domain.post.request.PostRequest;
 import com.project.vegan.domain.post.request.PostSaveRequest;
 import com.project.vegan.domain.post.response.DetailPostDto;
 import com.project.vegan.domain.post.response.SimplePostDto;
@@ -11,9 +12,11 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -33,14 +36,18 @@ public class PostController {
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("게시글 저장")
-    @PostMapping("/post")
+    @PostMapping(value = "/post", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
     })
-    public DetailPostDto post(@Validated @RequestBody PostSaveRequest postSaveRequest,
+    public DetailPostDto post(@Validated @RequestPart(value = "requestData") PostRequest requestData,
+                              @RequestPart(value = "requestFiles", required = false) List<MultipartFile> requestFiles,
                               @LoginMember Member member){
-        return postService.post(postSaveRequest, member);
+        return postService.post(new PostSaveRequest(requestData.getTitle(),
+                requestData.getContent(),
+                requestData.getHashTags(),
+                requestFiles), member);
     }
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
@@ -53,15 +60,19 @@ public class PostController {
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("게시글 수정")
-    @PostMapping("/{postId}")
+    @PostMapping(value = "/{postId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ResponseStatus(HttpStatus.OK)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
     })
     public DetailPostDto updatePost(@PathVariable("postId") Long postId,
-                                    @Validated @RequestBody PostSaveRequest postSaveRequest,
+                                    @Validated @RequestPart(value = "requestData") PostRequest requestData,
+                                    @RequestPart(value = "requestFiles", required = false) List<MultipartFile> requestFiles,
                                     @LoginMember Member member){
-        return postService.update(postSaveRequest, member, postId);
+        return postService.update(new PostSaveRequest(requestData.getTitle(),
+                requestData.getContent(),
+                requestData.getHashTags(),
+                requestFiles), member, postId);
     }
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})

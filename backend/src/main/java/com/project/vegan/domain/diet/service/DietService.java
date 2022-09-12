@@ -99,7 +99,9 @@ public class DietService {
             throw new ForbiddenException();
         }
 
-        dietUploadFileRepository.deleteAll(dietUploadFileRepository.findByDiet(diet));
+        if(dietUploadFileRepository.existsByDiet(diet)){
+            dietUploadFileRepository.deleteAll(dietUploadFileRepository.findByDiet(diet));
+        }
 
         dietRepository.delete(diet);
     }

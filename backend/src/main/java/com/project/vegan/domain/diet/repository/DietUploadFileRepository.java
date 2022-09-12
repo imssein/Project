@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface DietUploadFileRepository extends JpaRepository<DietUploadFile, Long>, DietUploadFileRepositoryCustom {
     List<DietUploadFile> findByDiet(Diet diet);
+    boolean existsByDiet(Diet diet);
 }
