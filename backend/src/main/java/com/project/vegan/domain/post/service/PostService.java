@@ -128,7 +128,10 @@ public class PostService {
         }
 
         hashTagRepository.deleteAll(hashTagRepository.findByPost(post));
-        postUploadFileRepository.deleteAll(postUploadFileRepository.findByPost(post));
+
+        if(postUploadFileRepository.existsByPost(post)){
+            postUploadFileRepository.deleteAll(postUploadFileRepository.findByPost(post));
+        }
 
         postRepository.delete(post);
     }

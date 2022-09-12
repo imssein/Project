@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ReviewUploadFileRepository extends JpaRepository<ReviewUploadFile, Long>, ReviewUploadFileRepositoryCustom {
     List<ReviewUploadFile> findByReview(Review review);
+    boolean existsByReview(Review review);
 }

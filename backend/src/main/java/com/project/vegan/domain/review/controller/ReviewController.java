@@ -1,6 +1,7 @@
 package com.project.vegan.domain.review.controller;
 
 import com.project.vegan.domain.member.entity.Member;
+import com.project.vegan.domain.review.request.ReviewRequest;
 import com.project.vegan.domain.review.request.ReviewSaveRequest;
 import com.project.vegan.domain.review.response.ReviewDto;
 import com.project.vegan.domain.review.service.ReviewService;
@@ -10,9 +11,11 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -33,15 +36,17 @@ public class ReviewController {
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("리뷰 작성")
-    @PostMapping("/{storeId}/review")
+    @PostMapping(value = "/{storeId}/review", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
     })
     public ReviewDto review(@PathVariable("storeId") Long storeId,
-                                     @RequestBody @Validated ReviewSaveRequest reviewSaveRequest,
-                                     @LoginMember Member member) {
-        return reviewService.save(reviewSaveRequest, member, storeId);
+                            @Validated @RequestPart("requestData") ReviewRequest requestData,
+                            @RequestPart(value = "requestFiles", required = false) List<MultipartFile> requestFiles,
+                            @LoginMember Member member) {
+        return reviewService.save(new ReviewSaveRequest(requestData.getStarRating(),
+                requestData.getContent(), requestFiles), member, storeId);
     }
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
@@ -54,16 +59,18 @@ public class ReviewController {
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("리뷰 수정")
-    @PostMapping("/{storeId}/{reviewId}")
+    @PostMapping(value = "/{storeId}/{reviewId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ResponseStatus(HttpStatus.OK)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
     })
     public ReviewDto updateReview(@PathVariable("storeId") Long storeId,
                                   @PathVariable("reviewId") Long reviewId,
-                                  @RequestBody @Validated ReviewSaveRequest reviewSaveRequest,
+                                  @Validated @RequestPart("requestData") ReviewRequest requestData,
+                                  @RequestPart(value = "requestFiles", required = false) List<MultipartFile> requestFiles,
                                   @LoginMember Member member){
-        return reviewService.update(reviewSaveRequest, member, storeId, reviewId);
+        return reviewService.update(new ReviewSaveRequest(requestData.getStarRating(),
+                requestData.getContent(), requestFiles), member, storeId, reviewId);
     }
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})

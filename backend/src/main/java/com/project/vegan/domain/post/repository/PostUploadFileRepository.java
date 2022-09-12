@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PostUploadFileRepository extends JpaRepository<PostUploadFile, Long>, PostUploadFileRepositoryCustom {
     List<PostUploadFile> findByPost(Post post);
+    boolean existsByPost(Post post);
 }

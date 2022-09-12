@@ -108,7 +108,9 @@ public class ReviewService {
             throw new ForbiddenException();
         }
 
-        reviewUploadFileRepository.deleteAll(reviewUploadFileRepository.findByReview(review));
+        if(reviewUploadFileRepository.existsByReview(review)){
+            reviewUploadFileRepository.deleteAll(reviewUploadFileRepository.findByReview(review));
+        }
 
         reviewRepository.delete(review);
     }
