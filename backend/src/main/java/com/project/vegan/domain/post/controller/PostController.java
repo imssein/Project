@@ -3,8 +3,7 @@ package com.project.vegan.domain.post.controller;
 import com.project.vegan.domain.member.entity.Member;
 import com.project.vegan.domain.post.request.PostRequest;
 import com.project.vegan.domain.post.request.PostSaveRequest;
-import com.project.vegan.domain.post.response.DetailPostDto;
-import com.project.vegan.domain.post.response.SimplePostDto;
+import com.project.vegan.domain.post.response.PostDto;
 import com.project.vegan.domain.post.service.PostService;
 import com.project.vegan.global.security.annotation.LoginMember;
 import io.swagger.annotations.ApiImplicitParam;
@@ -30,7 +29,7 @@ public class PostController {
     @ApiOperation("게시글 목록 조회")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<SimplePostDto> getPosts(@RequestParam(name = "hashTag", required = false) String hashTag){
+    public List<PostDto> getPosts(@RequestParam(name = "hashTag", required = false) String hashTag){
         return postService.getPosts(hashTag);
     }
 
@@ -41,9 +40,9 @@ public class PostController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
     })
-    public DetailPostDto post(@Validated @RequestPart(value = "requestData") PostRequest requestData,
-                              @RequestPart(value = "requestFiles", required = false) List<MultipartFile> requestFiles,
-                              @LoginMember Member member){
+    public PostDto post(@Validated @RequestPart(value = "requestData") PostRequest requestData,
+                        @RequestPart(value = "requestFiles", required = false) List<MultipartFile> requestFiles,
+                        @LoginMember Member member){
         return postService.post(new PostSaveRequest(requestData.getTitle(),
                 requestData.getContent(),
                 requestData.getHashTags(),
@@ -54,7 +53,7 @@ public class PostController {
     @ApiOperation("게시글 상세 조회")
     @GetMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public DetailPostDto getPost(@PathVariable("postId") Long postId){
+    public PostDto getPost(@PathVariable("postId") Long postId){
         return postService.getPost(postId);
     }
 
@@ -65,10 +64,10 @@ public class PostController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
     })
-    public DetailPostDto updatePost(@PathVariable("postId") Long postId,
-                                    @Validated @RequestPart(value = "requestData") PostRequest requestData,
-                                    @RequestPart(value = "requestFiles", required = false) List<MultipartFile> requestFiles,
-                                    @LoginMember Member member){
+    public PostDto updatePost(@PathVariable("postId") Long postId,
+                              @Validated @RequestPart(value = "requestData") PostRequest requestData,
+                              @RequestPart(value = "requestFiles", required = false) List<MultipartFile> requestFiles,
+                              @LoginMember Member member){
         return postService.update(new PostSaveRequest(requestData.getTitle(),
                 requestData.getContent(),
                 requestData.getHashTags(),
