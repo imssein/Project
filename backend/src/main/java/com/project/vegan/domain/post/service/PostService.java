@@ -4,12 +4,12 @@ import com.project.vegan.domain.common.service.UploadFileService;
 import com.project.vegan.domain.member.entity.Member;
 import com.project.vegan.domain.post.entity.HashTag;
 import com.project.vegan.domain.post.entity.Post;
+import com.project.vegan.domain.post.entity.PostUploadFile;
 import com.project.vegan.domain.post.repository.HashTagRepository;
 import com.project.vegan.domain.post.repository.PostRepository;
 import com.project.vegan.domain.post.repository.PostUploadFileRepository;
 import com.project.vegan.domain.post.request.PostSaveRequest;
-import com.project.vegan.domain.post.response.DetailPostDto;
-import com.project.vegan.domain.post.response.SimplePostDto;
+import com.project.vegan.domain.post.response.PostDto;
 import com.project.vegan.global.exception.ForbiddenException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.project.vegan.domain.common.service.UploadFileTypeConstants.DIET_TYPE;
 import static com.project.vegan.domain.common.service.UploadFileTypeConstants.POST_TYPE;
 
 @Service
@@ -31,10 +30,11 @@ public class PostService {
     private final PostUploadFileRepository postUploadFileRepository;
     private final UploadFileService uploadFileService;
 
-    public List<SimplePostDto> getPosts(String hashTag){
+    public List<PostDto> getPosts(String hashTag) {
         List<HashTag> hashTags = hashTagRepository.findAllFetch();
+        List<PostUploadFile> uploadFiles = postUploadFileRepository.findAllFetch();
 
-        if(hashTag == null || hashTag.isBlank()){
+        if (hashTag == null || hashTag.isBlank()) {
             /**
              * 쿼리가 계속 나가지 않도록
              * hashTagRepository.findByPost 을 쓰지않고
@@ -42,31 +42,43 @@ public class PostService {
              */
             return postRepository.findAllFetch()
                     .stream()
-                    .map(p -> new SimplePostDto(p, hashTags
-                            .stream()
-                            .filter(h -> h.getPost().getId() == p.getId())
-                            .distinct()
-                            .collect(Collectors.toList())))
+                    .map(p -> new PostDto(p,
+                            hashTags
+                                    .stream()
+                                    .filter(h -> h.getPost().getId() == p.getId())
+                                    .distinct()
+                                    .collect(Collectors.toList()),
+                            uploadFiles
+                                    .stream()
+                                    .filter(u -> u.getPost().getId() == p.getId())
+                                    .distinct()
+                                    .collect(Collectors.toList())))
                     .collect(Collectors.toList());
         }
 
         return postRepository.findByHashTag(hashTag)
                 .stream()
-                .map(p -> new SimplePostDto(p, hashTags
-                        .stream()
-                        .filter(h -> h.getPost().getId() == p.getId())
-                        .distinct()
-                        .collect(Collectors.toList())))
+                .map(p -> new PostDto(p,
+                        hashTags
+                                .stream()
+                                .filter(h -> h.getPost().getId() == p.getId())
+                                .distinct()
+                                .collect(Collectors.toList()),
+                        uploadFiles
+                                .stream()
+                                .filter(u -> u.getPost().getId() == p.getId())
+                                .distinct()
+                                .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
 
-    public DetailPostDto getPost(Long postId){
+    public PostDto getPost(Long postId){
         Post post = postRepository.findByIdFetch(postId);
 
-        return new DetailPostDto(post, hashTagRepository.findByPost(post), postUploadFileRepository.findByPost(post));
+        return new PostDto(post, hashTagRepository.findByPost(post), postUploadFileRepository.findByPost(post));
     }
 
-    public DetailPostDto post(PostSaveRequest postSaveRequest, Member member){
+    public PostDto post(PostSaveRequest postSaveRequest, Member member){
         if(member == null){
             throw new ForbiddenException();
         }
@@ -86,10 +98,10 @@ public class PostService {
                 .stream()
                 .forEach(f -> uploadFileService.saveFile(f, POST_TYPE, save.getId()));
 
-        return new DetailPostDto(save, hashTags, postUploadFileRepository.findByPost(save));
+        return new PostDto(save, hashTags, postUploadFileRepository.findByPost(save));
     }
 
-    public DetailPostDto update(PostSaveRequest postSaveRequest, Member member, Long postId){
+    public PostDto update(PostSaveRequest postSaveRequest, Member member, Long postId){
         if(member == null){
             throw new ForbiddenException();
         }
@@ -113,7 +125,7 @@ public class PostService {
                 .stream()
                 .forEach(f -> uploadFileService.saveFile(f, POST_TYPE, post.getId()));
 
-        return new DetailPostDto(post, hashTags, postUploadFileRepository.findByPost(post));
+        return new PostDto(post, hashTags, postUploadFileRepository.findByPost(post));
     }
 
     public void delete(Long postId, Member member){

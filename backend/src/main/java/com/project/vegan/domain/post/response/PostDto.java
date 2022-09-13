@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DetailPostDto {
+public class PostDto {
     private Long id;
     private String title;
     private String content;
@@ -30,7 +30,7 @@ public class DetailPostDto {
     @JsonFormat(pattern = "yyyy년 MM월 dd일")
     private LocalDateTime modifiedTime;
 
-    public DetailPostDto(Post post, List<HashTag> hashTags, List<PostUploadFile> uploadFiles) {
+    public PostDto(Post post, List<HashTag> hashTags, List<PostUploadFile> uploadFiles) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
