@@ -49,7 +49,6 @@ public class ReviewController {
                 requestData.getContent(), requestFiles), member, storeId);
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("식당에 따른 리뷰 조회")
     @GetMapping("/{storeId}")
     @ResponseStatus(HttpStatus.OK)
