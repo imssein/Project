@@ -11,7 +11,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
 #    properties:
 #      hibernate:
@@ -36,5 +36,5 @@ JWT:
       VALIDITY: 6000000 # 100?
 
 file:
-  dir: /Users/sein/Documents/veganimg/
+  dir: C:\Users\Yanglet\vegan_pleasure_images\
 #  C:\Users\Yanglet\vegan_pleasure_images\

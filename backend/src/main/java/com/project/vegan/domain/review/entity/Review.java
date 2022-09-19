@@ -53,15 +53,21 @@ public class Review extends BaseEntity {
 
         review.getStore().changeStarRating(result);
 
+        System.out.println("starRating = " + result);
+
         return review;
     }
 
     private static Double calStarRating(Integer starRating, Review review) {
-        Double result = Double.valueOf(starRating);
+        Double result = 0.0;
 
         for(Review r : review.getStore().getReviews()){
             result += Double.valueOf(r.getStarRating());
         }
+
+        System.out.println("sum = " + result);
+        System.out.println("size = " + review.getStore().getReviews().size());
+        System.out.println("result = " + result / review.getStore().getReviews().size());
 
         return result / review.getStore().getReviews().size();
     }
