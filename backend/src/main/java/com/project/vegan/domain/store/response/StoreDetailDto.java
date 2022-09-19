@@ -44,7 +44,7 @@ public class StoreDetailDto {
         this.address = store.getAddress();
         this.district = store.getDistrict();
         this.phoneNumber = store.getPhoneNumber();
-        this.starRating = store.getStarRating();
+        this.starRating = Double.valueOf(String.format("%.1f", store.getStarRating()));
         this.likesNum = store.getLikesNum();
         this.reviewCount = store.getReviews().size();
         this.vegetarianTypes = getStringFromVegetarianTypes(vegetarianTypes);
