@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
@@ -17,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -29,8 +31,8 @@ public class DietController {
     @ApiOperation("식단 목록 조회")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<DietDto> getDiets(){
-        return dietService.getDiets();
+    public List<DietDto> getDiets(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'") LocalDateTime date){
+        return dietService.getDiets(date);
     }
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
