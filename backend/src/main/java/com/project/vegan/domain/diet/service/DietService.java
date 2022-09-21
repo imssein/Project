@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,8 +27,8 @@ public class DietService {
     private final DietUploadFileRepository dietUploadFileRepository;
     private final UploadFileService uploadFileService;
 
-    public List<DietDto> getDiets(){
-        return dietRepository.findAllFetch()
+    public List<DietDto> getDiets(LocalDateTime date){
+        return dietRepository.findAllFetch(date)
                 .stream()
                 .map(d -> new DietDto(d, dietUploadFileRepository.findAllFetch()
                         .stream()
