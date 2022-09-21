@@ -35,6 +35,6 @@ public class DietRepositoryImpl implements DietRepositoryCustom{
         if(localDateTime == null){
             return null;
         }
-        return diet.createdTime.between(localDateTime.plusDays(1), localDateTime.plusDays(2));
+        return diet.createdTime.between(localDateTime, localDateTime.plusDays(1));
     }
 }
