@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import EditForm from "../../components/review/EditForm";
-import MainLayout from "../../components/common/MainLayout";
+import MainLayout from "../../../components/common/MainLayout";
 import Head from "next/head";
 
 function EditReview(props) {
