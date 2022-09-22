@@ -32,7 +32,8 @@ const mapLists =  [
 
 function SeoulMap() {
     return (
-        <div className='flex justify-center py-6'>
+        <div className='flex justify-center my-6'>
+            <Image src="/images/seoul-map.gif" width="480" height="394" alt='서울 지도' useMap="#image-map"/>
             <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/seoul_map.gif"  useMap="#image-map" alt="서울시 지도" />
             <map name="image-map">
             {mapLists.map((item, index) => (

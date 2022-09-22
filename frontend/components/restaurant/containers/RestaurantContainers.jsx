@@ -4,8 +4,7 @@ import { getDetailThunk } from "../../../redux/modules/districts";
 import Restaurant from "../Restaurant";
 import RestaurantMap from "../RestaurantMap";
 import { getReviewThunk } from "../../../redux/modules/review";
-import Review from "../../review/Review";
-import Feed from "../../feed/Feed";
+import Review from "../../reviewComponent/Review";
 function RestaurantContainers({ params }) {
   const restaurant = useSelector((state) => state.districts.data);
   const posts = useSelector((state) => state.review.data);
@@ -20,7 +19,7 @@ function RestaurantContainers({ params }) {
   }, [dispatch, params]);
 
   return (
-    <div>
+    <div className="h-full bg-gray-4 px-9 py-4">
       <Restaurant restaurant={restaurant} getDetail={getDetail} />
       <RestaurantMap restaurant={restaurant} getDetail={getDetail} />
       <Review posts={posts} getPosts={getPosts} />

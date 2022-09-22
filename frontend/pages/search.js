@@ -10,17 +10,15 @@ function Search({ router: { query } }) {
   console.log("검색한것:", item);
 
   return (
-    <div className="pt-4 md: max-w-2xl md:mx-auto">
-      <MainLayout>
-        <div className="px-4">
+    <MainLayout>
           <Head>
             <title>VeganPleasure | 내주변</title>
           </Head>
+          <div className="px-4 bg-gray-4">
           <SearchMain />
           <GeolocationPrint query={item} />
         </div>
-      </MainLayout>
-    </div>
+    </MainLayout>
   );
 }
 

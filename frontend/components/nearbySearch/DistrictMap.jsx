@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
 import RestaurantsList from "./RestaurantsList";
 
-function DistrictMap({ content }) {
+function  DistrictMap({ content }) {
   const geolocation = useGeolocation();
   const [mapLoaded, setMapLoaded] = useState(false);
   const key = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
@@ -87,9 +87,7 @@ function DistrictMap({ content }) {
   }, [geolocation.latitude, geolocation.longitude, mapLoaded, content]);
   return (
     <div>
-      <div id="map" className="w-full h-80 mb-16"></div>
-      <RestaurantsList content={content} />
-
+      <div id="map" className="w-full h-80 mb-16 rounded-lg"></div>
     </div>
   );
 }

@@ -5,11 +5,12 @@ import KakaoMap from './KakaoMap';
 function SearchData({item}) {
     console.log("item:", item)
     const query = encodeURIComponent(item)
+    console.log("Search:", query)
     const [content, setContent] = useState({});
 
     useEffect(() => {
         if(query) {
-            axios.get(`http://localhost:9090/v1/api/stores/conditions?query=${item}`)
+            axios.get(`http://localhost:9090/v1/api/stores/conditions?query=${query}`)
                 .then(
                     (response) => {
                         setContent(response.data)
