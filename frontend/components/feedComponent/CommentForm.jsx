@@ -7,7 +7,7 @@ function CommentForm(props) {
     console.log(post.id, commentText);
   }, [commentText]);
   return (
-    <form onSubmit={onSubmitComment} className="my-4 flex">
+    <form onSubmit={onSubmitComment} className="mt-4 flex">
       <input
         value={commentText}
         onChange={onChangeCommentText}
