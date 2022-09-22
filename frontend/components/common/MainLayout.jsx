@@ -4,12 +4,15 @@ import Nav from './Nav';
 
 function MainLayout({children}) {
     return (
-        <div>
+        <div className='mx-auto max-w-2xl bg-gray-4 '>
             <Nav />
-            <div className='my-10'>
+            <div className='h-screen bg-gray-4'>
             {children}
             </div>
+            <div className='relative '>
             <MainMenu />
+
+            </div>
         </div>
     );
 }

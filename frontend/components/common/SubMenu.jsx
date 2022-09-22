@@ -1,8 +1,6 @@
 import Link from "next/link";
 import React, {useState, useEffect} from "react";
-import {
-  AiOutlineHome,
-  AiOutlineCalendar,
+import {  AiOutlineBulb,
   AiOutlinePlusCircle,
   AiOutlineSearch,
   AiOutlineUser,
@@ -22,40 +20,40 @@ function SubMenu(props) {
   }, []);
 
   return (
-    <footer className="flex justify-between px-4 py-3 fixed bottom-0 bg-slate-100 max-w-2xl w-full">
-      <Link href="/">
-        <div>
-          <AiOutlineHome size="20" />
-          <p className="text-xs text-center pt-2">홈</p>
-        </div>
-      </Link>
-      <Link href="/feedPage">
+    <footer className=" bg-white border-t border-t-gray-2 py-4 flex justify-around fixed bottom-0 bg-slate-100 max-w-2xl w-full text-text-green font-semibold">
+      <Link href="/feed">
         <div>
           <AiOutlineMessage className="mx-auto" size="20" />
           <p className="text-xs text-center pt-2">피드</p>
         </div>
       </Link>
-      <Link href="/writeFeed">
+      <Link href="/foodRecord">
         <div>
-          <AiOutlinePlusCircle className="mx-auto" size="20" />
-          <p className="text-xs text-center pt-2">피드추가</p>
+          <AiOutlineBulb size="20" className="mx-auto"/>
+          <p className="text-xs text-center pt-2 ">채식한끼</p>
         </div>
       </Link>
-      <Link href="/dietPage">
+      <Link href="/feed/post">
         <div>
-          <AiOutlineCalendar size="20" />
-          <p className="text-xs text-center pt-2">식단</p>
+          <AiOutlinePlusCircle className="" size="25" />
         </div>
       </Link>
+      <Link href="/search?query=내주변">
+        <div>
+          <AiOutlineSearch className="mx-auto" size="20" />
+          <p className="text-xs text-center pt-2">내주변</p>
+        </div>
+      </Link>
+     
       {isLoggedIn ? (
-        <Link href="/mypage">
+        <Link href="/user/mypage">
           <div>
             <AiOutlineUser className="mx-auto" size="20" />
             <p className="text-xs text-center pt-2">마이페이지</p>
           </div>
         </Link>
       ) : (
-        <Link href="/login">
+        <Link href="/user/login">
           <div>
             <AiOutlineUser className="mx-auto" size="20" />
             <p className="text-xs text-center pt-2">로그인</p>

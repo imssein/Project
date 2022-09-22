@@ -5,9 +5,15 @@ import store from "../redux/store";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
-        <Component {...pageProps} />
-    </Provider>
+    <div className=" mx-auto max-w-2xl bg-gray-4 h-full">
+    {/* <MainLayout> */}
+      <div className="">
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
+      </div>
+    {/* </MainLayout> */}
+    </div>
   );
 }
 
