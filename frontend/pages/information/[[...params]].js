@@ -79,10 +79,27 @@ function Information(props) {
           </div>
         </MainLayout>
       </div>
-    );
-  } else {
-    return <div>안뇽</div>;
-  }
+    ); 
+  } else if (params[0] === "ranking") {
+    return (
+      <div className="pt-4 md: max-w-2xl md:mx-auto">
+        <MainLayout>
+          <div className="px-6 py-6">
+            <Head>
+              <title>VeganPleasure | 채식 랭킹 안내</title>
+            </Head>
+            <div >
+              씨앗단계: 30개 이하
+              새싹단계: 60개 이하
+              열매단계: 120개 이하
+              나무단계: 120개 이상
+
+            </div>
+          </div>
+        </MainLayout>
+      </div>
+    ); 
+}
 }
 
 export default Information;

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import React from "react";
-import { IoLeafOutline, TbCheese, BsEggFried } from "react-icons/io5";
+import Link from "next/link";
+import React, {useState} from "react";
 
 const types = [
   {
@@ -28,24 +28,39 @@ const types = [
     title: "페스코",
     file: "pesco.png",
   },
-  {
-    id: 6,
-    title: "지향없음",
-    file: "close.png",
-  },
 ];
 function Vegetarian(props) {
+  const [item, setItem] = useState("");
+  const query = encodeURIComponent(item);
+
+  const searchItem = (e) => {
+    setItem(e.target.value);
+    console.log(item);
+  };
+
   return (
-    <div className="grid grid-cols-3 gap-3">
-      {types.map((type) => (
-        <div
-          key={type.id}
-          className="rounded-lg bg-gray-100 inline-block py-3 justify-center"
-        >
-          <Image src={`/images/${type.file}`} width={30} height={30} alt="채식타입그림"/>
-          <p className="text-xs">{type.title}</p>
-        </div>
-      ))}
+    <div className="mt-8 rounded-xl py-4 px-4 bg-white mx-9">
+      <div className="text-xl text-left  text-text-green font-semibold ">채식타입별 식당 추천</div>
+      <div className="mt-6 grid grid-cols-5 gap-3 place-content-around">
+        {types.map((type) => (
+          <Link
+           href={{ pathname: "/search", query: `${ type.title }` }}
+           as={`/search?query=${type.title}`}
+          key={type.id}>
+          <div onChange={searchItem}>
+            <div className="rounded-2xl bg-bg inline-block pt-2 pb-1 px-2  border-gray">
+              <Image
+                src={`/images/${type.file}`}
+                width={30}
+                height={30}
+                alt="채식타입그림"
+              />
+            </div>
+            <p className="text-xs mt-2">{type.title}</p>
+          </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

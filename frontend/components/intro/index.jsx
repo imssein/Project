@@ -1,32 +1,14 @@
 import React from "react";
-import SearchForm from "./SearchForm";
-import SeoulMap from "../seoulMap/SeoulMap";
 import Vegetarian from "./Vegetarian";
-import Menu from "./Menu";
-import Title from "./Title";
-import VegeInfoBtn from "./VeganGuide";
-import Information from "../information";
 import SearchMain from "../search/SearchMain";
 
 function Intro(props) {
   return (
-    <div className="px-4 py-8">
-      {/* 검색창 */}
+    <div className="mx-auto mb-32 bg-gray-4">
       <SearchMain />
-      {/* 사이트설명 */}
-      <Title
-        title="맛있는 채식 한끼"
-        description="지역을 클릭하면 해당 구의 채식 식당을 확인 할 수 있습니다."
-      />
-      {/* 지도 */}
-      <SeoulMap />
-      {/* 채식타입에 따른 식당 조회 */}
+      {/* <SeoulMap /> */}
       <Vegetarian />
-      {/* 사이트 기능 */}
-      <Menu />
-
-      {/* 채식 가이드 */}
-      <Information />
+      {/* 내주변 인기맛집 */}
     </div>
   );
 }
