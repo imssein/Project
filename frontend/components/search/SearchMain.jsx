@@ -12,7 +12,7 @@ function SearchMain() {
   };
   
   return (
-    <div className="py-9">
+    <div className="mt-5 ">
       <Link
         href={{ pathname: "/search", query: { query } }}
         as={`/search?query=${item}`}

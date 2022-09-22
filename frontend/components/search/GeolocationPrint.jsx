@@ -6,11 +6,11 @@ import GeolocationParams from "../nearbySearch/GeolocationParams";
 import SearchData from "./SearchData";
 
 function GeolocationPrint({query}) { 
-  console.log("query:", query)
   const geolocation = useGeolocation();
   const [address, setAddress] = useState("");
   const [district, setDistrict] = useState("");
 
+  // 내 위치 좌표 -> 주소, 자치구명 
   useEffect(() => {
     if (geolocation.longitude && geolocation.latitude) {
       axios
@@ -29,7 +29,7 @@ function GeolocationPrint({query}) {
     } else {
       console.log("geoclocation error")
     }
-  }, [geolocation.latitude, geolocation.longitude]);
+  });
 
   if(query === "내주변"){
     console.log("내주변 식당 검색")
@@ -42,7 +42,8 @@ function GeolocationPrint({query}) {
       <GeolocationParams district={district} />
     </div>
     );
-  } else {
+  } 
+  else {
     console.log("검색중")
     return (
       <div className="w-full">
@@ -54,7 +55,6 @@ function GeolocationPrint({query}) {
       </div>
     )
   }
-
 }
 
 export default GeolocationPrint;

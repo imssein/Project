@@ -5,7 +5,7 @@ import RestaurantsList from './RestaurantsList';
 import axios from 'axios';
 const API_URL = "http://localhost:9090/v1/api/stores";
 
-function RestaurantsData({params}) {
+function RestaurantsData({params, district}) {
     const [content, setContent] = useState([]);
     console.log(params);
 
@@ -28,6 +28,7 @@ function RestaurantsData({params}) {
     return (
         <div>
             <DistrictMap content={content} />
+            <RestaurantsList district={district} content={content} />
         </div>
     );
 }

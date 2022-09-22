@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useGeolocation from "react-hook-geolocation";
 import DistanceCalculator from "./DistanceCalculator";
+import RestaurantsList from "../nearbySearch/RestaurantsList";
 
-function LatLng2Wtm() {
+function LatLng2Wtm({content}) {
   const geolocation = useGeolocation();
   const [x, setX] = useState("");
   const [y, setY] = useState("");
@@ -32,7 +33,8 @@ function LatLng2Wtm() {
       {/* <p>사용자 위경도 - wtm</p>
       <p>{x}</p>
       <p>{y}</p> */}
-      <DistanceCalculator longitude={x} latitude={y} />
+      <RestaurantsList longitude={x} latitude={y} content={content} />
+      {/* <DistanceCalculator longitude={x} latitude={y} /> */}
     </div>
   );
 }

@@ -95,11 +95,10 @@ function DistrictMap({districts, getDistricts}) {
   }, [geolocation.latitude, geolocation.longitude, mapLoaded, districts]);
 
   return (
-    <div>
-      <div id="map" className="w-full h-80 mb-16"></div>
+    <div className="mx-2">
+      <div id="map" className="w-full h-80 my-8 rounded-lg"></div>
       {/* <LatLng2Wtm content={content} /> */}
       {/* <RestaurantsList content={content} /> */}
-
     </div>
   );
 }

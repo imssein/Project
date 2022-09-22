@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
 import RestaurantsList from "../nearbySearch/RestaurantsList";
+import LatLng2Wtm from "../searchfilter/LatLng2Wtm";
 
 function DistrictMap({ content }) {
   console.log(typeof(content))
@@ -91,7 +92,8 @@ function DistrictMap({ content }) {
   return (
     <div>
       <div id="map" className="w-full h-80 mb-16"></div>
-      <RestaurantsList content={content} />
+      <LatLng2Wtm content={content} />
+      {/* <RestaurantsList content={content} /> */}
 
     </div>
   );

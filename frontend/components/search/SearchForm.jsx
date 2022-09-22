@@ -3,14 +3,14 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 function SearchForm({ onClick, onChange }) {
   return (
-    <div className="text-center pb-6">
+    <div className="mx-auto flex  w-96 h-14 md:w-[35rem]  border border-text-color rounded-full px-9 bg-white">
       <input
-        className="w-72 h-12 border border-slate-900 rounded-lg px-3"
+        className="w-full focus:outline-none"
         type="text"
         placeholder="서울시 채식 식당을 검색해보세요."
         onChange={onChange}
       />
-      <button className="ml-3" type="submit" onClick={onClick}>
+      <button className="ml-3 text-text-color" type="submit" onClick={onClick}>
         <AiOutlineSearch size="25" />
       </button>
     </div>

@@ -11,19 +11,20 @@ function Restaurants() {
   console.log(params);
 
   return (
-    <div className="pt-4 md: max-w-2xl md:mx-auto">
-      <MainLayout>
-        <div className="py-5 px-5">
+    <MainLayout>
+      <div className="h-full bg-gray-4">
+        <div className="">
           <Head>
             <title>Vegan Pleasure | 맛있는 채식 한끼</title>
           </Head>
-
+          <div className="h-full bg-gray-4">
+            <RestaurantContainers params={params} />
+          </div>
           {/* 이미지 */}
-          <RestaurantContainers params={params} />
           {/* <RestaurantDetail params={params} /> */}
         </div>
-      </MainLayout>
-    </div>
+      </div>
+    </MainLayout>
   );
 }
 
