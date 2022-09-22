@@ -1,22 +1,54 @@
 import Image from "next/image";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
+import {FiArrowLeft} from 'react-icons/fi';
 function DayDiet({ content }) {
-  console.log(content);
+  const router = useRouter();
+
+  console.log("content", content);
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    if(content && content.length > 0){
+      setDate(content[0].createdTime)
+    }
+  }, [content]);
+
+  function handleLeft(e) {
+    e.preventDefault();
+    router.push("/foodRecord/calendar")
+  }
 
   return (
-    <div className="py-11 px-11 ">
-      {content.map((item) => (
-        <Link href={`/detailDiet/${item.id}`} key={item.id}>
+    <div className="">
+      <div className="flex justify-between mb-6">
+      <div className="">
+          <FiArrowLeft size="25" onClick={handleLeft}/>
+        </div>
+      <div className="my-auto text-center text-lg">
+        {date}
+      </div>
+      <div>
+
+      </div>
+      </div>
+   
+      {content && content.map((item) => (
+        <Link href={`/foodRecord/detail/${item.id}`} key={item.id}>
           <div className="flex mb-7">
-            <div className="border my-auto">
-              <Image
-                src="/images/recipe.png"
-                width={150}
-                height={150}
-                alt="예시"
-              />
+            <div className=" my-auto">
+            {item.uploadFiles &&
+                item.uploadFiles.map((content) => (
+                  <div className="my-auto" key={content.id}>
+                    <Image
+                      src={`/images/${content.savedFileName}`}
+                      width={150}
+                      height={150}
+                      alt="식당 사진"
+                    />
+                  </div>
+            ))}
             </div>
             <div className="pt-2 pb-5 ml-9 sm:ml-10">
               <p className="mb-2">{item.type}</p>

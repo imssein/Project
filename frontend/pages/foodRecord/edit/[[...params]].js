@@ -1,8 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
-import EditForm from "../../components/diet/EditForm";
+import EditForm from "../../../components/diet/EditForm";
 import Head from "next/head";
-import MainLayout from "../../components/common/MainLayout";
+import MainLayout from "../../../components/common/MainLayout";
 function EditDiet(props) {
   const router = useRouter();
   const { params } = router.query;

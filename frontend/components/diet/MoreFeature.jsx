@@ -21,7 +21,7 @@ function MoreFeature({id}) {
       }
 
     return (
-          <div className="border float-right  ">
+          <div className="border float-right bg-white">
       <div className="flex px-8 py-4 border-b">
         <Link href={`/editDiet/${id}`}>
         <button className="flex">
