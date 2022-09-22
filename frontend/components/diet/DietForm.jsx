@@ -6,6 +6,9 @@ import Link from "next/link";
 import { AiFillCaretRight } from "react-icons/ai";
 import { useRouter } from "next/router";
 import DietService from "../../services/diet.service";
+import axios from "axios";
+import authHeader from "../../services/auth-header";
+import FormData from "form-data";
 
 const vegetypes = [
   {
@@ -37,7 +40,7 @@ const vegetypes = [
     title: "페스코",
     value: "pesco",
     file: "pesco.png",
-  }
+  },
 ];
 
 const classification = [
@@ -92,7 +95,7 @@ function DietForm(props) {
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("");
   const [memo, onChangeMemo] = useInput("");
-  // const imageInput = useRef();
+  const ImgInput = useRef();
 
   const checkbox = (checkThis) => {
     const checkbox = document.getElementsByName("vegetarianType");
@@ -121,32 +124,61 @@ function DietForm(props) {
       setType(checkThis.value);
     }
   };
-  console.log(vegetarianType);
-  console.log(amount);
-  console.log(type);
 
   const onSubmit = async (e) => {
-      e.preventDefault();
-      try {
-      DietService.createDiet(vegetarianType, amount, memo, type).then(
-        () => {
-          alert("식단 업로드 완료")
-          router.push("/dietPage")
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    } catch (err) {
-      console.log(err);
+    e.preventDefault();
+    const multipartFiles = e.target.multipartFiles.files; //form의 input을 갖고옴
+    const formData = new FormData();
+    for (const i = 0; i < multipartFiles.length; i++) {
+      formData.append("requestFiles", multipartFiles[i]);
     }
+    const requestData = {
+      vegetarianType,
+      amount,
+      memo,
+      type,
+    };
+
+    const json = JSON.stringify(requestData);
+    const blob = new Blob([json], { type: "application/json" });
+    formData.append("requestData", blob);
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+    const res = await axios({
+      method: "POST",
+      url: "http://localhost:9090/v1/api/diets/diet",
+      mode: "cors",
+      headers: authHeader(),
+      data: formData,
+    }).then(() => {
+      router.push("/foodRecord/list");
+      alert("식단 기록 업로드 성공");
+    });
+    console.log(res);
   };
+  console.log(vegetarianType)
+  console.log()
   return (
     <form className="my-6" encType="multipart/form-data" onSubmit={onSubmit}>
       <div>
         <p className="font-semibold text-lg">사진 첨부</p>
-        <p className="text-sm text-gray-600">오늘 먹은 사진을 올려주세요 : )</p>
-        <button className="my-3">
+        <p className="text-sm text-gray-600 pb-1">
+          오늘 먹은 사진을 올려주세요.{" "}
+        </p>
+        <input
+          ref={ImgInput}
+          type="file"
+          id="Img"
+          accept="image/*"
+          name="multipartFiles"
+          multiple
+          hidden
+        />
+        <button
+          className="my-3"
+          onClick={(e) => ImgInput.current && ImgInput.current.click()}
+        >
           <BsPlusSquare size="60" />{" "}
         </button>
       </div>
@@ -154,7 +186,7 @@ function DietForm(props) {
       <div>
         <div className="flex justify-between my-6">
           <p className="font-semibold text-lg ">채식 타입 선택</p>
-          <Link href="/information ">
+          <Link href="/information/vegetarian ">
             <p className="text-xs cursor-pointer flex my-auto">
               채식 타입 안내
               <AiFillCaretRight />
@@ -162,8 +194,8 @@ function DietForm(props) {
           </Link>
         </div>
         <div className="flex">
-        {vegetypes.map((item) => (
-              <label key={item.id}>
+          {vegetypes.map((item) => (
+            <label key={item.id}>
               <input
                 type="checkbox"
                 className="hidden peer"
@@ -171,16 +203,21 @@ function DietForm(props) {
                 value={item.value}
                 onChange={(e) => checkbox(e.target)}
               />
-              
-              <p className="mx-2 rounded-full border-2 text-center w-16 h-16 pt-2 hover:bg-lime-200   peer-checked:bg-lime-500">
-              <Image src={`/images/${item.file}`} width={25} height={25} alt="채식사진" />
-              <p className="text-xs text-gray-700  text-center">{item.title}</p>
-              </p>
-            
+
+              <div className="mx-2 rounded-full border-2 text-center w-16 h-16 pt-2 hover:bg-main   peer-checked:bg-main">
+                <Image
+                  src={`/images/${item.file}`}
+                  width={25}
+                  height={25}
+                  alt="채식사진"
+                />
+                <p className="text-xs text-gray-700  text-center">
+                  {item.title}
+                </p>
+              </div>
             </label>
-        ))}
+          ))}
         </div>
-       
       </div>
       {/* 양 */}
       <div className="my-6">
@@ -195,7 +232,7 @@ function DietForm(props) {
                 value={item.value}
                 onChange={(e) => checkbox2(e.target)}
               />
-              <p className=" mx-2 rounded-full border-2 py-2 px-4 0 hover:bg-lime-200   peer-checked:bg-lime-500">
+              <p className=" mx-2 rounded-full border-2 py-2 px-4 0 hover:bg-main   peer-checked:bg-main">
                 {item.title}
               </p>
             </label>
@@ -214,7 +251,7 @@ function DietForm(props) {
                 value={item.value}
                 onChange={(e) => checkbox3(e.target)}
               />
-              <p className=" mx-2 rounded-full border-2 py-2 px-4 peer-checked:border-slate-400 hover:bg-lime-200   peer-checked:bg-lime-500">
+              <p className=" mx-2 rounded-full border-2 py-2 px-4  hover:bg-main   peer-checked:bg-main">
                 {item.title}
               </p>
             </label>
@@ -229,15 +266,15 @@ function DietForm(props) {
           <input
             value={memo}
             onChange={onChangeMemo}
-            className="w-full border h-96 px-4"
+            className="w-full border h-96 px-4 outline-none"
             placeholder="간단한 메모를 남겨주세요. (선택)"
           />
         </div>
       </div>
 
-      <div className=" flex justify-end">
+      <div className="flex justify-end">
         <button
-          className=" text-lg py-6 font-bold text-green-900"
+          className="mb-32 text-lg pt-6 font-bold text-green-900"
           type="submit"
         >
           저장하기
