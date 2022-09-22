@@ -4,7 +4,8 @@ import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from "react-icons/ai";
 import { FiMoreHorizontal } from "react-icons/fi";
 import CommentForm from "./CommentForm";
 import More from "./MoreFeature";
-function Feed({ posts, getPosts }) {
+
+function FeedComponent({ posts, getPosts }) {
   const [liked, setLiked] = useState(false);
   const [commentFormOpened, setCommentFormOpened] = useState(false);
   const [more, setMore] = useState(false);
@@ -28,15 +29,15 @@ function Feed({ posts, getPosts }) {
 
   console.log(posts);
   return (
-    <div className="">
+    <div className="text-center pb-32 bg-gray-4 h-full">
       {posts.map((post) => (
-        <div className="mx-6" key={post.id}>
+        <div className="mt-5 inline-block" key={post.id}>
           <div className="flex">
-            <div className="pt-4 overflow-hidden h-12 w-12 rounded-full bg-slate-200 text-xs text-center">
+            <div className="overflow-hidden h-12 w-12 pt-4 rounded-full bg-bg text-xs text-center">
               {post.member.nickname}
             </div>
-            <div className="ml-3">
-              <div className="my-auto text-left">{post.member.nickname}</div>
+            <div className="ml-5">
+              <div className=" text-left">{post.member.nickname}</div>
               <div className="text-xs my-2 text-gray-500">
                 {post.createdTime}
               </div>
@@ -89,7 +90,7 @@ function Feed({ posts, getPosts }) {
               ))}
               <p className="font-semibold">{post.title}</p>
             </div>
-            <div className="text-left my-6">{post.content}</div>
+            <div className="text-left mt-6">{post.content}</div>
           </div>
           {commentFormOpened && <CommentForm />}
         </div>
@@ -98,4 +99,4 @@ function Feed({ posts, getPosts }) {
   );
 }
 
-export default Feed;
+export default FeedComponent;

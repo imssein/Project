@@ -36,7 +36,7 @@ function MoreFeature({ id, nickname }) {
   
   
   return (
-    <div className="border float-right  ">
+    <div className="border float-right ">
       <div className="flex px-8 py-4 border-b">
         <Link href={`/editFeed/${id}`}>
         <button className="flex">
@@ -46,7 +46,7 @@ function MoreFeature({ id, nickname }) {
         
        
       </div>
-      <div className="flex px-8 py-4 border-b text-red-500">
+      <div className="flex px-8 py-4 border-b text-red">
         <button className="flex" onClick={handleDelete}>
         <p className="mr-4 my-auto">삭제하기</p> <BsTrash size={20}/>
         </button>

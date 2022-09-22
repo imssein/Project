@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostsThunk } from '../../../redux/modules/posts';
-import Feed from "../Feed";
+import FeedComponent from "../index";
 
 function FeedListContainer(props) {
     const posts = useSelector((state) => state.posts.data);
@@ -12,8 +12,7 @@ function FeedListContainer(props) {
         dispatch(getPostsThunk());
       }, [dispatch]);
     
-    
-    return <Feed posts={posts} getPosts={getPosts} />
+    return <FeedComponent posts={posts} getPosts={getPosts} />
 }
 
 export default FeedListContainer;
