@@ -19,7 +19,7 @@ function Detail({ content }) {
     }
   return (
     <div className="text-center py-8 px-4 absoute">
-      <div className="flex justify-center">
+      <div className="mb-11 flex justify-center">
         <div>
           <FiArrowLeft size="25" onClick={handleLeft}/>
         </div>
@@ -30,7 +30,7 @@ function Detail({ content }) {
       </div>
       {more && <MoreFeature id={content.id} />}
 
-      <div className="my-4 ">
+      <div className="mt-4 mb-11 md:py-11">
       {content.uploadFiles &&
                 content.uploadFiles.map((item) => (
                   <div className="my-auto" key={item.id}>

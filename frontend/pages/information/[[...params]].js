@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import VegeInfo from "../../components/common/VegeInfo";
 import MainLayout from "../../components/common/MainLayout";
 import Head from "next/head";
+import VegeRanking from "../../components/information/VegeRanking";
 function Information(props) {
   const router = useRouter();
   const { params = [] } = router.query;
@@ -88,13 +89,7 @@ function Information(props) {
             <Head>
               <title>VeganPleasure | 채식 랭킹 안내</title>
             </Head>
-            <div >
-              씨앗단계: 30개 이하
-              새싹단계: 60개 이하
-              열매단계: 120개 이하
-              나무단계: 120개 이상
-
-            </div>
+          <VegeRanking />
           </div>
         </MainLayout>
       </div>

@@ -6,21 +6,21 @@ import MainLayout from "../../../components/common/MainLayout";
 
 function Calendar(props) {
   return (
-    <MainLayout>
-      <div className="md:px-11 px-3">
-
-      
+    <div className="pb-36">
       <Head>
         <title>VeganPleasure | 채식한끼</title>
       </Head>
-      <div>
-        <CalendarComponent />
-      </div>
-      <div className="my-11 px-3">
-       <CalendarBtn />
-      </div>
-      </div>
-    </MainLayout>
+      <MainLayout>
+        <div className="md:px-11 px-3 ">
+          <div>
+            <CalendarComponent />
+          </div>
+          <div className="my-11 px-3 mb-36">
+            <CalendarBtn />
+          </div>
+        </div>
+      </MainLayout>
+    </div>
   );
 }
 

@@ -152,7 +152,7 @@ function DietForm(props) {
       headers: authHeader(),
       data: formData,
     }).then(() => {
-      router.push("/foodRecord/list");
+      router.push("/foodRecord/all");
       alert("식단 기록 업로드 성공");
     });
     console.log(res);
@@ -200,7 +200,7 @@ function DietForm(props) {
                 type="checkbox"
                 className="hidden peer"
                 name="vegetarianType"
-                value={item.value}
+                value={item.title}
                 onChange={(e) => checkbox(e.target)}
               />
 
@@ -211,7 +211,7 @@ function DietForm(props) {
                   height={25}
                   alt="채식사진"
                 />
-                <p className="text-xs text-gray-700  text-center">
+                <p className="text-xs text-gray-3  text-center">
                   {item.title}
                 </p>
               </div>
@@ -229,10 +229,10 @@ function DietForm(props) {
                 type="checkbox"
                 className="hidden  peer"
                 name="amount"
-                value={item.value}
+                value={item.title}
                 onChange={(e) => checkbox2(e.target)}
               />
-              <p className=" mx-2 rounded-full border-2 py-2 px-4 0 hover:bg-main   peer-checked:bg-main">
+              <p className="text-gray-3 mx-2 rounded-full border-2 py-2 px-4 0 hover:bg-main   peer-checked:bg-main">
                 {item.title}
               </p>
             </label>
@@ -248,10 +248,10 @@ function DietForm(props) {
                 type="checkbox"
                 className="hidden  peer"
                 name="type"
-                value={item.value}
+                value={item.title}
                 onChange={(e) => checkbox3(e.target)}
               />
-              <p className=" mx-2 rounded-full border-2 py-2 px-4  hover:bg-main   peer-checked:bg-main">
+              <p className="text-gray-3 mx-2 rounded-full border-2 py-2 px-4  hover:bg-main   peer-checked:bg-main">
                 {item.title}
               </p>
             </label>
@@ -266,7 +266,7 @@ function DietForm(props) {
           <input
             value={memo}
             onChange={onChangeMemo}
-            className="w-full border h-96 px-4 outline-none"
+            className="text-gray-3 w-full border h-96 px-4 outline-none"
             placeholder="간단한 메모를 남겨주세요. (선택)"
           />
         </div>
@@ -274,7 +274,7 @@ function DietForm(props) {
 
       <div className="flex justify-end">
         <button
-          className="mb-32 text-lg pt-6 font-bold text-green-900"
+          className="mb-32 text-lg pt-6 font-bold text-green"
           type="submit"
         >
           저장하기

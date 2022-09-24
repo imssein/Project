@@ -36,7 +36,7 @@ function List(props) {
         <Head>
           <title>VeganPleasure | 식단기록</title>
         </Head>
-        <div className="px-9">
+        <div className="">
           <DietsListContainer search={search} />
         </div>
       </MainLayout>
