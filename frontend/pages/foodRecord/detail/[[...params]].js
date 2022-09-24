@@ -8,9 +8,8 @@ function DetailDiet(props) {
   const { params } = router.query;
   console.log(params);
   return (
-  <div>
-          
-        <div className="md:px-20 h-screen">
+  <div>  
+        <div className="md:px-20 h-full">
             <DietDetailContainer params={params} />
         </div>
      

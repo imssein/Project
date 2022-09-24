@@ -17,7 +17,7 @@ function DietsListContainer({search}) {
     console.log(content)
 
     return ( 
-        <div>
+        <div className=''>
         <DayDiet content={content} />
         </div>
     )

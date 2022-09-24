@@ -6,7 +6,7 @@ import { FiArrowLeft } from "react-icons/fi";
 
 function DietsAll({ content }) {
   return (
-    <div className="">
+    <div className="h-full bg-gray-4 pb-36 px-9">
       {content &&
         content.map((item) => (
           <Link href={`/foodRecord/detail/${item.id}`} key={item.id}>

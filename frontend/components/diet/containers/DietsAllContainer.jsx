@@ -16,7 +16,7 @@ function DietsAllContainer(props) {
     console.log(content)
 
     return (
-        <div className='px-9'>
+        <div className=''>
             <DietsAll content={content} />
         </div>
     );

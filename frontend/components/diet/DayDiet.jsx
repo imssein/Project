@@ -21,8 +21,8 @@ function DayDiet({ content }) {
   }
 
   return (
-    <div className="">
-      <div className="flex justify-between mb-6">
+    <div className="pb-36 bg-gray-4 px-9">
+      <div className="flex justify-between mb-16">
       <div className="">
           <FiArrowLeft size="25" onClick={handleLeft}/>
         </div>
@@ -33,7 +33,7 @@ function DayDiet({ content }) {
 
       </div>
       </div>
-   
+      <div className="">
       {content && content.map((item) => (
         <Link href={`/foodRecord/detail/${item.id}`} key={item.id}>
           <div className="flex mb-7">
@@ -59,7 +59,9 @@ function DayDiet({ content }) {
             </div>
           </div>
         </Link>
+      
       ))}
+        </div>
     </div>
   );
 }
