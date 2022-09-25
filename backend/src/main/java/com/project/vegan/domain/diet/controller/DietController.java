@@ -31,7 +31,7 @@ public class DietController {
     @ApiOperation("식단 목록 조회")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<DietDto> getDiets(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'") LocalDateTime date){
+    public List<DietDto> getDiets(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") LocalDateTime date){
         return dietService.getDiets(date);
     }
 

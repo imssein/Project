@@ -54,8 +54,10 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
 	// file upload test를 위함
-	compileOnly group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
-	compileOnly group: 'commons-io', name: 'commons-io', version: '2.4'
+	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+
+	// MariaDB
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 }
 
 tasks.named('test') {
