@@ -48,23 +48,53 @@ function DietChart({ data }) {
         width: "100%",
         type: "pie",
       },
+      theme: {
+        monochrome: {
+            enabled: false
+        }
+    },
       labels: ["비건", "오보", "페스코", "락토", "락토오보", "폴로", "플렉시"],
       plotOptions: {
         pie: {
           dataLabels: {
-            offset: -5, 
+            offset: -15, 
           },
+          donut: {
+            value: {
+              show: true,
+              fontSize: '16px',
+              fontFamily: 'Helvetica, Arial, sans-serif',
+              fontWeight: 400,
+              color: undefined,
+              offsetY: 16,
+              formatter: function (val) {
+                return val
+              }
+            },
+          }
         },
       },
       dataLabels: {
+        enabled: true,
         formatter(val, opts) {
           const name = opts.w.globals.labels[opts.seriesIndex];
           return [name, val.toFixed(1) + "%"];
         }, 
-        style: {
-          fontSize: '16x',
-          colors: [function(opts) { return '#666'}],
-        }
+        style: { 
+          enabled: false,
+          fontSize: '13px',
+          fontFamily: 'Helvetica, Arial, sans-serif',
+          fontWeight: 'bold',
+          colors: ['#333'],
+        },
+        dropShadow: {
+          enabled: false,
+          top: 1,
+          left: 1,
+          blur: 1,
+          color: '#000',
+          opacity: 0.45
+      }
       },
       legend: {
         show: false,

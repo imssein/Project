@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import DietsListContainer from "../../../components/diet/containers/DietsListContainer";
 import MainLayout from "../../../components/common/MainLayout";
 import Head from "next/head";
+import { DayDietsProvider } from "../../../contexts/Diets/DayDiets";
+import DietsDay from "../../../components/diets/containers/DietsDay";
 
 function List(props) {
   const router = useRouter();
@@ -13,6 +14,7 @@ function List(props) {
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
   const [day, setDay] = useState("");
+  const [day2, setDay2] = useState("");
 
   useEffect(() => {
     if (params && params.length > 0) {
@@ -23,11 +25,12 @@ function List(props) {
   }, [params]);
 
   useEffect(() => {
-    setDay(year + "-" + month + "-" + date);
+    setDay2(year + "-" + month + "-" + date);
+    setDay(year + "년 " + month +"월 " + date +"일")
   }, [date, month, year]);
 
   const offset = new Date().getTimezoneOffset() * 60000;
-  const data = new Date(day) - offset;
+  const data = new Date(day2) - offset;
   const search = new Date(data).toJSON();
   console.log(search);
 
@@ -37,7 +40,9 @@ function List(props) {
           <title>VeganPleasure | 식단기록</title>
         </Head>
         <div className="">
-          <DietsListContainer search={search} />
+          <DayDietsProvider search={search}>
+              <DietsDay day={day} />
+          </DayDietsProvider>
         </div>
       </MainLayout>
   );

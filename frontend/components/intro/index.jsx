@@ -1,14 +1,25 @@
 import React from "react";
 import Vegetarian from "./Vegetarian";
 import SearchMain from "../search/SearchMain";
-
-function Intro(props) {
+import { AddressProvider } from "../../contexts/KaKaoMap";
+import GeolocationContainer from "../recommendation/containers/GeolocationContainer";
+import DietsContainer from "../recommendation/containers/DietsContainer";
+import { VegeTypeProvider } from "../../contexts/Diets/vegeType";
+function Intro({ longitude, latitude }) {
   return (
-    <div className="mx-auto mb-32 bg-gray-4">
+    <div className="mx-auto pb-36 bg-gray-4">
       <SearchMain />
       {/* <SeoulMap /> */}
+      <VegeTypeProvider>
+        <DietsContainer />
+      </VegeTypeProvider>
+      {/* <DietsListContainer /> */}
+      {/* 내주변 인기맛집 */} 
+      <AddressProvider longitude={longitude} latitude={latitude} >
+          <GeolocationContainer longitude={longitude} latitude={latitude} />
+      </AddressProvider>
+      {/* <GeolocationPrint /> */}
       <Vegetarian />
-      {/* 내주변 인기맛집 */}
     </div>
   );
 }

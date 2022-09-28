@@ -4,7 +4,8 @@ import { getDetailThunk } from "../../../redux/modules/districts";
 import Restaurant from "../Restaurant";
 import RestaurantMap from "../RestaurantMap";
 import { getReviewThunk } from "../../../redux/modules/review";
-import Review from "../../reviewComponent/Review";
+import Review from "../../reviewComponent/Feed";
+
 function RestaurantContainers({ params }) {
   const restaurant = useSelector((state) => state.districts.data);
   const posts = useSelector((state) => state.review.data);

@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import React from 'react';
 import MainLayout from '../../components/common/MainLayout';
-import VegeTrend from '../../components/VegeTrend';
+import DiestList from '../../components/diets/containers/DiestList';
+import { DietsProvider } from '../../contexts/Diets';
 
 function Trend(props) {
     return (
@@ -12,11 +13,12 @@ function Trend(props) {
                 </Head>
                 <div className=''>
                 <div className="text-center text-xl font-semibold text-green mb-11">나의 채식 현황 한 눈에 보기</div>
-                    <VegeTrend />
+                    <DietsProvider>
+                        <DiestList />
+                    </DietsProvider>
+                    {/* <VegeTrend /> */}
                 </div>
-            </MainLayout>
-           
-            
+            </MainLayout>        
         </div>
     );
 }
