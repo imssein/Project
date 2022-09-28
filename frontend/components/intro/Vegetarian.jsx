@@ -6,6 +6,7 @@ const types = [
   {
     id: 1,
     title: "비건",
+    value: encodeURIComponent("비건"),
     file: "vegan.png",
   },
   {
@@ -29,25 +30,27 @@ const types = [
     file: "pesco.png",
   },
 ];
+
+
 function Vegetarian(props) {
-  const [item, setItem] = useState("");
-  const query = encodeURIComponent(item);
+  // const [item, setItem] = useState("");
 
-  const searchItem = (e) => {
-    setItem(e.target.value);
-    console.log(item);
-  };
-
+  // const searchItem = (e) => {
+  //   setItem(e.target.value);
+  //   console.log(item);
+  // };
+ 
   return (
     <div className="mt-8 rounded-xl py-4 px-4 bg-white mx-9">
       <div className="text-xl text-left  text-text-green font-semibold ">채식타입별 식당 추천</div>
       <div className="mt-6 grid grid-cols-5 gap-3 place-content-around">
-        {types.map((type) => (
+        {types && types.map((type) => (
           <Link
-           href={{ pathname: "/search", query: `${ type.title }` }}
+           href={{ pathname: '/search', query: `${type.value}`}}
            as={`/search?query=${type.title}`}
-          key={type.id}>
-          <div onChange={searchItem}>
+           key={type.id}
+           >
+          <div>
             <div className="rounded-2xl bg-bg inline-block pt-2 pb-1 px-2  border-gray">
               <Image
                 src={`/images/${type.file}`}
@@ -60,6 +63,11 @@ function Vegetarian(props) {
           </div>
           </Link>
         ))}
+        {/* <Link
+           href={{ pathname: "/search", query: { query } }}
+           as={`/search?query=${item}`}>
+          비건
+        </Link> */}
       </div>
     </div>
   );

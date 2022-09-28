@@ -1,6 +1,7 @@
 import Head from "next/head";
 import MainMenu from "../../components/common/MainMenu";
-import DietCount from "../../components/diet/DietCount";
+import DietCount from "../../components/diets/DietCount";
+import { DietsProvider } from "../../contexts/Diets";
 
 function Count(props) {
   return (
@@ -9,7 +10,10 @@ function Count(props) {
         <title>VeganPleasure | 식단기록</title>
       </Head>
       <div className="py-6 px-9">
-        <DietCount />
+        <DietsProvider>
+         <DietCount />
+        </DietsProvider>
+        
       </div>
       <MainMenu />
     </div>

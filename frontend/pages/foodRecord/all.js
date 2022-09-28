@@ -3,7 +3,8 @@ import Head from "next/head";
 import MainLayout from "../../components/common/MainLayout";
 import LoginForm from "../../components/member/LoginForm";
 import AuthService from "../../services/auth.service";
-import DietsAllContainer from "../../components/diet/containers/DietsAllContainer";
+import { DietsProvider } from "../../contexts/Diets";
+import DietsAll from "../../components/diets/containers/DietsAll";
 
 function All(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
@@ -15,15 +16,19 @@ function All(props) {
       setIsLoggedIn(user);
     }
   }, []);
+
   return (
     <MainLayout>
       <Head>
         <title>VeganPleasure | 식단기록</title>
       </Head>
-      <div className="mt-6 ">
+      <div className="">
       {isLoggedIn ? (
-        <div className=" pt-3">
-          <DietsAllContainer />
+        <div className="pt-3">
+          <DietsProvider>
+            <DietsAll />
+          </DietsProvider>
+         
         </div>
       ) : (
         <div>

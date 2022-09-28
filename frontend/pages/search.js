@@ -2,10 +2,11 @@ import React from "react";
 import Head from "next/head";
 import { withRouter } from "next/router";
 import SearchMain from "../components/search/SearchMain";
-import GeolocationPrint from "../components/search/GeolocationPrint";
+import SearchType from "../components/search/SearchType";
 import MainLayout from "../components/common/MainLayout";
+import { AddressProvider } from "../contexts/KaKaoMap";
 
-function Search({ router: { query } }) {
+function Search({ router: { query }, latitude, longitude }) {
   const item = query.query;
   console.log("검색한것:", item);
 
@@ -16,7 +17,9 @@ function Search({ router: { query } }) {
           </Head>
           <div className="px-4 bg-gray-4">
           <SearchMain />
-          <GeolocationPrint query={item} />
+          <AddressProvider longitude={longitude} latitude={latitude}>
+            <SearchType query={item} longitude={longitude} latitude={latitude}/>
+          </AddressProvider>
         </div>
     </MainLayout>
   );

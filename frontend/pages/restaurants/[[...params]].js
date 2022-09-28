@@ -1,10 +1,11 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import RestaurantDetail from "../../components/restaurants/RestaurantDetail";
-import RestaurantMap from "../../components/restaurants/RestaurantMap";
-import RestaurantContainers from "../../components/restaurant/containers/RestaurantContainers";
 import MainLayout from "../../components/common/MainLayout";
+import StoreDetail from "../../components/restaurant/StoreDetail";
+import { StoreDetailProvider } from "../../contexts/Store/detail";
+import { ReviewProvider } from "../../contexts/Review";
+import ReviewDetail from "../../components/restaurant/ReviewDetail";
 function Restaurants() {
   const router = useRouter();
   const { params = [] } = router.query;
@@ -17,11 +18,15 @@ function Restaurants() {
           <Head>
             <title>Vegan Pleasure | 맛있는 채식 한끼</title>
           </Head>
-          <div className="h-full bg-gray-4">
-            <RestaurantContainers params={params} />
+          <div className="h-full bg-gray-4 px-9 pt-4 pb-36">
+            <StoreDetailProvider params={params}>
+              <StoreDetail params={params} />
+            </StoreDetailProvider>
+            <ReviewProvider params={params}>
+                <ReviewDetail params={params} />
+            </ReviewProvider>
           </div>
-          {/* 이미지 */}
-          {/* <RestaurantDetail params={params} /> */}
+       
         </div>
       </div>
     </MainLayout>

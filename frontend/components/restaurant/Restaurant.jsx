@@ -3,24 +3,21 @@ import { FaRegEdit, FaRegHeart, FaPen, FaHeart } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 
-function Restaurant({ restaurant, getDetail }) {
-  useEffect(() => {
-    getDetail();
-  }, [getDetail]);
+function Restaurant({ content }) {
 
   return (
     <div className="">
       <div className="flex justify-between">
         <div className="flex">
-          <p className="text-xl sm:text-2xl">{restaurant.name}</p>
+          <p className="text-xl sm:text-2xl">{content.name}</p>
           <p className="text-xl ml-4 text-lime-700 sm:text-2xl">
-            {restaurant.starRating}
+            {content.starRating}
           </p>
         </div>
         <div className="flex text-gray-3">
           {/* 리뷰 */}
           <div className="px-6">
-            <Link href={`/review/post/${restaurant.id}`}>
+            <Link href={`/review/post/${content.id}`}>
               <FaRegEdit className="mb-2 ml-3" size="30" />
             </Link>
             <p className="text-sm">리뷰 쓰기</p>
@@ -34,13 +31,13 @@ function Restaurant({ restaurant, getDetail }) {
       </div>
       <div className="flex text-gray-3">
         <FaPen />
-        <p className="pl-2 pr-4 text-sm">{restaurant.reviewCount}</p>
+        <p className="pl-2 pr-4 text-sm">{content.reviewCount}</p>
         <FaHeart color="pink" />
         <p className="pl-2 text-sm">100</p>
       </div>
       <div className="my-6">
-        {restaurant.uploadFiles &&
-          restaurant.uploadFiles.map((item) => (
+        {content.uploadFiles &&
+          content.uploadFiles.map((item) => (
             <div className="my-auto" key={item.id}>
               <Image
                 src={`/images/${item.savedFileName}`}
@@ -54,23 +51,23 @@ function Restaurant({ restaurant, getDetail }) {
       <div className="border-t-4 border-bg  my-4 text-gray-3">
         <div className="my-3 grid-cols-3 gap-4 grid">
           <p>주소</p>
-          <p className="col-span-2">{restaurant.address}</p>
+          <p className="col-span-2">{content.address}</p>
         </div>
         <div className="my-3 grid-cols-3 gap-4 grid">
           <p>채식 타입</p>
-          <p className="col-span-2">{restaurant.vegetarianTypes}</p>
+          <p className="col-span-2">{content.vegetarianTypes}</p>
         </div>
         <div className="my-3 grid-cols-3 gap-4 grid">
           <p>업종</p>
-          <p className="col-span-2">{restaurant.category}</p>
+          <p className="col-span-2">{content.category}</p>
         </div>
         <div className="my-3 grid-cols-3 gap-4 grid">
           <p>번호</p>
-          <p className="col-span-2">{restaurant.phoneNumber}</p>
+          <p className="col-span-2">{content.phoneNumber}</p>
         </div>
         <div className="grid-cols-3 gap-4 grid mb-4">
           <p>메뉴</p>
-          <p className="col-span-2">{restaurant.menus}</p>
+          <p className="col-span-2">{content.menus}</p>
         </div>
       </div>
     </div>

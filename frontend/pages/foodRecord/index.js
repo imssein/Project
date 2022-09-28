@@ -1,6 +1,7 @@
 import Head from "next/head";
 import MainLayout from "../../components/common/MainLayout";
-import Diet from "../../components/diet";
+import Diets from "../../components/diets";
+import { DietsProvider } from "../../contexts/Diets";
 
 function FoodRecord(props) {
   return (
@@ -10,7 +11,9 @@ function FoodRecord(props) {
           <title>VeganPleasure | 식단기록</title>
         </Head>
         <div className="px-9 mb-36 ">
-          <Diet />
+          <DietsProvider>
+            <Diets />
+          </DietsProvider>
         </div>
         </MainLayout>
       </div>

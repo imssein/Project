@@ -49,14 +49,17 @@ function FeedComponent({ posts, getPosts }) {
 
           {more && <More id={post.id} nickname={post.member.nickname} />}
           {/* 이미지 */}
-          <div className="my-3  ">
-            <Image
-              src="/images/recipe.png"
-              width={500}
-              height={500}
-              alt="예시사진"
-            />
+          { post.uploadFiles && post.uploadFiles.map((item) => (
+            <div className="my-3" key={item.id}>
+          <Image
+            src={`/images/${item.savedFileName}`}
+            width={500}
+            height={500}
+            alt="예시사진"
+          />
           </div>
+          )) }
+          
 
           <div className="flex">
             {liked ? (

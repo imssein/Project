@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-function RestaurantMap({ restaurant, getDetail }) {
+function RestaurantMap({ content }) {
   const [mapLoaded, setMapLoaded] = useState(false);
   const key = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
 
@@ -12,9 +12,6 @@ function RestaurantMap({ restaurant, getDetail }) {
     document.head.appendChild($script);
   });
 
-  useEffect(() => {
-    getDetail();
-  }, [getDetail]);
   useEffect(() => {
     if (!mapLoaded) return;
     kakao.maps.load(() => {
@@ -28,24 +25,24 @@ function RestaurantMap({ restaurant, getDetail }) {
 
       // 주소-좌표 변환 객체를 생성한다.
       var geocoder = new kakao.maps.services.Geocoder();
-      geocoder.addressSearch(`${restaurant.address}`, (result, status) => {
-        // 정상적으로 검색이 완료됐으면
-        if (status === kakao.maps.services.Status.OK) {
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          geocoder.addressSearch(`${content.address}`, (result, status) => {
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+              var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-          // 결과값으로 받은 위치를 마커로 표시
-          var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords,
+              // 결과값으로 받은 위치를 마커로 표시
+              var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords,
+              });
+              // console.log(`${data.id}`);
+              // console.log(`${data.address}`)
+
+              map.setCenter(coords);
+            }
           });
-          // console.log(`${data.id}`);
-          // console.log(`${data.address}`)
-
-          map.setCenter(coords);
-        }
-      });
-    });
-  }, [restaurant, mapLoaded]);
+        });
+      }, [content, mapLoaded]);
 
   return (
     <div>
