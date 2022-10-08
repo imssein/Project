@@ -3,8 +3,8 @@ import Head from "next/head";
 import MainLayout from "../../components/common/MainLayout";
 import LoginForm from "../../components/member/LoginForm";
 import AuthService from "../../services/auth.service";
-import { DietsProvider } from "../../contexts/Diets";
 import DietsAll from "../../components/diets/containers/DietsAll";
+import { DietsProvider } from "../../contexts/Diets";
 
 function All(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import { DayDietsContext } from '../../../contexts/Diets/DayDiets';
-import Date from '../Date';
+import Date from '../common/Date';
 import DeitsList from '../DietsList';
 
 function DietsDay({ day }) {

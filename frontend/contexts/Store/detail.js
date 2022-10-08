@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { STORE } from "../../pages/config";
+import { STORE } from "../../config";
 
 export const StoreDetailContext = createContext(
 {
