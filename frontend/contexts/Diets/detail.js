@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { DIET } from "../../pages/config";
+import { DIET } from "../../config";
 import authHeader from "../../services/auth-header";
 import axios from "axios";
 

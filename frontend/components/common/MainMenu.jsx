@@ -11,6 +11,8 @@ import AuthService from "../../services/auth.service";
 
 function MainMenu(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
+  const item = "내주변";
+  const query = encodeURIComponent(item);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -34,7 +36,10 @@ function MainMenu(props) {
           <p className="text-xs text-center pt-2 ">채식한끼</p>
         </div>
       </Link>
-      <Link href="/search?query=내주변">
+      <Link
+        href={{ pathname: "/search", query: { query } }}
+        as={`/search?query=${item}`}
+      >
         <div>
           <AiOutlineSearch className="mx-auto" size="20" />
           <p className="text-xs text-center pt-2">내주변</p>

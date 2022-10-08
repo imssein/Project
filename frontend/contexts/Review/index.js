@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { REVIEW } from "../../pages/config";
+import { REVIEW } from "../../config";
 
 export const ReviewContext = createContext({
     content: () => {},

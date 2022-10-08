@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import useGeolocation from "react-hook-geolocation";
-import RestaurantsList from "../nearbySearch/RestaurantsList";
-import LatLng2Wtm from "../searchfilter/LatLng2Wtm";
 
 function DistrictMap({districts, getDistricts}) {
 

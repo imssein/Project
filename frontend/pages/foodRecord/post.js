@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import DietForm from "../../components/diet/DietForm";
 import MainLayout from "../../components/common/MainLayout";
+import DietForm from "../../components/diets/DietForm";
 
 function Post(props) {
   return (

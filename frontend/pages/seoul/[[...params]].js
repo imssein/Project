@@ -1,10 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Title from "../../components/intro/Title";
-import SeoulData from "../../components/seoulMap/SeoulData";
 import DistrictContainers from "../../components/district/containers/DistrictContainers";
-import MainLayout from "../../components/common/MainLayout";
 import SearchMain from "../../components/search/SearchMain";
 function Map() {
   const router = useRouter();

@@ -1,12 +1,12 @@
 import React from "react";
 import { useRouter } from "next/router";
-import EditForm from "../../components/review/EditForm";
 import MainLayout from "../../../components/common/MainLayout";
 import Head from "next/head";
+import EditForm from "../../../components/reviewComponent/EditForm";
 
-function EditReview(props) {
+function Edit(props) {
   const router = useRouter();
-  const { params } = router.query;
+  const { params = [] } = router.query;
   console.log(params[0]);
   console.log(params[1]);
 
@@ -24,4 +24,4 @@ function EditReview(props) {
   );
 }
 
-export default EditReview;
+export default Edit;
