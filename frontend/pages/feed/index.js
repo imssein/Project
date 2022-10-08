@@ -1,5 +1,5 @@
 import React from "react";
-import FeedListContainer from "../../components/feedCOmponent/containers/FeedListContainer";
+import FeedListContainer from "../../components/feedComponent/containers/FeedListContainer";
 import Head from "next/head";
 import MainLayout from "../../components/common/MainLayout";
 
