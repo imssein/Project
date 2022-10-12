@@ -23,7 +23,7 @@ function District({ districts, getDistricts }) {
     <div className="mb-20">
       <div className="flex mx-3">
         <DistrictTitle district={title} />
-        <FilterLogo />
+        {/* <FilterLogo /> */}
       </div>
       <div className="mt-5 text-sm mx-3">검색된 식당 {districts.length}개</div>
       <div className="my-4 ">
