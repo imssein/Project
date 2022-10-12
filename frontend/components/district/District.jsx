@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
 import DistrictTitle from "../common/DistrictTitle";
-import FilterLogo from "../searchfilter/FilterLogo";
 import { AiOutlineEdit, AiFillStar, AiFillHeart } from "react-icons/ai";
 import Image from "next/image";
 import { useState } from "react";
