@@ -6,9 +6,7 @@ export const DIET = {
     DIET_POST: `${BASE_URL}/diets/diet`,
 };
 export const LIKE = {
-    LIKESLIST: `${BASE_URL}/likes`,
-    LIKE_ADD: `${BASE_URL}/likes/{id}`,
-    LIKE_DELETE: `${BASE_URL}/likes/{likeID}`,
+    LIKE_LIST: `${BASE_URL}/likes`,
 };
 export const POST = {
     
@@ -29,3 +27,4 @@ export const STORE = {
 export const REVIEW = {
     REVIEW: `${BASE_URL}/reviews`,
 }
+
