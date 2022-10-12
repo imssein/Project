@@ -43,7 +43,7 @@ function VegeType({ data }) {
           <AiOutlineInfo className="my-auto" />
           <p>채식 타입 안내</p>
         </div>
-      </Link>
+    </Link>
     </div>
   </div>
   )

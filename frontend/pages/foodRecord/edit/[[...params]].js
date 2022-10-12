@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import EditForm from "../../../components/diets/EditForm";
 import Head from "next/head";
 import MainLayout from "../../../components/common/MainLayout";
+import { DietDetailProvider } from "../../../contexts/Diets/detail";
 
 function EditDiet(props) {
   const router = useRouter();
@@ -17,6 +18,7 @@ function EditDiet(props) {
         </Head>
         <div className="py-4 px-4">
           <EditForm id={params} />
+
         </div>
       </MainLayout>
     </div>

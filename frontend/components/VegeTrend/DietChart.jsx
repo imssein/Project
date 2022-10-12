@@ -99,7 +99,7 @@ function DietChart({ data }) {
       legend: {
         show: false,
       },
-      colors: ['#CCD6A6', '#DAE2B6', '#DFE8CC', '#F7EDDB', '#A1C298', '#FBF2CF', '#C6EBC5'],
+      colors: ['#CCD6A6', '#DAE2B6', '#DFE8CC', '#A1C298','#C8DBBE', '#D8D9CF', '#D8D9CF'],
     },
   };
   return (

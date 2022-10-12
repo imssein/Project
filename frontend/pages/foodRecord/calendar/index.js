@@ -6,7 +6,7 @@ import MainLayout from "../../../components/common/MainLayout";
 
 function Calendar(props) {
   return (
-    <div className="pb-36">
+    <div className="">
       <Head>
         <title>VeganPleasure | 채식한끼</title>
       </Head>
@@ -15,7 +15,7 @@ function Calendar(props) {
           <div>
             <CalendarComponent />
           </div>
-          <div className="my-11 px-3 mb-36">
+          <div className="my-11 px-3">
             <CalendarBtn />
           </div>
         </div>

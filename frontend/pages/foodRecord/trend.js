@@ -12,7 +12,7 @@ function Trend(props) {
                 <title>VeganPleasure | 채식 기록</title>
                 </Head>
                 <div className=''>
-                <div className="text-center text-xl font-semibold text-green mb-11">나의 채식 현황 한 눈에 보기</div>
+                <div className="text-center text-lg font-semibold text-green mb-11">나의 채식 현황 한 눈에 보기</div>
                     <DietsProvider>
                         <DiestList />
                     </DietsProvider>

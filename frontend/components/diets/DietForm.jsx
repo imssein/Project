@@ -5,89 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { AiFillCaretRight } from "react-icons/ai";
 import { useRouter } from "next/router";
-import DietService from "../../services/diet.service";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
 import FormData from "form-data";
-
-const vegetypes = [
-  {
-    id: 1,
-    title: "비건",
-    value: "vegan",
-    file: "vegan.png",
-  },
-  {
-    id: 2,
-    title: "락토",
-    value: "lacto",
-    file: "lacto.png",
-  },
-  {
-    id: 3,
-    title: "오보",
-    value: "ovo",
-    file: "ovo.png",
-  },
-  {
-    id: 4,
-    title: "락토오보",
-    value: "lactovo",
-    file: "lactoovo.png",
-  },
-  {
-    id: 5,
-    title: "페스코",
-    value: "pesco",
-    file: "pesco.png",
-  },
-];
-
-const classification = [
-  {
-    id: 1,
-    value: "breakfast",
-    title: "아침",
-  },
-  {
-    id: 2,
-    value: "brunch",
-    title: "아점",
-  },
-  {
-    id: 3,
-    value: "lunch",
-    title: "점심",
-  },
-  {
-    id: 4,
-    value: "linner",
-    title: "점저",
-  },
-  {
-    id: 5,
-    value: "dinner",
-    title: "저녁",
-  },
-];
-
-const amountTypes = [
-  {
-    id: 1,
-    value: "little",
-    title: "조금",
-  },
-  {
-    id: 2,
-    value: "normal",
-    title: "보통",
-  },
-  {
-    id: 3,
-    value: "many",
-    title: "많이",
-  },
-];
+import { settings, vegetypes, classification, amountTypes } from "./Type";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Check from "./common/Check";
+import { DIET } from "../../config";
 
 function DietForm(props) {
   const router = useRouter();
@@ -95,7 +21,7 @@ function DietForm(props) {
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("");
   const [memo, onChangeMemo] = useInput("");
-  const ImgInput = useRef();
+  const [showImages, setShowImages] = useState([])
 
   const checkbox = (checkThis) => {
     const checkbox = document.getElementsByName("vegetarianType");
@@ -106,24 +32,23 @@ function DietForm(props) {
       setVegetarianType(checkThis.value);
     }
   };
-  const checkbox2 = (checkThis) => {
-    const checkbox = document.getElementsByName("amount");
-    for (const i = 0; i < checkbox.length; i++) {
-      if (checkbox[i] !== checkThis) {
-        checkbox[i].checked = false;
-      }
-      setAmount(checkThis.value);
+
+  const handleAddImages = (event) => {
+   
+    const imageLists = event.target.files;
+    let imageUrlLists = [...showImages];
+
+    for (let i = 0; i < imageLists.length; i++) {
+      const currentImageUrl = URL.createObjectURL(imageLists[i]);
+      imageUrlLists.push(currentImageUrl);
     }
-  };
-  const checkbox3 = (checkThis) => {
-    const checkbox = document.getElementsByName("type");
-    for (const i = 0; i < checkbox.length; i++) {
-      if (checkbox[i] !== checkThis) {
-        checkbox[i].checked = false;
-      }
-      setType(checkThis.value);
+
+    if (imageUrlLists.length > 10) {
+      imageUrlLists = imageUrlLists.slice(0, 10);
     }
-  };
+
+    setShowImages(imageUrlLists);
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -147,7 +72,7 @@ function DietForm(props) {
     }
     const res = await axios({
       method: "POST",
-      url: "http://localhost:9090/v1/api/diets/diet",
+      url: `${DIET.DIETSLIST}/diet`,
       mode: "cors",
       headers: authHeader(),
       data: formData,
@@ -160,32 +85,40 @@ function DietForm(props) {
   console.log(vegetarianType)
   console.log()
   return (
-    <form className="my-6" encType="multipart/form-data" onSubmit={onSubmit}>
+    <form className="px-9" encType="multipart/form-data" onSubmit={onSubmit}>
       <div>
-        <p className="font-semibold text-lg">사진 첨부</p>
+        <p className="font-semibold">사진 첨부</p>
         <p className="text-sm text-gray-600 pb-1">
           오늘 먹은 사진을 올려주세요.{" "}
         </p>
         <input
-          ref={ImgInput}
           type="file"
           id="Img"
           accept="image/*"
           name="multipartFiles"
           multiple
-          hidden
+          onChange={handleAddImages}
         />
-        <button
-          className="my-3"
-          onClick={(e) => ImgInput.current && ImgInput.current.click()}
-        >
-          <BsPlusSquare size="60" />{" "}
-        </button>
+        <div className="text-center py-4">
+        <Slider {...settings}>
+          {showImages &&
+            showImages.map((image, id) => (
+              <div key={id}>
+                <Image
+                  src={image}
+                  alt={`${image}-${id}`}
+                  width="200"
+                  height="200"
+                />
+              </div>
+            ))}
+        </Slider>
+      </div> 
       </div>
       {/* 채식타입 */}
       <div>
         <div className="flex justify-between my-6">
-          <p className="font-semibold text-lg ">채식 타입 선택</p>
+          <p className="font-semibold">채식 타입 선택</p>
           <Link href="/information/vegetarian ">
             <p className="text-xs cursor-pointer flex my-auto">
               채식 타입 안내
@@ -193,7 +126,7 @@ function DietForm(props) {
             </p>
           </Link>
         </div>
-        <div className="flex">
+        <div className="grid grid-cols-4">
           {vegetypes.map((item) => (
             <label key={item.id}>
               <input
@@ -203,8 +136,7 @@ function DietForm(props) {
                 value={item.title}
                 onChange={(e) => checkbox(e.target)}
               />
-
-              <div className="mx-2 rounded-full border-2 text-center w-16 h-16 pt-2 hover:bg-main   peer-checked:bg-main">
+              <div className="mt-2 w-14 h-14 pt-1 text-xs mr-2 md:w-16 md:h-16 md:pt-2 md:mx-2 rounded-full border border-gray-3 text-center hover:bg-main   peer-checked:bg-main">
                 <Image
                   src={`/images/${item.file}`}
                   width={25}
@@ -219,67 +151,23 @@ function DietForm(props) {
           ))}
         </div>
       </div>
-      {/* 양 */}
-      <div className="my-6">
-        <p className="font-semibold text-lg my-3">식사량</p>
-        <div className="flex">
-          {amountTypes.map((item) => (
-            <label key={item.id}>
-              <input
-                type="checkbox"
-                className="hidden  peer"
-                name="amount"
-                value={item.title}
-                onChange={(e) => checkbox2(e.target)}
-              />
-              <p className="text-gray-3 mx-2 rounded-full border-2 py-2 px-4 0 hover:bg-main   peer-checked:bg-main">
-                {item.title}
-              </p>
-            </label>
-          ))}
-        </div>
-      </div>
-      <div className="my-6">
-        <p className="font-semibold text-lg my-3">분류</p>
-        <div className="flex">
-          {classification.map((item) => (
-            <label key={item.id}>
-              <input
-                type="checkbox"
-                className="hidden  peer"
-                name="type"
-                value={item.title}
-                onChange={(e) => checkbox3(e.target)}
-              />
-              <p className="text-gray-3 mx-2 rounded-full border-2 py-2 px-4  hover:bg-main   peer-checked:bg-main">
-                {item.title}
-              </p>
-            </label>
-          ))}
-        </div>
-      </div>
+      <Check title="식사량" checkType="amount" type={amountTypes} setType={setAmount} />
+      <Check title="분류" checkType="type" type={classification} setType={setType} />
       <div>
-        <div>
-          <p className="font-semibold text-lg mt-8">메모</p>
-        </div>
-        <div>
+          <p className="font-semibold mt-8 mb-6">메모</p>
           <input
             value={memo}
             onChange={onChangeMemo}
-            className="text-gray-3 w-full border h-96 px-4 outline-none"
+            className="placeholder:text-gray-1 w-full border border-gray-2 px-4 h-96 outline-none"
             placeholder="간단한 메모를 남겨주세요. (선택)"
           />
-        </div>
       </div>
-
-      <div className="flex justify-end">
-        <button
-          className="mb-32 text-lg pt-6 font-bold text-green"
-          type="submit"
-        >
-          저장하기
-        </button>
-      </div>
+      <button
+        className="float-right text-lg pt-6 pb-32 font-bold text-green"
+        type="submit"
+      >
+        저장하기
+      </button>
     </form>
   );
 }

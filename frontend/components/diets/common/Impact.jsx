@@ -1,12 +1,16 @@
 import React from "react";
 
-function Impact({ title, calc, unit}) {
+
+function Impact({ icon, title, calc, unit}) {
   return (
-    <div className="flex">
-      <p>{title}</p>
-      <p className="text-green font-bold ml-11">{calc}</p>
-      <p>{unit}</p>
-    </div>
+    
+        <tr>
+          <td>{icon}</td>
+          <td className="text-gray-3">{title}</td>
+          <td className="flex"><p className="text-green font-semibold">{calc}</p><p className="text-gray-3 text-sm my-auto">{unit}</p></td>
+        </tr>
+     
+    
   );
 }
 
