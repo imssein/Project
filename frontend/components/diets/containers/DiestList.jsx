@@ -16,6 +16,7 @@ function DiestList(props) {
       <div className="mt-9 bg-gray-4">
         <VegeMonth content={content} />
       </div>
+
     </div>
   );
 }

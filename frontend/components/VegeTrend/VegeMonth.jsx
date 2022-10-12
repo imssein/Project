@@ -77,7 +77,7 @@ function VegeMonth({ content }) {
   return (
     <div className="bg-gray-4">
       <div className="text-center text-green font-semibold mb-6">
-        월별 채식 기록 현황
+        월별 채식 참여 현황
       </div>
       <div id="chart" className="">
         <ReactApexChart

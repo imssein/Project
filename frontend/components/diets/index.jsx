@@ -37,23 +37,38 @@ function Diets(props) {
               우리가 힘을 모아 아래와 같은 좋은 영향력을 만들어 냈습니다.
             </div>
             <div className="mt-11">
-              <Impact title="탄소배출량" calc={3 * content.length} unit="kg" />
+            <table className="table-auto">
+      <thead>
+      <tr>
+        <th className="px-4"></th>
+        <th className="px-16"></th>
+        <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <Impact icon="🌍" title="탄소배출량" calc={3 * content.length} unit="kg" />
               <Impact
+                icon="🌾"
                 title="곡식"
                 calc={(6.7 * content.length).toFixed(2)}
                 unit="kg"
               />
               <Impact
+                icon="💧"
                 title="물"
                 calc={(1.388 * content.length).toFixed(2)}
                 unit="L"
               />
-              <Impact title="삼림지" calc={1 * content.length} unit="㎡" />
+              <Impact icon="🌳" title="삼림지" calc={1 * content.length} unit="㎡" />
               <Impact
+                icon="🐮"
                 title="동물"
                 calc={(0.3 * content.length).toFixed(1)}
                 unit="마리"
               />
+      </tbody>
+    </table>
+             
             </div>
             <div className="flex justify-center">
               <div className="mr-3">

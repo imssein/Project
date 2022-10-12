@@ -5,12 +5,12 @@ import { DietsProvider } from "../../contexts/Diets";
 
 function FoodRecord(props) {
   return (
-      <div className="h-full ">
+      <div className="h-screen">
       <MainLayout>
         <Head>
           <title>VeganPleasure | 식단기록</title>
         </Head>
-        <div className="px-9 mb-36 ">
+        <div className="px-9 ">
           <DietsProvider>
             <Diets />
           </DietsProvider>

@@ -9,7 +9,7 @@ function Post(props) {
       <Head>
         <title>VeganPleasure | 식단 작성</title>
       </Head>
-        <div className="px-9">
+        <div className="">
           <DietForm />
         </div>
     </MainLayout>
