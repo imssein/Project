@@ -1,6 +1,8 @@
 package com.project.vegan.domain.diet.repository;
 
 import com.project.vegan.domain.diet.entity.Diet;
+import com.project.vegan.domain.member.entity.Member;
+import com.project.vegan.domain.member.entity.QMember;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +18,10 @@ public class DietRepositoryImpl implements DietRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Diet> findAllFetch(LocalDateTime localDateTime) {
+    public List<Diet> findAllFetch(LocalDateTime localDateTime, Member member) {
         return queryFactory.selectFrom(diet)
-                .leftJoin(diet.member, member).fetchJoin()
-                .where(dateEq(localDateTime))
+                .leftJoin(diet.member, QMember.member).fetchJoin()
+                .where(dateEq(localDateTime), diet.member.eq(member))
                 .fetch();
     }
 

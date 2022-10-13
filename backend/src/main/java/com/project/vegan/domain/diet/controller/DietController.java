@@ -28,11 +28,15 @@ import java.util.List;
 public class DietController {
     private final DietService dietService;
 
-    @ApiOperation("식단 목록 조회")
+    @ApiOperation("회원에 따른 식단 목록 조회")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<DietDto> getDiets(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") LocalDateTime date){
-        return dietService.getDiets(date);
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
+    })
+    public List<DietDto> getDiets(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") LocalDateTime date,
+                                  @LoginMember Member member){
+        return dietService.getDiets(date, member);
     }
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
