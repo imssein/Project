@@ -27,8 +27,8 @@ public class DietService {
     private final DietUploadFileRepository dietUploadFileRepository;
     private final UploadFileService uploadFileService;
 
-    public List<DietDto> getDiets(LocalDateTime date){
-        return dietRepository.findAllFetch(date)
+    public List<DietDto> getDiets(LocalDateTime date, Member member){
+        return dietRepository.findAllFetch(date, member)
                 .stream()
                 .map(d -> new DietDto(d, dietUploadFileRepository.findAllFetch()
                         .stream()
