@@ -6,14 +6,15 @@ import {
 } from "react-icons/ai";
 import Image from "next/image";
 import Link from "next/link";
-import SearchList from "../searchfilter/SearchList";
+import Filter from "../filter/components/Filter";
 
 function StoreList({ content }) {
   return (
     <div>
-    <div className="px-4 mb-36">
-      <SearchList />
-      <div className="mt-11 text-sm mx-3 ">검색된 식당 {content.length}개</div>
+    <div className="px-4 mb-36 max-w-2xl mx-auto">
+      <Filter />
+      <div className="z-10 relative">
+      <div className="mt-11 text-sm mx-3">검색된 식당 {content.length}개</div>
       {/* 식당리스트 */}
       <div className="my-4">
         {Object.keys(content).map((key) => (
@@ -39,9 +40,6 @@ function StoreList({ content }) {
                 <p className="text-xs text-gray-600 mb-1">
                   {content[key].district}
                 </p>
-                {/* <p className="text-xs text-gray-600 mb-1">
-                  {content[key].coords[0]}
-                </p> */}
                 <p className="mb-2">{content[key].category}</p>
                 <div className="flex">
                   <div className="flex mr-2">
@@ -54,13 +52,14 @@ function StoreList({ content }) {
                   </div>
                   <div className="flex mr-2">
                     <AiFillHeart size="20" color="pink" />
-                    <p className="pl-1 text-sm">{content[key].reviewCount}</p>
+                    <p className="pl-1 text-sm">{content[key].likesNum}</p>
                   </div>
                 </div>
               </div>
             </div>
           </Link>
         ))}
+      </div>
       </div>
     </div>
     </div>
