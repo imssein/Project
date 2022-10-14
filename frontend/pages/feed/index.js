@@ -1,18 +1,27 @@
 import React from "react";
-import FeedListContainer from "../../components/feedComponent/containers/FeedListContainer";
 import Head from "next/head";
 import MainLayout from "../../components/common/MainLayout";
+import { FeedProvider } from "../../contexts/Feed";
+import FeedListContainer from "../../components/feed/containers/FeedListContainer";
+import Button from "../../components/diets/common/Button";
+import SubLayout from "../../components/common/SubLayout";
 
 function Feed(props) {
   return (
-    <MainLayout>
+    <SubLayout>
       <Head>
         <title>VeganPleasure | 피드</title>
       </Head>
       <div className="px-9">
-        <FeedListContainer />
+       
+        <div>
+        <FeedProvider>
+          <FeedListContainer />
+        </FeedProvider>
+        </div>
+       
       </div>
-    </MainLayout>
+    </SubLayout>
   );
 }
 
