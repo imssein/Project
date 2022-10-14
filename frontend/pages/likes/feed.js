@@ -3,7 +3,8 @@ import MainLayout from '../../components/common/MainLayout';
 import Head from 'next/head';
 import { LikeProvider } from '../../contexts/Like';
 import LikesListContainer from '../../components/likes/containers/LikesListContainer';
-function LikeStore(props) {
+
+function LikeFeed(props) {
     return (
         <MainLayout>
         <div className="h-full bg-gray-4">
@@ -11,8 +12,8 @@ function LikeStore(props) {
             <Head>
               <title>VEGIN | 맛있는 채식 한끼</title>
             </Head>
-            <LikeProvider type="store">
-                <LikesListContainer type="store" />
+            <LikeProvider type="post">
+                <LikesListContainer type="post" />
             </LikeProvider>
          
           </div>
@@ -21,4 +22,4 @@ function LikeStore(props) {
     );
 }
 
-export default LikeStore;
+export default LikeFeed;

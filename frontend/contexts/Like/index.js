@@ -7,20 +7,20 @@ export const LikeContext = createContext({
   content: () => {},
 });
 
-export const LikeProvider = ({ children }) => {
+export const LikeProvider = ({ children, type }) => {
   const [content, setContent] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`${LIKE.LIKE_LIST}?type=store`, {
+      .get(`${LIKE.LIKE_LIST}?type=${type}`, {
         headers: authHeader(),
       })
       .then((result) => {
         setContent(result.data);
       });
-  }, [setContent]);
+  }, [setContent, type]);
 
   return (
-    <LikeContext.Provider value={content}>{children}</LikeContext.Provider>
+    <LikeContext.Provider value={content} type={type} >{children}</LikeContext.Provider>
   );
 };

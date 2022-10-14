@@ -1,34 +1,17 @@
-import React, { useState, useEffect } from "react";
-import UserService from "../../services/user.service";
+import React, { useContext } from "react";
 import Link from "next/link";
 import { BsPencilSquare, BsBookmark } from "react-icons/bs";
 import { FaLeaf } from "react-icons/fa";
 import { AiOutlineRight } from "react-icons/ai";
 import AuthService from "../../services/auth.service";
-function UserProfile(props) {
-  const [content, setContent] = useState([]);
+import { MemberDetailContext } from "../../contexts/Member/MemberDetail";
 
-  useEffect(() => {
-    UserService.getMemberDetail().then(
-      (response) => {
-        setContent(response.data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }, [setContent]);
-  console.log(content);
-  // console.log("타입", content.nickname.slice(0))
+function UserProfile(props) {
+  const content = useContext(MemberDetailContext)
 
   return (
     <div className="text-center ">
       <div className="flex pb-6 border-b-2 border-gray-2 mb-4">
-        <div className="mr-10">
-          <div className="rounded-full py-6 px-8 bg-bg inline-block text-lg">
-            {/* {content.nickname.slice(0,1)} */}
-          </div>
-        </div>
         <div className="flex font-semibold ">
           <p className="text-lg my-auto">{content.nickname}</p>
           <p className="text-sm my-auto text-text-green ml-4">
@@ -52,7 +35,7 @@ function UserProfile(props) {
           </div>
         </div>
       </Link>
-      <Link href="/likes">
+      <Link href="/likes/store">
         <div className="flex border-b-2 border-gray-2 py-4 text-gray-3 justify-between">
           <div className="flex">
             <p className="my-auto">
@@ -64,7 +47,9 @@ function UserProfile(props) {
             <AiOutlineRight />
           </div>
         </div>
-      </Link>
+      </Link>     
+       <Link href="/likes/feed">
+
       <div className="flex border-b-2 border-gray-2 py-4 text-gray-3 justify-between">
         <div className="flex">
           <p className="my-auto">
@@ -76,6 +61,7 @@ function UserProfile(props) {
           <AiOutlineRight />
         </div>
       </div>
+      </Link>
       <div className="my-11">
         <button
           onClick={logout}
