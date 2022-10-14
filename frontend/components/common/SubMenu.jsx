@@ -1,26 +1,29 @@
 import Link from "next/link";
-import React, {useState, useEffect} from "react";
-import {  AiOutlineBulb,
+import React, { useState, useEffect } from "react";
+import {
   AiOutlinePlusCircle,
   AiOutlineSearch,
-  AiOutlineUser,
   AiOutlineMessage,
+  AiOutlineUser,
+  AiOutlineBulb,
 } from "react-icons/ai";
 import AuthService from "../../services/auth.service";
 
-function SubMenu(props) {
-  const [ isLoggedIn, setIsLoggedIn] = useState(undefined);
+function MainMenu(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(undefined);
+  const item = "내주변";
+  const query = encodeURIComponent(item);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
-    if(user){
+    if (user) {
       setIsLoggedIn(user);
     }
   }, []);
 
   return (
-    <footer className=" bg-white border-t border-t-gray-2 py-4 flex justify-around fixed bottom-0 bg-slate-100 max-w-2xl w-full text-text-green font-semibold">
+    <footer className="z-50 bg-white border-t border-t-gray-2 py-4 fixed flex justify-around  bottom-0 bg-slate-100 max-w-2xl w-full text-text-green font-semibold">
       <Link href="/feed">
         <div>
           <AiOutlineMessage className="mx-auto" size="20" />
@@ -35,16 +38,20 @@ function SubMenu(props) {
       </Link>
       <Link href="/feed/post">
         <div>
-          <AiOutlinePlusCircle className="" size="25" />
+          <AiOutlinePlusCircle size="20" className="mx-auto"/>
+          <p className="text-xs text-center pt-2 ">글쓰기</p>
         </div>
       </Link>
-      <Link href="/search?query=내주변">
+      <Link
+        href={{ pathname: "/search", query: { query } }}
+        as={`/search?query=${item}`}
+      >
         <div>
           <AiOutlineSearch className="mx-auto" size="20" />
           <p className="text-xs text-center pt-2">내주변</p>
         </div>
       </Link>
-     
+
       {isLoggedIn ? (
         <Link href="/user/mypage">
           <div>
@@ -64,4 +71,4 @@ function SubMenu(props) {
   );
 }
 
-export default SubMenu;
+export default MainMenu;

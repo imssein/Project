@@ -1,5 +1,4 @@
 import React, { useEffect, useCallback, useState, useRef } from "react";
-import { BsPlusSquare } from "react-icons/bs";
 import useInput from "../../hooks/useInput";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,12 +7,11 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
 import FormData from "form-data";
-import { settings, vegetypes, classification, amountTypes } from "./Type";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { vegetypes, classification, amountTypes } from "./Type";
+
 import Check from "./common/Check";
 import { DIET } from "../../config";
+import UploadImg from "../common/UploadImg";
 
 function DietForm(props) {
   const router = useRouter();
@@ -32,23 +30,6 @@ function DietForm(props) {
       setVegetarianType(checkThis.value);
     }
   };
-
-  const handleAddImages = (event) => {
-   
-    const imageLists = event.target.files;
-    let imageUrlLists = [...showImages];
-
-    for (let i = 0; i < imageLists.length; i++) {
-      const currentImageUrl = URL.createObjectURL(imageLists[i]);
-      imageUrlLists.push(currentImageUrl);
-    }
-
-    if (imageUrlLists.length > 10) {
-      imageUrlLists = imageUrlLists.slice(0, 10);
-    }
-
-    setShowImages(imageUrlLists);
-  }
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -85,35 +66,16 @@ function DietForm(props) {
   console.log(vegetarianType)
   console.log()
   return (
-    <form className="px-9" encType="multipart/form-data" onSubmit={onSubmit}>
+    <form className="px-9 pb-24 " encType="multipart/form-data" onSubmit={onSubmit}>
       <div>
         <p className="font-semibold">사진 첨부</p>
         <p className="text-sm text-gray-600 pb-1">
           오늘 먹은 사진을 올려주세요.{" "}
         </p>
-        <input
-          type="file"
-          id="Img"
-          accept="image/*"
-          name="multipartFiles"
-          multiple
-          onChange={handleAddImages}
-        />
-        <div className="text-center py-4">
-        <Slider {...settings}>
-          {showImages &&
-            showImages.map((image, id) => (
-              <div key={id}>
-                <Image
-                  src={image}
-                  alt={`${image}-${id}`}
-                  width="200"
-                  height="200"
-                />
-              </div>
-            ))}
-        </Slider>
-      </div> 
+        <UploadImg setShowImages={setShowImages} showImages={showImages} />
+
+        
+       
       </div>
       {/* 채식타입 */}
       <div>
