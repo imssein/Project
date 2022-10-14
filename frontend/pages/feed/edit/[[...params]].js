@@ -1,19 +1,23 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import EditForm from "../../../components/diets/EditForm"
+import MainLayout from "../../../components/common/MainLayout";
+import EditForm from "../../../components/feed/components/EditForm";
+
 function EditPost(props) {
   const router = useRouter();
   const { params } = router.query;
   console.log(params);
 
   return (
-    <div className=" bg-white py-6 px-6 h-screen">
-        <Head>
-          <title>VeganPleasure | 피드 수정</title>
-        </Head>
-          <EditForm id={params} />
-    </div>
+    <MainLayout>
+           <Head>
+        <title>VeganPleasure | 피드 작성</title>
+      </Head>
+      <div className="px-9">        
+        <EditForm id={params} />
+        </div>
+    </MainLayout>
   );
 }
 

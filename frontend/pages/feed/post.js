@@ -1,5 +1,5 @@
 import React from "react";
-import FeedForm from "../../components/feedComponent/FeedForm";
+import FeedForm from "../../components/feed/components/FeedForm";
 import Head from "next/head";
 import MainLayout from "../../components/common/MainLayout";
 
