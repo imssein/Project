@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import { ReviewContext } from '../../contexts/Review';
-import Feed from '../reviewComponent/Feed';
+import Feed from '../review/Feed';
 
 function ReviewDetail({ params }) {
     const content = useContext(ReviewContext)

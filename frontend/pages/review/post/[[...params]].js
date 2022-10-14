@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import MainLayout from "../../../components/common/MainLayout";
 import Head from "next/head";
-import ReviewForm from "../../../components/reviewComponent/Reviewform";
+import ReviewForm from "../../../components/review/components/Reviewform";
 
 function Post(props) {
   const router = useRouter();
