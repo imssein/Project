@@ -19,19 +19,25 @@ public class Post extends BaseEntity {
     private Long id;
     private String title;
     private String content;
+    private Integer likesNum;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @Builder
-    public Post(String title, String content, Member member) {
+    public Post(String title, String content, Integer likesNum, Member member) {
         this.title = title;
         this.content = content;
+        this.likesNum = likesNum;
         this.member = member;
     }
 
     public void change(String title, String content){
         this.title = title;
         this.content = content;
+    }
+
+    public void changeLikesNum(Integer likesNum){
+        this.likesNum += likesNum;
     }
 }

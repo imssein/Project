@@ -1,6 +1,8 @@
 package com.project.vegan.domain.post.service;
 
 import com.project.vegan.domain.common.service.UploadFileService;
+import com.project.vegan.domain.like.repository.LikeRepository;
+import com.project.vegan.domain.like.service.LikeService;
 import com.project.vegan.domain.member.entity.Member;
 import com.project.vegan.domain.post.entity.HashTag;
 import com.project.vegan.domain.post.entity.Post;
@@ -29,6 +31,7 @@ public class PostService {
     private final HashTagRepository hashTagRepository;
     private final PostUploadFileRepository postUploadFileRepository;
     private final UploadFileService uploadFileService;
+    private final LikeRepository likeRepository;
 
     public List<PostDto> getPosts(String hashTag) {
         List<HashTag> hashTags = hashTagRepository.findAllFetch();
@@ -86,6 +89,7 @@ public class PostService {
         Post post = Post.builder()
                 .title(postSaveRequest.getTitle())
                 .content(postSaveRequest.getContent())
+                .likesNum(0)
                 .member(member)
                 .build();
 
@@ -140,6 +144,7 @@ public class PostService {
         }
 
         hashTagRepository.deleteAll(hashTagRepository.findByPost(post));
+        likeRepository.deleteAll(likeRepository.findByPost(post));
 
         if(postUploadFileRepository.existsByPost(post)){
             postUploadFileRepository.deleteAll(postUploadFileRepository.findByPost(post));

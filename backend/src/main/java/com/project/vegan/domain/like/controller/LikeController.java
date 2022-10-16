@@ -53,7 +53,8 @@ public class LikeController {
             @ApiImplicitParam(name = "Authorization", value = "사용자 인증을 위한 accessToken", paramType = "header", required = true)
     })
     public void deleteLike(@PathVariable("likeId") Long likeId,
+                           @RequestParam("type") String type,
                            @LoginMember Member member){
-        likeService.deleteLike(likeId, member);
+        likeService.deleteLike(likeId, type, member);
     }
 }

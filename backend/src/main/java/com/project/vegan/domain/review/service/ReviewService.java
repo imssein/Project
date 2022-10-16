@@ -99,6 +99,7 @@ public class ReviewService {
 
     public void delete(Long storeId, Long reviewId, Member member){
         Review review = reviewRepository.findByIdFetch(reviewId);
+        Store store = storeRepository.findByIdFetch(storeId);
 
         if(member == null){
             throw new ForbiddenException();
@@ -108,10 +109,23 @@ public class ReviewService {
             throw new ForbiddenException();
         }
 
+        store.changeStarRating(subtractStarRating(review.getStarRating(), review));
+
         if(reviewUploadFileRepository.existsByReview(review)){
             reviewUploadFileRepository.deleteAll(reviewUploadFileRepository.findByReview(review));
         }
 
         reviewRepository.delete(review);
+    }
+
+    private Double subtractStarRating(Integer starRating, Review review) {
+        Double result = 0.0;
+
+        for(Review r : review.getStore().getReviews()) {
+            result += Double.valueOf(r.getStarRating());
+        }
+        result -= Double.valueOf(starRating);
+
+        return result / review.getStore().getReviews().size();
     }
 }
