@@ -22,6 +22,7 @@ public class PostDto {
     private Long id;
     private String title;
     private String content;
+    private Integer likesNum;
     private MemberDto member;
     private List<HashTagDto> hashTags = new ArrayList<>();
     private List<UploadFileDto> uploadFiles = new ArrayList<>();
@@ -34,6 +35,7 @@ public class PostDto {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
+        this.likesNum = post.getLikesNum();
         this.member = new MemberDto(post.getMember());
         this.hashTags = hashTags
                 .stream()

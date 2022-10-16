@@ -72,7 +72,7 @@ public class LikeService {
         };
     }
 
-    public void deleteLike(Long likeId, Member member){
+    public void deleteLike(Long likeId, String type, Member member){
         if(member == null){
             throw new ForbiddenException();
         }
@@ -81,6 +81,14 @@ public class LikeService {
 
         if(like.getMember().getId() != member.getId()){
             throw new ForbiddenException();
+        }
+
+        if(type.equals("post")){
+            Post post = postRepository.findByIdFetch(like.getPost().getId());
+            post.changeLikesNum(-1);
+        } else if (type.equals("store")){
+            Store store = storeRepository.findByIdFetch(like.getStore().getId());
+            store.changeLikesNum(-1);
         }
 
         likeRepository.delete(like);
@@ -105,6 +113,8 @@ public class LikeService {
 
             Like save = likeRepository.save(like);
 
+            post.changeLikesNum(1);
+
             return new LikePostDto(save,
                     hashTagRepository.findByPost(post),
                     postUploadFileRepository.findByPost(post));
@@ -121,6 +131,8 @@ public class LikeService {
                     .build();
 
             Like save = likeRepository.save(like);
+
+            store.changeLikesNum(1);
 
             return new LikeStoreDto(save,
                     vegetarianTypeRepository.findByStore(store),
