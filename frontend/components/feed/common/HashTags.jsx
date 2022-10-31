@@ -31,7 +31,7 @@ function HashTags({
         }
       }
     },
-    [hashTags, hashArr]
+    [setHashTags, hashTags, hashArr, setHashArr]
   );
   return (
     <div className="mt-2">

@@ -12,7 +12,7 @@ function ShopList(props) {
             <div className="cursor-pointer border-b-2 border-main flex justify-between py-3">
                 <div className="flex">
                   <div className="mr-4 inline-block drop-shadow rounded-xl">
-                  <Image src={item.img} width={60} height={60} />
+                  <Image src={item.img} width={60} height={60} alt="로고사진"/>
 
                   </div>
                 {/* <p className="bg-main w-20 h-20 mr-4"></p> */}
