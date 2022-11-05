@@ -6,7 +6,7 @@ import RegisterForm from "../../components/member/RegisterForm";
 
 function register(props) {
   return (
-    <div className="h-full">
+    <div className="h-screen">
       <Head>
         <title>VeganPleasure | 회원가입</title>
       </Head>

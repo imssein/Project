@@ -39,7 +39,7 @@ function List(props) {
         <Head>
           <title>VeganPleasure | 식단기록</title>
         </Head>
-        <div className="">
+        <div className="h-screen">
           <DayDietsProvider search={search}>
               <DietsDay day={day} />
           </DayDietsProvider>

@@ -22,7 +22,7 @@ function All(props) {
       <Head>
         <title>VeganPleasure | 식단기록</title>
       </Head>
-      <div className="">
+      <div className="h-screen">
       {isLoggedIn ? (
         <div className="pt-3">
           <DietsProvider>
