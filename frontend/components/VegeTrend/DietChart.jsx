@@ -8,39 +8,6 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
 function DietChart({ data }) {
   // vegan, ovo, pesco, lacto, lactoovo, polo, flexi
   console.log(data);
-  // var chart = {
-  //     series: [{
-  //         data: [vegan, lacto, ovo, lactoovo, pesco, polo, flexi]
-  //     }],
-  //     options : {
-  //         chart: {
-  //           type: 'bar',
-  //           height: 350,
-  //         },
-  //         plotOptions: {
-  //             bar: {
-  //               columnWidth: '45%',
-  //               distributed: true,
-  //             }
-  //           },
-  //     xaxis: {
-  //         categories: [
-  //          '비건',
-  //          '락토',
-  //          '오보',
-  //          '락토오보',
-  //          '페스코',
-  //          '폴로',
-  //          '플렉시',
-  //         ],
-  //         labels: {
-  //           style: {
-  //             fontSize: '12px'
-  //           }
-  //         }
-  //       }
-  //     }
-  // }
   var chart = {
     series: data,
     options: {

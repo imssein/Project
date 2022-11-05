@@ -153,8 +153,7 @@ function RegisterForm(props) {
                 value={item.value}
                 onChange={(e) => checkbox(e.target)}
               />
-              
-              <div className="mr-2 rounded-full bg-gray-2 text-center w-16 h-16 pt-2 hover:bg-bg  peer-checked:bg-green peer-checked:text-white ">
+              <div className="mr-2 rounded-full bg-gray-2 text-center text-xs py-1  md:w-16 md:h-16 pt-2 hover:bg-bg  peer-checked:bg-green peer-checked:text-white ">
               <Image src={`/images/${item.file}`} width={25} height={25} alt="채식사진" />
               <p className="text-xs text-gray-700  text-center">{item.title}</p>
               </div>

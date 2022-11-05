@@ -1,5 +1,5 @@
-//const BASE_URL = 'http://localhost:9090/v1/api';            //개발
-const BASE_URL = 'http://3.39.140.31:8080/v1/api';       //배포
+ const BASE_URL = 'http://localhost:9090/v1/api';            //개발
+// const BASE_URL = 'http://3.39.140.31:8080/v1/api';       //배포
 
 export const DIET = {
     DIETSLIST: `${BASE_URL}/diets`,

@@ -5,11 +5,7 @@ import Link from "next/link";
 function VegeType({ data }) {
   const maxValue = Math.max(...data);
   const [type, setType] = useState("");
-
-  // console.log("maxValue", maxValue)
-  // console.log("index", data.indexOf(maxValue))
-  // data={[vegan, ovo, pesco, lacto, lactoovo, polo, flexi]}
-
+  
   useEffect(() => {
     if (data.indexOf(maxValue) === 0) {
       setType("비건");

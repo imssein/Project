@@ -8,7 +8,7 @@ function DietsDay({ day }) {
     const content = useContext(DayDietsContext)
     console.log(day)
     return (
-        <div className="pb-36 bg-gray-4 px-9">
+        <div className="pb-36 bg-gray-4 px-2">
             <Date content={content} day={day} />
             <DeitsList content={content} />
         </div>

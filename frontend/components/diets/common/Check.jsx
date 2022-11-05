@@ -24,7 +24,7 @@ function Check({checkType, title, type, setType}) {
               value={item.title}
               onChange={(e) => checkbox(e.target)}
             />
-              <p className="mr-2 text-sm text-gray-3 md:mx-2 rounded-full border border-gray-3 py-2 px-4  hover:bg-main   peer-checked:bg-main">
+              <p className="mr-2 text-sm text-gray-3 md:mx-2 rounded-full border border-gray-2 py-2 px-3  hover:bg-main   peer-checked:bg-main">
                 {item.title}
               </p>
           </label>
