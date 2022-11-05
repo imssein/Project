@@ -1,10 +1,10 @@
 import Image from "next/image";
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
 
 function DeitsList({ content }) {
   return (
-    <div className="h-full bg-gray-4 px-9">
+    <div className="h-full bg-gray-4 mx-2">
       {content &&
         content.map((item) => (
           <Link href={`/foodRecord/detail/${item.id}`} key={item.id}>
@@ -13,8 +13,8 @@ function DeitsList({ content }) {
                 {item.uploadFiles[0] ?  
                 <Image
                   src={`/images/${item.uploadFiles[0].savedFileName}`}
-                  width={144}
-                  height={144}
+                  width="150"
+                  height="150"
                   alt="식단 사진"
                 /> : <div className="w-36 h-36 bg-gray-2"></div>}
               </div>
@@ -23,7 +23,7 @@ function DeitsList({ content }) {
                 <p className="text-xs text-gray-600 mb-5">
                   {item.vegetarianType} • {item.amount}
                 </p>
-                <p className="text-sm text-gray-600 mb-1">{item.memo}</p>
+                <p className="text-sm text-gray-600 mb-1 truncate text-ellipsis overflow-hidden">{item.memo.slice(0,15)}</p>
               </div>
             </div>
           </Link>

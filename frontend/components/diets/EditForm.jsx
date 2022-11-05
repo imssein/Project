@@ -119,16 +119,20 @@ function EditForm({id}) {
       <div>
         <div className="flex justify-between my-6">
           <p className="font-semibold">채식 타입 선택</p>
+        
+
+         
           <Link href="/information/vegetarian ">
             <p className="text-xs cursor-pointer flex my-auto">
               채식 타입 안내
               <AiFillCaretRight />
             </p>
           </Link>
+         
         </div>
-        <div className="flex">
+        <div className="grid grid-cols-4">
           {vegetypes.map((item) => (
-            <label key={item.id}>
+            <label key={item.id} className="pt-1">
               <input
                 type="checkbox"
                 className="hidden peer"

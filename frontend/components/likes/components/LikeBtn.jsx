@@ -7,7 +7,6 @@ function LikeBtn({ onClick, like}) {
             <button onClick={onClick}>
                 {like ? <AiFillHeart className="ml-1" size="27" color='pink' /> : <AiOutlineHeart className="" size="27" /> }
             </button>
-            {/* <p className='text-sm'>좋아요</p> */}
         </div>
     );
 }

@@ -98,7 +98,7 @@ function DietForm(props) {
                 value={item.title}
                 onChange={(e) => checkbox(e.target)}
               />
-              <div className="mt-2 w-14 h-14 pt-1 text-xs mr-2 md:w-16 md:h-16 md:pt-2 md:mx-2 rounded-full border border-gray-3 text-center hover:bg-main   peer-checked:bg-main">
+              <div className="mt-2 w-14 h-14 pt-1 text-xs mr-2 md:w-16 md:h-16 md:pt-2 md:mx-2 rounded-full border border-gray-2 text-center hover:bg-main   peer-checked:bg-main">
                 <Image
                   src={`/images/${item.file}`}
                   width={25}
