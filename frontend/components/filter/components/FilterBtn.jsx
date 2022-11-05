@@ -5,7 +5,6 @@ function FilterBtn() {
   const [showPopup, setShowPopup] = useState(false);
 
   function handlePopup(e) {
-    e.defaultprevented();
     {
       showPopup === "true" && setShowPopup(false);
     }
@@ -14,25 +13,25 @@ function FilterBtn() {
     }
     console.log(showPopup);
   }
+
   return (
     <div>
       <div className="flex my-auto ml-4">
         <div className="bg-bg cursor-pointer hover:border-2 hover:border-text-color mr-2 text-sm text-center rounded-lg md:py-3 md:px-9 py-2 px-3 peer-checked:bg-text-color">
           <div>
-            <div onClick={handlePopup}>정렬</div>
-            {showPopup === "true" && (
-              <div>
-                <input type="checkbox" />
-              </div>
-            )}
+            <div onClick={()=> showPopup ? setShowPopup(false) : setShowPopup(true)}>정렬</div>
+            { showPopup ? 
+              <div className="h-96"> 
+                <input type="check" />
+              </div> 
+            : null}
           </div>
-
-          <div></div>
+        
         </div>
       </div>
 
       <div>
-        <input type="checkbox" />
+       
       </div>
     </div>
   );

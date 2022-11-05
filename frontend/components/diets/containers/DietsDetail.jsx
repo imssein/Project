@@ -1,7 +1,6 @@
 import React from "react";
 import { useContext } from "react";
 import { DietDetailContext } from "../../../contexts/Diets/detail";
-import Date from "../common/Date";
 import Detail from "../Detail";
 import { FiArrowLeft } from "react-icons/fi";
 import { useRouter } from "next/router";

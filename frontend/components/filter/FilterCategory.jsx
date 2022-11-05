@@ -24,5 +24,6 @@ export const FILTER_CATEGORYS = [
       title: "채식타입",
       contents: ["전체", "비건", "오보", "락토", "락토오보", "페스코"],
     },
+  
   ];
   

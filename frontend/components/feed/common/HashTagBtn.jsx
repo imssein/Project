@@ -5,7 +5,7 @@ function HashTagBtn({value}) {
     return (
         <div>
             <Link href={`/feed/hashTags/${value}`}>
-            <div className="bg-gray-2 rounded-full mr-2 py-3 px-3 text-xs text-green cursor-pointer">
+            <div className="bg-gray-2 rounded-2xl mr-2 py-3 px-2 text-xs text-green cursor-pointer">
                 #{value}
               </div>
             </Link>
